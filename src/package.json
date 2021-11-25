@@ -1,0 +1,28 @@
+{
+  "name": "ideliver_bot_server",
+  "version": "1.0.0",
+  "description": "Server for iOS app iDelivery Bot",
+  "main": "app.js",
+  "scripts": {
+    "test": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/laiambryant/iDeliveryBot_srv.git"
+  },
+  "keywords": [
+    "ros",
+    "robot",
+    "server",
+    "swift",
+    "ios",
+    "node",
+    "app"
+  ],
+  "author": "Liam Davide Bryant",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/laiambryant/iDeliveryBot_srv/issues"
+  },
+  "homepage": "https://github.com/laiambryant/iDeliveryBot_srv"
+}
