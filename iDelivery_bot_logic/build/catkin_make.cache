@@ -1,0 +1,2 @@
+
+-DCATKIN_DEVEL_PREFIX=/home/liam/Desktop/iDeliveryBot_srv/iDelivery_bot_logic/devel -DCMAKE_INSTALL_PREFIX=/home/liam/Desktop/iDeliveryBot_srv/iDelivery_bot_logic/install -G Unix Makefiles
