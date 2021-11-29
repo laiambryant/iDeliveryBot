@@ -1,3 +1,5 @@
+const send_msg = require("./send_msg");
+const rcv_msg = require("./rcv_msg")
 
 function Connection_handler(socket){
     console.log('a user connected');
@@ -11,7 +13,8 @@ function Request(socket, type, data){
     switch (type) {
         case "LOGIN":
             console.log("Login Request incoming")
-            console.log(data)
+            send_msg(data, "LOGIN")
+            rcv_msg()
             break;
         case "CALL":
             break;

@@ -1,4 +1,3 @@
-const conn_handler = require("./requests");
 const express = require('express');
 const Connection_handler = require("./requests");
 
@@ -9,9 +8,9 @@ const port = process.env.PORT || 8080;
 
 app.use(express.static(__dirname));
 
-io.sockets.on('connection', conn_handler.Connection_handler());
+io.sockets.on('connection', Connection_handler);
 
 http.listen(port, () => {
-    console.log('listening on port ' + port)
+    console.log('listening on port ' + port);
 });
 

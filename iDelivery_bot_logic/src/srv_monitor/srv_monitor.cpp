@@ -3,12 +3,17 @@
 
 srv_monitor::srv_monitor(){
 
-    in_stream_.open(IN_PATH, fstream::in);
+    msg_factory = message_creator();
     out_stream_.open(OUT_PATH, fstream::out);
 
-    if(in_stream_.fail() || out_stream_.fail()){
+    if(out_stream_.fail()){
         perror("srv_monitor::srv_monitor()");
         exit(EXIT_FAILURE);
+    }
+
+    in_stream_.open(IN_PATH, fstream::in);
+    while(in_stream_.fail()){   
+        in_stream_.open(IN_PATH, fstream::in);
     }
 
 }
@@ -17,7 +22,7 @@ srv_monitor::~srv_monitor(){
     in_stream_.close(); out_stream_.close();
     if(in_stream_.fail() || out_stream_.fail()){
         perror("srv_monitor::~srv_monitor()-CLOSE ");
-        exit(EXIT_FAILURE);
+        //exit(EXIT_FAILURE);
     }
 }
 
@@ -25,9 +30,9 @@ srv_monitor::srv_monitor(const srv_monitor &other){
  
 }
 
-bool srv_monitor::write_to_fstream(string msg){
+bool srv_monitor::write_to_fstream(string msg, msg_type type){
     if(out_stream_.is_open()){
-        out_stream_ << msg_factory.create(msg) <<endl;
+        out_stream_ << msg_factory.create(msg, type) <<endl;
         if(out_stream_.fail()){
             perror("srv_monitor::write_to_socket(char* msg)");
             return false;

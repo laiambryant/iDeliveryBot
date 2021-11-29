@@ -1,10 +1,10 @@
 #include "message_creator.h"
 
-message_creator::message_creator():_msg_no(0){}
 
-string message_creator::create(string msg){
+string message_creator::create(string msg, msg_type type){
     string tmp;
-    tmp += "["; tmp+= _msg_no; tmp += "]:";
-    tmp += msg; tmp+= "\n";
+    tmp += "["; tmp+= std::to_string(_msg_no); 
+    tmp += ","; tmp += _msg_type_str[type];
+    tmp += "]:";tmp += msg;
     _msg_no++; return tmp;
 }

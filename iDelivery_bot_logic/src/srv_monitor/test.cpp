@@ -7,6 +7,8 @@ int main(int argc, char const *argv[])
 
     srv_monitor monitor = srv_monitor();
     monitor.monitor_metadata(log_out);
+    std::cerr << "[Server]: " << monitor.get_last_msg() << endl;
+    monitor.write_to_fstream("Hello\n", login);
 
     return 0;
 }
