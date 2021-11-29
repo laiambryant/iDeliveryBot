@@ -1,0 +1,3 @@
+Out_pipe_fd: [0] Out_pipe_path:[products/srv_fifo]
+In_pipe_fd: [0] In_pipe_path:[products/cli_fifo]
+MSG_Buffer addr: [0x16d90a430]

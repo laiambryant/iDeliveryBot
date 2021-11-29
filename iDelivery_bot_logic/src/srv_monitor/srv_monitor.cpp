@@ -1,63 +1,87 @@
 #include "srv_monitor.h"
 
+
 srv_monitor::srv_monitor(){
-    
-    out_pipe_fd_ = mkfifo(OUT_PIPE_PATH, O_WRONLY);
-    in_pipe_fd_ = mkfifo(IN_PIPE_PATH, O_RDONLY);
-    if((out_pipe_fd_ == -1) || (in_pipe_fd_ == -1)){
-        perror("srv_monitor::srv_monitor(): ");
+
+    in_stream_.open(IN_PATH, fstream::in);
+    out_stream_.open(OUT_PATH, fstream::out);
+
+    if(in_stream_.fail() || out_stream_.fail()){
+        perror("srv_monitor::srv_monitor()");
+        exit(EXIT_FAILURE);
     }
+
 }
 
 srv_monitor::~srv_monitor(){
-    if(close(in_pipe_fd_)==-1 || close(out_pipe_fd_)==-1){
-        perror("srv_monitor::~srv_monitor()-CLOSE: ");
-    }
-    if(unlink(IN_PIPE_PATH)==-1 || unlink(OUT_PIPE_PATH)==-1){
-        perror("srv_monitor::~srv_monitor()-UNLINK: ");
-    }
-}
-
-bool srv_monitor::write_to_pipe(char* msg){
-    if(write(out_pipe_fd_, msg, sizeof(msg))==-1){
-        perror("srv_monitor::write_to_pipe(char* msg): ");
+    in_stream_.close(); out_stream_.close();
+    if(in_stream_.fail() || out_stream_.fail()){
+        perror("srv_monitor::~srv_monitor()-CLOSE ");
+        exit(EXIT_FAILURE);
     }
 }
 
-bool srv_monitor::read_from_pipe(){
-    if(read(in_pipe_fd_, msg_buf_, MSG_MAX_SIZE)==-1){
-        perror("srv_monitor::read_from_pipe(): ");
-        return false;
-    } else {
-        return true;
+srv_monitor::srv_monitor(const srv_monitor &other){
+ 
+}
+
+bool srv_monitor::write_to_fstream(string msg){
+    if(out_stream_.is_open()){
+        out_stream_ << msg_factory.create(msg) <<endl;
+        if(out_stream_.fail()){
+            perror("srv_monitor::write_to_socket(char* msg)");
+            return false;
+        } else return true;
+    }
+    return true;
+}
+
+bool srv_monitor::read_from_fstream(){
+    if(in_stream_.is_open()){
+        while(!in_stream_.eof()){
+            getline(in_stream_, msg_buf_);
+        }
+        if(in_stream_.fail()){
+            perror("srv_monitor::read_from_fstream()");
+            return false;
+        } else return true;
     }
 }
 
-char* srv_monitor::get_last_msg(){
-    return *msg_buf_;
+string srv_monitor::get_last_msg(){
+    string ret;
+    if(in_stream_.is_open()){
+        if(!in_stream_.eof()){
+            getline(in_stream_, ret);
+        }
+        if(in_stream_.fail()){
+            perror("srv_monitor::read_from_fstream()");
+            return "";
+        } else return ret;
+    }
 }
 
 
 void srv_monitor::monitor_metadata(out_mode out_mode_){
-    std::fstream file; 
+    ofstream file; 
     switch (out_mode_){
     case log_out:
         file.open(LOG_PATH);
-        file << "Out_pipe_fd: [" << out_pipe_fd_ << "] Out_pipe_path:[" << OUT_PIPE_PATH << "]"<<endl;
-        file << "In_pipe_fd: [" << in_pipe_fd_ << "] In_pipe_path:[" << IN_PIPE_PATH << "]"<<endl;   
-        file << "MSG_Buffer content: [" << msg_buf_ << "]" <<endl;     
+        file << "Out_pipe_fd: ["  << "] out_socket_port:["  << "]"<<endl;
+        file << "In_pipe_fd: [" << "] in_socket_port:["  << "]"<<endl;   
+        file << "MSG_Buffer addr: [" << msg_buf_ << "]" <<endl;     
         file.close();
         break;
 
     case cerr_out:
-        cerr << "Out_pipe_fd: [" << out_pipe_fd_ << "] Out_pipe_path:[" << OUT_PIPE_PATH << "]"<<endl;
-        cerr << "In_pipe_fd: [" << in_pipe_fd_ << "] In_pipe_path:[" << IN_PIPE_PATH << "]"<<endl;   
+        cerr << "Out_pipe_fd: ["  << "] out_socket_port:["  << "]"<<endl;
+        cerr << "In_pipe_fd: ["  << "] in_socket_port:["  << "]"<<endl;  
         cerr << "MSG_Buffer content: [" << msg_buf_ << "]" <<endl;     
         break;
     
     case cout_out:
-        cout << "Out_pipe_fd: [" << out_pipe_fd_ << "] Out_pipe_path:[" << OUT_PIPE_PATH << "]"<<endl;
-        cout << "In_pipe_fd: [" << in_pipe_fd_ << "] In_pipe_path:[" << IN_PIPE_PATH << "]"<<endl;   
+        cout << "Out_pipe_fd: ["  << "] out_socket_port:["  << "]"<<endl;
+        cout << "In_pipe_fd: ["  << "] in_socket_port:[" << "]"<<endl;   
         cout << "MSG_Buffer content: [" << msg_buf_ << "]" <<endl;
         break;
     }
