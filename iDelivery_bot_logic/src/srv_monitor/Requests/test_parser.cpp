@@ -4,15 +4,17 @@
 
 int main(int argc, char const *argv[]){
     
-    string str ="[0, LOGIN]:User:{ username:Dsadsafdsf, password:fdafs}";
+    string login_str ="[0,LOGIN]:User:{username:Dsadsafdsf,password:fdafs}";
     req_parser parser;
 
-    msg_type type = parser.get_msg_type(str);
-    string body = parser.get_msg_body(str);
-    int req_no = parser.get_req_no(str);
+    msg_type type = parser.get_msg_type(login_str);
+    string body = parser.get_msg_body(login_str);
+    int req_no = parser.get_req_no(login_str);
     
-    req request = req(req_no, body, type, parser.cvt_msg_type_toString(type));
-    request.print_metadata(cerr_out);
+    req login_request = req(req_no, body, type, parser.cvt_msg_type_toString(type));
+    login_request.print_metadata(cerr_out);
+
+    
 
     return 0;
 }

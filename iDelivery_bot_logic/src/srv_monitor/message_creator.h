@@ -2,6 +2,7 @@
 #include <iostream>
 
 #include "Requests/req_parser.h"
+#include "Requests/req.h"
 
 using std::string;
 

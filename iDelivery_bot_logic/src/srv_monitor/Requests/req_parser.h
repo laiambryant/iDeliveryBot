@@ -2,7 +2,9 @@
 #include <iostream>
 #include <map>
 
+#ifndef LOG_PATH
 #define LOG_PATH "products/log_req.txt"
+#endif
 
 #ifndef MSG_TYPE
 #define MSG_TYPE
