@@ -13,6 +13,7 @@ enum out_mode{
 #endif
 
 using namespace std;
+using coordinates_3D = array<float,3>;
 
 class generic_body{
 private:
@@ -66,10 +67,10 @@ public:
 class call_body:public generic_body{
 private:
     string _body_str;
-    array<float,3> _coordinates; // [x, y, z]
+    coordinates_3D _coordinates; // [x, y, z]
     int _robot_id;
 public:
-    call_body(string body_str_):generic_body(body_str_),_body_str(body_str_), _coordinates({1.0,1.0,1.0}), _robot_id(0){}; 
+    call_body(string body_str_):generic_body(body_str_),_body_str(body_str_), _coordinates({0.0,0.0,0.0}), _robot_id(0){}; 
     void parse();
     void print(out_mode out){
         switch(out){
@@ -97,7 +98,7 @@ public:
 class priority_call_body:public call_body{
 private:
     string _body_str;
-    list<float> _coordinates; // [x, y, z]
+    coordinates_3D _coordinates; // [x, y, z]
     int _robot_id;
 public:
     priority_call_body(string body_str_):call_body(body_str_),_body_str(body_str_){};
@@ -108,10 +109,31 @@ class arrived_body:public generic_body{
 private:
     int _robot_id;
     string _body_str;
+    coordinates_3D _coordinates;
 
 public:
-    arrived_body(string body_str_):generic_body(body_str_),_body_str(body_str_), _robot_id(0){};
+    arrived_body(string body_str_):generic_body(body_str_), _coordinates({0.0,0.0,0.0}),_body_str(body_str_), _robot_id(0){};
     void parse();
+    void print(out_mode out){
+        switch(out){
+            case cerr_out:
+                cerr << _body_str << endl;
+                cerr << "Robot_id:\t" << _robot_id << endl;
+                cerr << "X:\t\t" << _coordinates[0]<<endl;
+                cerr << "Y:\t\t" << _coordinates[1] <<endl;
+                cerr << "Z:\t\t" << _coordinates[2] <<endl;
+                break;
+            case cout_out:
+                cout << _body_str << endl;
+                cout << "Robot_id:\t" << _robot_id << endl;
+                cout << "X:\t\t" << _coordinates.front()<<endl;
+                cout << "Y:\t\t" << _coordinates.front() <<endl;
+                cout << "Z:\t\t" << _coordinates.front() <<endl;
+                break;
+            case log_out:
+                break;
+        }
+    }
 
 };
 
@@ -123,6 +145,20 @@ private:
 public:
     obj_sent_body(string body_str_):generic_body(body_str_),_body_str(body_str_), _robot_id(0){};
     void parse();
+    void print(out_mode out){
+        switch(out){
+            case cerr_out:
+                cerr << _body_str << endl;
+                cerr << "Robot_id:\t" << _robot_id << endl;
+                break;
+            case cout_out:
+                cout << _body_str << endl;
+                cout << "Robot_id:\t" << _robot_id << endl;
+                break;
+            case log_out:
+                break;
+        }
+    }
 
 };
 
@@ -134,6 +170,20 @@ private:
 public:
     obj_rcvd_body(string body_str_):generic_body(body_str_),_body_str(body_str_), _robot_id(0){};
     void parse();
+    void print(out_mode out){
+        switch(out){
+            case cerr_out:
+                cerr << _body_str << endl;
+                cerr << "Robot_id:\t" << _robot_id << endl;
+                break;
+            case cout_out:
+                cout << _body_str << endl;
+                cout << "Robot_id:\t" << _robot_id << endl;
+                break;
+            case log_out:
+                break;
+        }
+    }
 
 };
 
@@ -145,17 +195,44 @@ private:
 public:
     cancel_body(string body_str_):generic_body(body_str_),_body_str(body_str_), _robot_id(0){};
     void parse();
-
+    void print(out_mode out){
+        switch(out){
+            case cerr_out:
+                cerr << _body_str << endl;
+                cerr << "Robot_id:\t" << _robot_id << endl;
+                break;
+            case cout_out:
+                cout << _body_str << endl;
+                cout << "Robot_id:\t" << _robot_id << endl;
+                break;
+            case log_out:
+                break;
+        }
+    }
 };
 
 class timeout_body:public generic_body{
 private:
     string _body_str;
+    int _robot_id;
 
 public:
-    timeout_body(string body_str_):generic_body(body_str_){};
+    timeout_body(string body_str_):generic_body(body_str_),_body_str(body_str_), _robot_id(0){};
     void parse();
-
+    void print(out_mode out){
+        switch(out){
+            case cerr_out:
+                cerr << _body_str << endl;
+                cerr << "Robot_id:\t" << _robot_id << endl;
+                break;
+            case cout_out:
+                cout << _body_str << endl;
+                cout << "Robot_id:\t" << _robot_id << endl;
+                break;
+            case log_out:
+                break;
+        }
+    }
 };
 
 class invalid_body:public generic_body{
@@ -164,7 +241,6 @@ private:
 
 public:
     invalid_body(string body_str_):generic_body(body_str_){};
-    void parse();
 
 };
 /*

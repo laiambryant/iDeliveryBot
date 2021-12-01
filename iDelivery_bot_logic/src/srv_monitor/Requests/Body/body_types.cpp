@@ -11,7 +11,6 @@ void login_body::parse(){
 
 void call_body::parse(){
     //[0,CALL]:{coordinates:{x:0.0,y:1.0,z:2.0},robot_id:666}
-    
     string r_id_field_str = "robot_id:";
     float x = stof(my_substr(_body_str, "x:", ",y"));
     float y = stof(my_substr(_body_str, "y:", ",z"));
@@ -20,14 +19,36 @@ void call_body::parse(){
     _robot_id = stoi(_body_str.substr(_body_str.find(r_id_field_str)+r_id_field_str.length(),3));
 }
 
-void arrived_body::parse(){}
+void arrived_body::parse(){
+    //[0,ARRIVED]:{coordinates:{x:0.0,y:1.0,z:2.0},robot_id:666}
+    string r_id_field_str = "robot_id:";
+    float x = stof(my_substr(_body_str, "x:", ",y"));
+    float y = stof(my_substr(_body_str, "y:", ",z"));
+    float z = stof(my_substr(_body_str, "z:", "},"));
+    _coordinates = {x,y,z};
+    _robot_id = stoi(_body_str.substr(_body_str.find(r_id_field_str)+r_id_field_str.length(),3));
+}
 
-void obj_sent_body::parse(){}
+void obj_sent_body::parse(){
+    //[0,OBJ_SENT]:{robot_id:666}
+    string r_id_field_str = "robot_id:";
+    _robot_id = stoi(_body_str.substr(_body_str.find(r_id_field_str)+r_id_field_str.length(),3));
+}
 
-void obj_rcvd_body::parse(){}
+void obj_rcvd_body::parse(){
+    //[0,OBJ_RCV]:{robot_id:666}
+    string r_id_field_str = "robot_id:";
+    _robot_id = stoi(_body_str.substr(_body_str.find(r_id_field_str)+r_id_field_str.length(),3));
+}
 
-void cancel_body::parse(){}
+void cancel_body::parse(){
+    //[0,CANCEL]:{robot_id:666}
+    string r_id_field_str = "robot_id:";
+    _robot_id = stoi(_body_str.substr(_body_str.find(r_id_field_str)+r_id_field_str.length(),3));
+}
 
-void timeout_body::parse(){}
-
-void invalid_body::parse(){}
+void timeout_body::parse(){
+    //[0,TIMEOUT]:{robot_id:666}
+    string r_id_field_str = "robot_id:";
+    _robot_id = stoi(_body_str.substr(_body_str.find(r_id_field_str)+r_id_field_str.length(),3));
+}
