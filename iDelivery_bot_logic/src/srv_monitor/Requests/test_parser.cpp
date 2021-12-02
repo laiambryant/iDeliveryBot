@@ -12,7 +12,7 @@ int main(int argc, char const *argv[]){
     int req_no = parser.get_req_no(login_str);
     
     req login_request = req(req_no, body, type, parser.cvt_msg_type_toString(type));
-    login_request.print_metadata(cerr_out);
+    login_request.print_metadata(cout);
 
     
 

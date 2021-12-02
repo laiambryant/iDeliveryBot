@@ -1,6 +1,5 @@
 #include "srv_monitor.h"
 
-
 srv_monitor::srv_monitor(){
 
     msg_factory = message_creator();
@@ -67,27 +66,8 @@ string srv_monitor::get_last_msg(){
 }
 
 
-void srv_monitor::monitor_metadata(out_mode out_mode_){
-    ofstream file; 
-    switch (out_mode_){
-    case log_out:
-        file.open(LOG_PATH);
-        file << "Out_pipe_fd: ["  << "] out_socket_port:["  << "]"<<endl;
-        file << "In_pipe_fd: [" << "] in_socket_port:["  << "]"<<endl;   
-        file << "MSG_Buffer addr: [" << msg_buf_ << "]" <<endl;     
-        file.close();
-        break;
-
-    case cerr_out:
-        cerr << "Out_pipe_fd: ["  << "] out_socket_port:["  << "]"<<endl;
-        cerr << "In_pipe_fd: ["  << "] in_socket_port:["  << "]"<<endl;  
-        cerr << "MSG_Buffer content: [" << msg_buf_ << "]" <<endl;     
-        break;
-    
-    case cout_out:
-        cout << "Out_pipe_fd: ["  << "] out_socket_port:["  << "]"<<endl;
-        cout << "In_pipe_fd: ["  << "] in_socket_port:[" << "]"<<endl;   
-        cout << "MSG_Buffer content: [" << msg_buf_ << "]" <<endl;
-        break;
-    }
+void srv_monitor::monitor_metadata(ostream &stream){
+    stream << "Out_pipe_fd: ["  << "] out_socket_port:["  << "]"<<endl;
+    stream << "In_pipe_fd: ["  << "] in_socket_port:["  << "]"<<endl;  
+    stream << "MSG_Buffer content: [" << msg_buf_ << "]" <<endl;     
 }

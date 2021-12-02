@@ -10,12 +10,6 @@
 #define MSG_MAX_SIZE 500
 
 using namespace std;
-#ifndef OUT_MODE
-#define OUT_MODE
-enum out_mode{
-    cerr_out, cout_out, log_out
-};
-#endif
 //Monitor creates two streams: one to read one to write
 class srv_monitor{
 
@@ -34,6 +28,6 @@ public:
     bool write_to_fstream(string msg, msg_type type); //bool write_to_sock(char* msg); 
     bool read_from_fstream(); //bool read_from_sock();
     string get_last_msg();  //gets last msg from input_stream
-    void monitor_metadata(out_mode out_mode_);
+    void monitor_metadata(ostream &stream);
 
 };
