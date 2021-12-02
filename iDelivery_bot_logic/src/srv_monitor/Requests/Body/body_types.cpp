@@ -1,5 +1,4 @@
-#include "req_body.h"
-
+#include "body_types.h"
 void generic_body::parse(){}
 
 void login_body::parse(){

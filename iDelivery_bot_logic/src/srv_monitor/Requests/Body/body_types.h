@@ -1,22 +1,21 @@
 #pragma once
 
 #include <iostream>
-#include <list>
+#include <array>
 
 #include "str_utils.h"
-
-
 
 using namespace std;
 using coordinates_3D = array<float,3>;
 
 //generic body, does not contain any significant fields 
 class generic_body{
-private:
+protected:
     string _body_str;
 public:
+    generic_body(){_body_str ="";}
     generic_body(string body_str_):_body_str(body_str_){};
-    virtual void parse();
+    virtual void parse() ;
     virtual void print(ostream &stream){
         stream << _body_str << endl;
     };
@@ -24,13 +23,12 @@ public:
 
 //body for requests containing a robot id 
 class r_id_body:public generic_body{
-private:
-    string _body_str;
+protected:
     int _robot_id;
 public:
-    r_id_body(string body_str_):generic_body(body_str_),_body_str(body_str_), _robot_id(0){}
-    void parse();
-    void print(ostream &stream){
+    r_id_body(string body_str_):generic_body(body_str_),_robot_id(0){}
+    void parse() override;
+    void print(ostream &stream) override {
         stream << _body_str << endl;
         stream << "Robot_id:\t" << _robot_id << endl;
     }
@@ -39,14 +37,12 @@ public:
 
 //body for requests containing a robot id and coordinates (for robot or user depending on type)
 class coord_body:public r_id_body{
-private:
-    string _body_str;
+protected:
     coordinates_3D _coordinates; // [x, y, z]
-    int _robot_id;
 public:
-    coord_body(string body_str_):r_id_body(body_str_),_body_str(body_str_),_robot_id(0), _coordinates({0.0,0.0,0.0}){}
-    void parse();
-    void print(ostream &stream){
+    coord_body(string body_str_):r_id_body(body_str_),_coordinates({0.0,0.0,0.0}){}
+    void parse() override;
+    void print(ostream &stream) override {
         stream << _body_str << endl;
         stream << "Robot_id:\t" << _robot_id << endl;
         stream << "X:\t\t" << _coordinates[0]<<endl;
@@ -58,14 +54,13 @@ public:
 
 class login_body:public generic_body{
 private:
-    string _body_str;
     string _username;
     string _password;
 
 public:
-    login_body(string body_str_):generic_body(body_str_),_body_str(body_str_), _username(""), _password(""){parse();};
-    void parse();
-    void print(ostream &stream){
+    login_body(string body_str_):generic_body(body_str_), _username(""), _password(""){parse();};
+    void parse() override;
+    void print(ostream &stream)override {
         stream << _body_str << endl;
         stream << "Username:\t" << _username << endl;
         stream << "Password:\t" << _password << endl;
