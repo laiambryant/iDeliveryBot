@@ -1,5 +1,6 @@
-#include "req.h"
-#include "req_parser.h"
+#include "../Requests/req.h"
+#include "../Requests/req_parser.h"
+
 #include <iostream>
 
 int main(int argc, char const *argv[]){
@@ -13,8 +14,6 @@ int main(int argc, char const *argv[]){
     
     req login_request = req(req_no, body, type, parser.cvt_msg_type_toString(type));
     login_request.print_metadata(cout);
-
-    
 
     return 0;
 }

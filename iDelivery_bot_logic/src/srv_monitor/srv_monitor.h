@@ -1,7 +1,9 @@
+#pragma once
 #include <iostream>
 #include <fstream>
 
 #include "message_creator.h"
+
 #ifndef LOG_PATH
 #define LOG_PATH "products/log.txt"
 #endif

@@ -1,5 +1,5 @@
-#include "srv_monitor.h"
-#include "message_creator.h"
+#include "../srv_monitor.h"
+#include "../message_creator.h"
 int main(int argc, char const *argv[]){
 
     //Create monitor and parser
