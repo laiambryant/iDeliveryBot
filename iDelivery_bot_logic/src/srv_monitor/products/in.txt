@@ -1,4 +1,4 @@
-[0,LOGIN]:User:{username:Dsadsafdsf,password:fdafs}
-[0,CALL]:{coordinates:{x:0.0,y:1.0,z:2.0},robot_id:666}
-[0,OBJ_SENT]:{robot_id:666}
+[0,LOGIN]:{username:Dsadsafdsf,password:fdafs}
+[1,CALL]:{coordinates:{x:0.0,y:1.0,z:2.0},robot_id:666}
+[2,OBJ_SENT]:{robot_id:666}
 

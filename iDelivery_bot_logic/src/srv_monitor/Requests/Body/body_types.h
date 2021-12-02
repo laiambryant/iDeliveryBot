@@ -26,7 +26,7 @@ class r_id_body:public generic_body{
 protected:
     int _robot_id;
 public:
-    r_id_body(string body_str_):generic_body(body_str_),_robot_id(0){}
+    r_id_body(string body_str_):generic_body(body_str_),_robot_id(0){parse();}
     void parse() override;
     void print(ostream &stream) override {
         stream << _body_str << endl;
@@ -40,7 +40,7 @@ class coord_body:public r_id_body{
 protected:
     coordinates_3D _coordinates; // [x, y, z]
 public:
-    coord_body(string body_str_):r_id_body(body_str_),_coordinates({0.0,0.0,0.0}){}
+    coord_body(string body_str_):r_id_body(body_str_),_coordinates({0.0,0.0,0.0}){parse();}
     void parse() override;
     void print(ostream &stream) override {
         stream << _body_str << endl;
