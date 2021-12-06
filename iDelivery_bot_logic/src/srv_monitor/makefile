@@ -5,25 +5,40 @@ REQ=Requests/
 BODY=$(REQ)Body/
 TESTS=Tests/
 
-all: full_combo monitor parser bodies
-	@echo "Running all tests"
+REQ_FILES=$(REQ)*.cpp
+BODY_FILES=$(BODY)*.cpp
+MONITOR_FILES=*.cpp
+MONITOR_THREAD_FILES=../*.cpp
+
+all: full_combo monitor parser bodies monitor_thread
+	@echo "Running all tests..."
 
 full_combo:
-	$(CXX) $(CXXFLAGS) $(TESTS)msg_test_full.cpp message_creator.cpp srv_monitor.cpp  $(REQ)req_parser.cpp $(REQ)req.cpp $(BODY)body_types.cpp $(BODY)str_utils.h
+	@echo "Full combo test..."
+	$(CXX) $(CXXFLAGS) $(TESTS)msg_test_full.cpp $(MONITOR_FILES) $(REQ_FILES) $(BODY_FILES) 
+	./a.out
+	rm -rf a.out
+
+monitor_thread:
+	@echo "Monitor Thread Test..."
+	$(CXX) $(CXXFLAGS) $(TESTS)monitor_thread_test.cpp $(MONITOR_FILES) $(REQ_FILES) $(BODY_FILES) $(MONITOR_THREAD_FILES)
 	./a.out
 	rm -rf a.out
 
 monitor:
-	$(CXX) $(CXXFLAGS) $(TESTS)monitor_test.cpp srv_monitor.cpp message_creator.cpp $(REQ)req_parser.cpp $(REQ)req.cpp
+	@echo "Monitor Test..."
+	$(CXX) $(CXXFLAGS) $(TESTS)monitor_test.cpp $(MONITOR_FILES) $(REQ_FILES) $(BODY_FILES)
 	./a.out
 	rm -rf a.out
 
 parser:
-	$(CXX) $(CXXFLAGS) $(REQ)req_parser.cpp $(REQ)req.cpp $(TESTS)test_parser.cpp message_creator.cpp srv_monitor.cpp   $(BODY)body_types.cpp 
+	@echo "Parser test..."
+	$(CXX) $(CXXFLAGS) $(TESTS)test_parser.cpp $(MONITOR_FILES) $(REQ_FILES) $(BODY_FILES) 
 	./a.out
 	rm -rf a.out 
 
 bodies:
-	$(CXX) $(CXXFLAGS) $(TESTS)body_tests.cpp $(BODY)body_types.cpp $(BODY)str_utils.h
+	@echo "Bodies Test..."
+	$(CXX) $(CXXFLAGS) $(TESTS)body_tests.cpp $(MONITOR_FILES) $(REQ_FILES) $(BODY_FILES)
 	./a.out
 	rm -rf a.out

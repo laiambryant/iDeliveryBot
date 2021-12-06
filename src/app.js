@@ -8,7 +8,9 @@ const port = process.env.PORT || 8080;
 
 app.use(express.static(__dirname));
 
-io.sockets.on('connection', Connection_handler);
+io.sockets.on("connection", (socket)=>{
+    Connection_handler(socket)
+})
 
 http.listen(port, () => {
     console.log('listening on port ' + port);

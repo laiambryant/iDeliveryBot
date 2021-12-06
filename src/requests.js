@@ -1,11 +1,12 @@
-const send_msg = require("./send_msg");
+const send_msg_to_monitor = require("./send_msg");
 const rcv_msg = require("./rcv_msg")
 
 function Connection_handler(socket){
     console.log('a user connected');
     socket.on('disconnect', onDisconnection);
-    socket.onAny((type, data ,ack)=>{
-        Request(socket, type, data)    
+    socket.onAny((type, data)=>{
+        Request(socket, type, data)  
+        console.log(data)  
     })
 }
 
@@ -13,8 +14,7 @@ function Request(socket, type, data){
     switch (type) {
         case "LOGIN":
             console.log("Login Request incoming")
-            send_msg(data, "LOGIN")
-            rcv_msg()
+            send_msg_to_monitor(data, "LOGIN")
             break;
         case "CALL":
             break;
@@ -37,7 +37,7 @@ function Request(socket, type, data){
     }
 }
 
-function onDisconnection(socket){
+function onDisconnection(){
     console.log('a user disconnected');
 }
 

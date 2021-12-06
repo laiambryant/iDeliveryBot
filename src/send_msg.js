@@ -5,7 +5,7 @@ const monitor_comm_in_path = "../iDelivery_bot_logic/src/srv_monitor/products/in
 
 var msg_counter = 0
 
-module.exports = function send_msg(msg, type) {
+module.exports = function send_msg_to_monitor(msg, type) {
 
     ret = "[" + msg_counter + "," + type + "]:" + msg
 
