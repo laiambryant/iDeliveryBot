@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 
+#include "srv_monitor/Communication/Client.h"
 #include "message_creator.h"
 
 #ifndef LOG_PATH
@@ -9,6 +10,7 @@
 #endif
 #define OUT_PATH "products/out.txt"
 #define IN_PATH "products/in.txt"
+
 #define MSG_MAX_SIZE 500
 
 using namespace std;
@@ -16,11 +18,11 @@ using namespace std;
 class srv_monitor{
 
 private:
+    Client comm;
     ofstream out_stream_;
     ifstream in_stream_;
     string msg_buf_;
     message_creator msg_factory;
-
     void clear_msg_buff();
      
 public:

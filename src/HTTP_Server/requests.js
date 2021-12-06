@@ -2,15 +2,16 @@ const send_msg_to_monitor = require("./send_msg");
 const rcv_msg = require("./rcv_msg")
 
 function Connection_handler(socket){
-    console.log('a user connected');
+    console.log('[Server]:a user connected');
     socket.on('disconnect', onDisconnection);
     socket.onAny((type, data)=>{
         Request(socket, type, data)  
-        console.log(data)  
+        console.log("[Server]:"+data)  
     })
 }
 
 function Request(socket, type, data){
+    console.log("[Server]:")
     switch (type) {
         case "LOGIN":
             console.log("Login Request incoming")

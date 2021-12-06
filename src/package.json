@@ -24,5 +24,8 @@
   "bugs": {
     "url": "https://github.com/laiambryant/iDeliveryBot_srv/issues"
   },
-  "homepage": "https://github.com/laiambryant/iDeliveryBot_srv"
+  "homepage": "https://github.com/laiambryant/iDeliveryBot_srv",
+  "dependencies": {
+    "net": "^1.0.2"
+  }
 }

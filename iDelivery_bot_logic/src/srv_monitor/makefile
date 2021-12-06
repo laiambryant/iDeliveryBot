@@ -1,14 +1,15 @@
 CXX = g++
-CXXFLAGS= --std=c++17 
+CXXFLAGS= --std=c++17 -pthread
 
 REQ=Requests/
 BODY=$(REQ)Body/
 TESTS=Tests/
+COMMUNICATION=Communication/
 
 REQ_FILES=$(REQ)*.cpp
 BODY_FILES=$(BODY)*.cpp
 MONITOR_FILES=*.cpp
-MONITOR_THREAD_FILES=../*.cpp
+COMMUNICATION_FILES=$(COMMUNICATION)*.cpp
 
 all: full_combo monitor parser bodies monitor_thread
 	@echo "Running all tests..."
@@ -19,12 +20,12 @@ full_combo:
 	./a.out
 	rm -rf a.out
 
-monitor_thread:
-	@echo "Monitor Thread Test..."
-	$(CXX) $(CXXFLAGS) $(TESTS)monitor_thread_test.cpp $(MONITOR_FILES) $(REQ_FILES) $(BODY_FILES) $(MONITOR_THREAD_FILES)
+communication:
+	@echo "Communication test..."
+	$(CXX) $(CXXFLAGS) $(TESTS)node_comm.cpp $(COMMUNICATION_FILES)
 	./a.out
 	rm -rf a.out
-
+	
 monitor:
 	@echo "Monitor Test..."
 	$(CXX) $(CXXFLAGS) $(TESTS)monitor_test.cpp $(MONITOR_FILES) $(REQ_FILES) $(BODY_FILES)
