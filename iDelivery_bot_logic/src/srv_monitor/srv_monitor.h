@@ -2,7 +2,7 @@
 #include <iostream>
 #include <fstream>
 
-#include "srv_monitor/Communication/Client.h"
+#include "Communication/Client.h"
 #include "message_creator.h"
 
 #ifndef LOG_PATH
@@ -18,20 +18,16 @@ using namespace std;
 class srv_monitor{
 
 private:
-    Client comm;
-    ofstream out_stream_;
-    ifstream in_stream_;
+    Client _srv_comm;
     string msg_buf_;
     message_creator msg_factory;
     void clear_msg_buff();
      
 public:
     srv_monitor();
-    ~srv_monitor();
     srv_monitor(const srv_monitor &other);
-    bool write_to_fstream(string msg, msg_type type); //bool write_to_sock(char* msg); 
-    bool read_from_fstream(); //bool read_from_sock();
-    string get_last_msg();  //gets last msg from input_stream
+    void send_msg(string msg, msg_type type); //bool write_to_sock(char* msg); 
+    string get_msg();  //gets last msg from input_stream
     void monitor_metadata(ostream &stream);
 
 };

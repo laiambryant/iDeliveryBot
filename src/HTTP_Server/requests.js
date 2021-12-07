@@ -1,21 +1,22 @@
-const send_msg_to_monitor = require("./send_msg");
-const rcv_msg = require("./rcv_msg")
+const send_msg_monitor = require("../Monitor/m_send_msg");
+const rcv_msg_monitor = require("../Monitor/m_rcv_msg");
+const m_send_msg = require("../Monitor/m_send_msg");
 
-function Connection_handler(socket){
+function Connection_handler(socket, monitor_socket){
     console.log('[Server]:a user connected');
     socket.on('disconnect', onDisconnection);
     socket.onAny((type, data)=>{
-        Request(socket, type, data)  
-        console.log("[Server]:"+data)  
+        Request(socket, type, data, monitor_socket)  
+        console.log("[Server]:"+ data)  
     })
 }
 
-function Request(socket, type, data){
+function Request(socket, type, data, monitor_socket){
     console.log("[Server]:")
     switch (type) {
         case "LOGIN":
             console.log("Login Request incoming")
-            send_msg_to_monitor(data, "LOGIN")
+            m_send_msg(data, type, monitor_socket)
             break;
         case "CALL":
             break;
