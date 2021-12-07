@@ -1,6 +1,16 @@
 module.exports = function comm_handler(socket){
-    socket.on("data", (data,err)=>{
-        if(!err) console.log(data)
-        else console.log(err)
+    socket.setEncoding("utf-8")
+    console.log("Connected to monitor")
+    socket.on("data", (data)=>{
+        console.log("%s", data)
+        try {      
+            socket.write("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laboru")
+        } catch (error) {
+            console.log(error)
+        }
+    })
+    socket.on("error",(error)=>{
+        console.log(error)
     })
 }
+

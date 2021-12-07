@@ -30,11 +30,21 @@ Client::~Client(){
     
 }
 
-std::string Client::read(){
-    return "OLLARE";
+string Client::monitor_read(){
+    char* _in_string = new char[BUF_SIZE];
+    bzero(_in_string, BUF_SIZE);
+    int recieved, total_size = 0;
+    int size_recv; bzero(_in_string , BUF_SIZE);
+    size_recv = recv(_cli_fd, &_in_string[total_size], BUF_SIZE, MSG_WAITFORONE);	
+    return _in_string;
 }
 
-void Client::write(string msg){
-    send(_cli_fd, &msg, sizeof(msg), 0);
+int Client::monitor_write(string msg){
+    int ret = send(_cli_fd, msg.data(), msg.size(), 0);
+    if(ret<0){
+        perror("Send:");
+        exit(EXIT_FAILURE);
+    } 
+    return ret;
 }
    

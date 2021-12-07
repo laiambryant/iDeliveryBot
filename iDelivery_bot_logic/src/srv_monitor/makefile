@@ -26,6 +26,12 @@ communication:
 	./a.out
 	rm -rf a.out
 	
+communication_debug:
+	@echo "Communication test..."
+	$(CXX) $(CXXFLAGS) -g $(TESTS)node_comm.cpp $(COMMUNICATION_FILES)
+	./a.out
+	rm -rf a.out
+
 monitor:
 	@echo "Monitor Test..."
 	$(CXX) $(CXXFLAGS) $(TESTS)monitor_test.cpp $(MONITOR_FILES) $(REQ_FILES) $(BODY_FILES)

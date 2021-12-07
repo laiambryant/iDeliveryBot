@@ -11,10 +11,10 @@ const port = process.env.PORT || 8080;
 
 //TCP SERVER COMMUNICATING WITH MONITOR
 const net = require("net");
-const tcp_port = 6000
+const tcp_port = 6000 
 
 //HTTP SERVER
-app.use(express.static(__dirname));
+app.use(express.static(__dirname)); 
 
 io.sockets.on("connection", (socket)=>{
     Connection_handler(socket)

@@ -4,7 +4,11 @@
 int main(int argc, char const *argv[])
 {
     Client cli = Client();
-    std::cerr << cli.read() << std::endl;
-    cli.write("HELLO");
+    string str = "Hello everyone W.D. Gaster here";
+    
+    cli.monitor_write(str);
+
+    std::cerr << "[Read]: " << (cli.monitor_read()) <<std::endl;
+
     return 0;
 }

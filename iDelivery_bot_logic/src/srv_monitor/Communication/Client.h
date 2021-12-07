@@ -4,10 +4,17 @@
 #include <sys/socket.h>
 #include <sys/types.h>
 #include <string>
+#include <iostream>
+#include <stdio.h>
+#include <strings.h>
+
 
 #define DEFAULT_PORT 6000
+#define BUF_SIZE 450
 
 using std::string;
+using std::cerr;
+using std::endl;
 
 class Client{
 private:
@@ -19,13 +26,8 @@ public:
     Client();
     Client(int port);
     ~Client();
-    string read();
-    void write(string msg);
+    string monitor_read();
+    int monitor_write(string msg);
 
 };
 
-/*
-Create a socket with the socket() system call
-Connect the socket to the address of the server using the connect() system call
-Send and receive data. There are a number of ways to do this, but the simplest is to use the read() and write() system calls.
-*/
