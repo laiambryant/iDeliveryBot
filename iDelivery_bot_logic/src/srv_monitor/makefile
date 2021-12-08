@@ -27,7 +27,6 @@ communication:
 	./a.out
 	rm -rf a.out
 
-
 monitor:
 	@echo "Monitor Test..."
 	$(CXX) $(CXXFLAGS) $(TESTS)monitor_test.cpp $(MONITOR_FILES) $(REQ_FILES) $(BODY_FILES) $(COMMUNICATION_FILES)

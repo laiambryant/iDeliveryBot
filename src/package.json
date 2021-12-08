@@ -1,5 +1,5 @@
 {
-  "name": "ideliver_bot_server",
+  "name": "idelivery_bot_server",
   "version": "1.0.0",
   "description": "Server for iOS app iDelivery Bot",
   "main": "app.js",
@@ -26,6 +26,8 @@
   },
   "homepage": "https://github.com/laiambryant/iDeliveryBot_srv",
   "dependencies": {
-    "net": "^1.0.2"
+    "net": "^1.0.2",
+    "express":"4.17.1",
+    "socket.io":"4.4.0"
   }
 }
