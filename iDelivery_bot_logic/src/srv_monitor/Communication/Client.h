@@ -8,7 +8,6 @@
 #include <stdio.h>
 #include <strings.h>
 
-
 #define DEFAULT_PORT 6000
 #define BUF_SIZE 450
 
