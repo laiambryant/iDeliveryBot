@@ -1,5 +1,7 @@
+#used to test various bits and pieces of monitor
+
 CXX = g++
-CXXFLAGS= --std=c++17 -pthread
+CXXFLAGS= --std=c++17
 
 REQ=Requests/
 BODY=$(REQ)Body/
@@ -18,6 +20,12 @@ all: full_combo monitor parser bodies monitor_thread
 full_combo:
 	@echo "Full combo test..."
 	$(CXX) $(CXXFLAGS) $(TESTS)msg_test_full.cpp $(MONITOR_FILES) $(REQ_FILES) $(BODY_FILES) $(COMMUNICATION_FILES)
+	./a.out
+	rm -rf a.out
+
+csv_test:
+	@echo "CSV test..."
+	$(CXX) $(CXXFLAGS) $(TESTS)csv_parser.cpp $(MONITOR_FILES) $(REQ_FILES) $(BODY_FILES) $(COMMUNICATION_FILES)
 	./a.out
 	rm -rf a.out
 

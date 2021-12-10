@@ -16,6 +16,7 @@ int main(int argc, char const *argv[]){
         //late binding for body
         req login_request = req(req_no, body, type, parser.cvt_msg_type_toString(type));
         login_request.print_metadata(cerr);
+        login_request.act();
     }
 
     return 0;

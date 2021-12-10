@@ -12,13 +12,18 @@ using coordinates_3D = array<float,3>;
 class generic_body{
 protected:
     string _body_str;
+    
 public:
     generic_body(){_body_str ="";}
-    generic_body(string body_str_):_body_str(body_str_){};
+    generic_body(string body_str_):_body_str(body_str_){}; 
     virtual void parse() ;
     virtual void print(ostream &stream){
         stream << _body_str << endl;
-    };
+    }
+    virtual string get_username(){return "";};
+    virtual string get_password(){return "";};
+    virtual coordinates_3D get_coords(){return {0.0,0.0,0.0};};
+    virtual int get_robot_id(){return 0;};
 };
 
 //body for requests containing a robot id 
@@ -32,7 +37,7 @@ public:
         stream << _body_str << endl;
         stream << "Robot_id:\t" << _robot_id << endl;
     }
-    int get_robot_id(){return _robot_id;}
+    int get_robot_id() override {return _robot_id;}
 };
 
 //body for requests containing a robot id and coordinates (for robot or user depending on type)
@@ -49,7 +54,7 @@ public:
         stream << "Y:\t\t" << _coordinates[1] <<endl;
         stream << "Z:\t\t" << _coordinates[2] <<endl;
     }
-    coordinates_3D get_coords(){return _coordinates;}
+    coordinates_3D get_coords() override {return _coordinates;}
 };
 
 class login_body:public generic_body{
@@ -65,9 +70,10 @@ public:
         stream << "Username:\t" << _username << endl;
         stream << "Password:\t" << _password << endl;
     }
-    string get_username(){return _username;}
-    string get_password(){return _password;}
+    string get_username() override {return _username;}
+    string get_password() override {return _password;}
 };
+
 
 class call_body:public coord_body{
 public:

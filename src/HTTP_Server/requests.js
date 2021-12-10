@@ -1,5 +1,4 @@
-const send_msg_monitor = require("../Monitor/m_send_msg");
-const rcv_msg_monitor = require("../Monitor/m_rcv_msg");
+const m_rcv_msg = require("../Monitor/m_rcv_msg");
 const m_send_msg = require("../Monitor/m_send_msg");
 
 function Connection_handler(socket, monitor_socket){

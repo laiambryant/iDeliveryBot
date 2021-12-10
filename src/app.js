@@ -4,13 +4,13 @@ const comm_handler = require("./Monitor/comm_handler")
 
 //TCP SERVER COMMUNICATING WITH MONITOR
 const net = require("net");
-const tcp_port = 6000 
+const tcp_port = 5000 
 
 //HTTP SERVER COMMUNICATING WITH APP
 const app = express(); 
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 5050;
 
 var monitor_sock;
 
@@ -22,7 +22,6 @@ tcp_server.listen(tcp_port, "127.0.0.1" ,()=>{
 tcp_server.on("connection", (socket)=>{
     monitor_sock = socket
     comm_handler(socket)
-    
 })
 
 //HTTP SERVER

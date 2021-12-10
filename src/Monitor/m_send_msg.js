@@ -1,4 +1,3 @@
-
 var msg_counter = 0
 
 module.exports = function m_send_msg(msg, type, socket, callback){

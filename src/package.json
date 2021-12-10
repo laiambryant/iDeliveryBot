@@ -26,7 +26,7 @@
   },
   "homepage": "https://github.com/laiambryant/iDeliveryBot_srv",
   "dependencies": {
-    "net": "^1.0.2",
+    "net":"1.0.2",
     "express":"4.17.1",
     "socket.io":"4.4.0"
   }
