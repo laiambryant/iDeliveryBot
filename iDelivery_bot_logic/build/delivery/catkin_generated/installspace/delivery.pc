@@ -1,0 +1,8 @@
+prefix=/home/liam/Desktop/iDeliveryBot_srv/iDelivery_bot_logic/install
+
+Name: delivery
+Description: Description of delivery
+Version: 0.0.0
+Cflags: -I${prefix}/include
+Libs: -L${prefix}/lib 
+Requires: message_runtime

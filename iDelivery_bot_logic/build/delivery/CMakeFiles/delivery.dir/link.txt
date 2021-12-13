@@ -1,0 +1,1 @@
+/usr/bin/c++    -rdynamic CMakeFiles/delivery.dir/iDelivery_bot_logic.cpp.o  -o /home/liam/Desktop/iDeliveryBot_srv/iDelivery_bot_logic/devel/lib/delivery/delivery 
