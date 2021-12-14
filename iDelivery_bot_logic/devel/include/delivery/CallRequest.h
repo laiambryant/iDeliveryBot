@@ -24,14 +24,32 @@ struct CallRequest_
   typedef CallRequest_<ContainerAllocator> Type;
 
   CallRequest_()
-    {
+    : ok(false)
+    , pos_x(0.0)
+    , pos_y(0.0)
+    , pos_z(0.0)  {
     }
   CallRequest_(const ContainerAllocator& _alloc)
-    {
+    : ok(false)
+    , pos_x(0.0)
+    , pos_y(0.0)
+    , pos_z(0.0)  {
   (void)_alloc;
     }
 
 
+
+   typedef uint8_t _ok_type;
+  _ok_type ok;
+
+   typedef float _pos_x_type;
+  _pos_x_type pos_x;
+
+   typedef float _pos_y_type;
+  _pos_y_type pos_y;
+
+   typedef float _pos_z_type;
+  _pos_z_type pos_z;
 
 
 
@@ -56,6 +74,22 @@ std::ostream& operator<<(std::ostream& s, const ::delivery::CallRequest_<Contain
 {
 ros::message_operations::Printer< ::delivery::CallRequest_<ContainerAllocator> >::stream(s, "", v);
 return s;
+}
+
+
+template<typename ContainerAllocator1, typename ContainerAllocator2>
+bool operator==(const ::delivery::CallRequest_<ContainerAllocator1> & lhs, const ::delivery::CallRequest_<ContainerAllocator2> & rhs)
+{
+  return lhs.ok == rhs.ok &&
+    lhs.pos_x == rhs.pos_x &&
+    lhs.pos_y == rhs.pos_y &&
+    lhs.pos_z == rhs.pos_z;
+}
+
+template<typename ContainerAllocator1, typename ContainerAllocator2>
+bool operator!=(const ::delivery::CallRequest_<ContainerAllocator1> & lhs, const ::delivery::CallRequest_<ContainerAllocator2> & rhs)
+{
+  return !(lhs == rhs);
 }
 
 
@@ -106,12 +140,12 @@ struct MD5Sum< ::delivery::CallRequest_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "d41d8cd98f00b204e9800998ecf8427e";
+    return "bd3e0142db41a8872e933337357dd05d";
   }
 
   static const char* value(const ::delivery::CallRequest_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0xd41d8cd98f00b204ULL;
-  static const uint64_t static_value2 = 0xe9800998ecf8427eULL;
+  static const uint64_t static_value1 = 0xbd3e0142db41a887ULL;
+  static const uint64_t static_value2 = 0x2e933337357dd05dULL;
 };
 
 template<class ContainerAllocator>
@@ -130,7 +164,11 @@ struct Definition< ::delivery::CallRequest_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "\n"
+    return "bool ok\n"
+"float32 pos_x\n"
+"float32 pos_y\n"
+"float32 pos_z\n"
+"\n"
 ;
   }
 
@@ -147,8 +185,13 @@ namespace serialization
 
   template<class ContainerAllocator> struct Serializer< ::delivery::CallRequest_<ContainerAllocator> >
   {
-    template<typename Stream, typename T> inline static void allInOne(Stream&, T)
-    {}
+    template<typename Stream, typename T> inline static void allInOne(Stream& stream, T m)
+    {
+      stream.next(m.ok);
+      stream.next(m.pos_x);
+      stream.next(m.pos_y);
+      stream.next(m.pos_z);
+    }
 
     ROS_DECLARE_ALLINONE_SERIALIZER
   }; // struct CallRequest_
@@ -164,8 +207,17 @@ namespace message_operations
 template<class ContainerAllocator>
 struct Printer< ::delivery::CallRequest_<ContainerAllocator> >
 {
-  template<typename Stream> static void stream(Stream&, const std::string&, const ::delivery::CallRequest_<ContainerAllocator>&)
-  {}
+  template<typename Stream> static void stream(Stream& s, const std::string& indent, const ::delivery::CallRequest_<ContainerAllocator>& v)
+  {
+    s << indent << "ok: ";
+    Printer<uint8_t>::stream(s, indent + "  ", v.ok);
+    s << indent << "pos_x: ";
+    Printer<float>::stream(s, indent + "  ", v.pos_x);
+    s << indent << "pos_y: ";
+    Printer<float>::stream(s, indent + "  ", v.pos_y);
+    s << indent << "pos_z: ";
+    Printer<float>::stream(s, indent + "  ", v.pos_z);
+  }
 };
 
 } // namespace message_operations

@@ -131,7 +131,6 @@ endif()
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   include("/home/liam/Desktop/iDeliveryBot_srv/iDelivery_bot_logic/build/gtest/cmake_install.cmake")
-  include("/home/liam/Desktop/iDeliveryBot_srv/iDelivery_bot_logic/build/delivery/cmake_install.cmake")
 
 endif()
 

@@ -1,6 +1,4 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
-make: *** No rule to make target 'all'.  Stop.
- 
 # GNU Make 4.2.1
 # Built for x86_64-pc-linux-gnu
 # Copyright (C) 1988-2016 Free Software Foundation, Inc.
@@ -8,7 +6,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Mon Dec 13 12:30:49 2021
+# Make data base, printed on Tue Dec 14 08:34:53 2021
 
 # Variables
 
@@ -51,7 +49,7 @@ SNAP_DATA = /var/snap/code/83
 # environment
 VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
 # environment
-JOURNAL_STREAM = 8:60839
+JOURNAL_STREAM = 8:60545
 # environment
 XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/etc/xdg
 # environment
@@ -83,7 +81,7 @@ _ = /snap/code/83/usr/share/code/code
 # environment
 ROS_PACKAGE_PATH = /opt/ros/noetic/share
 # environment
-MANAGERPID = 1295
+MANAGERPID = 1321
 # environment
 ROS_PYTHON_VERSION = 3
 # environment
@@ -103,7 +101,7 @@ XDG_SESSION_DESKTOP = ubuntu
 # environment
 GPG_AGENT_INFO = /run/user/1000/gnupg/S.gpg-agent:0:1
 # environment
-SESSION_MANAGER = local/liam-desktop:@/tmp/.ICE-unix/1605,unix/liam-desktop:/tmp/.ICE-unix/1605
+SESSION_MANAGER = local/liam-desktop:@/tmp/.ICE-unix/1594,unix/liam-desktop:/tmp/.ICE-unix/1594
 # environment
 XDG_RUNTIME_DIR = /run/user/1000
 # environment
@@ -123,7 +121,7 @@ DISABLE_WAYLAND = 1
 # environment
 VSCODE_CRASH_REPORTER_START_OPTIONS = {"companyName":"Microsoft","productName":"VSCode","submitURL":"appcenter://code?aid=fba07a4d-84bd-4fc8-a125-9640fc8ce171&uid=405981d7-7171-4b3d-8047-52faa804df52&iid=405981d7-7171-4b3d-8047-52faa804df52&sid=405981d7-7171-4b3d-8047-52faa804df52","uploadToServer":true}
 # environment
-INVOCATION_ID = b955a3df8e294b0ab8f977c07b859251
+INVOCATION_ID = be31e80b315544c29ef4cafa48af7907
 # environment
 GDK_PIXBUF_MODULEDIR = /snap/code/83/usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders
 # default
@@ -137,7 +135,7 @@ ROS_DISTRO = noetic
 # environment
 SSH_AUTH_SOCK = /run/user/1000/keyring/ssh
 # environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 3138
+GIO_LAUNCHED_DESKTOP_FILE_PID = 3266
 # automatic
 %F = $(notdir $%)
 # environment
@@ -151,7 +149,7 @@ PWD = /home/liam/Desktop/iDeliveryBot_srv
 # default
 .LOADED := 
 # environment
-SSH_AGENT_PID = 1559
+SSH_AGENT_PID = 1550
 # environment
 PKG_CONFIG_PATH = /opt/ros/noetic/lib/pkgconfig
 # environment
@@ -207,7 +205,7 @@ SHLVL = 0
 # environment
 GNOME_SHELL_SESSION_MODE = ubuntu
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-0efef5df-2a60-45da-a501-b461eb3b6e94.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-f3bab70c-3731-4345-acef-c4a85d92dc57.sock
 # default
 MAKE_VERSION := 4.2.1
 # environment
@@ -301,9 +299,11 @@ LC_ADDRESS = it_IT.UTF-8
 # environment
 LANG = C
 # environment
-VSCODE_PID = 3184
- 
+VSCODE_PID = 3312
 # variable set hash-table stats:
+ 
+make: *** No rule to make target 'all'.  Stop.
+ 
 # Load=145/1024=14%, Rehash=0, Collisions=25/167=15%
 
 # Pattern-specific Variable Values
@@ -312,9 +312,9 @@ VSCODE_PID = 3184
 
 # Directories
 
-# . (device 2066, inode 12453300): 12 files, no impossibilities.
+# . (device 2066, inode 12453300): 15 files, no impossibilities.
 
-# 12 files, no impossibilities in 1 directories.
+# 15 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -364,12 +364,12 @@ GNUmakefile:
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 20 / storage = 214 B / avg = 10 B
-# current buf: size = 8162 B / used = 214 B / count = 20 / avg = 10 B
+# strcache buffers: 1 (0) / strings = 23 / storage = 244 B / avg = 10 B
+# current buf: size = 8162 B / used = 244 B / count = 23 / avg = 10 B
 
-# strcache performance: lookups = 23 / hit rate = 13%
+# strcache performance: lookups = 26 / hit rate = 11%
 # hash-table stats:
-# Load=20/8192=0%, Rehash=0, Collisions=1/23=4%
-# Finished Make data base on Mon Dec 13 12:30:49 2021
+# Load=23/8192=0%, Rehash=0, Collisions=1/26=4%
+# Finished Make data base on Tue Dec 14 08:34:53 2021
 
  

@@ -18,13 +18,22 @@ class Status {
   constructor(initObj={}) {
     if (initObj === null) {
       // initObj === null is a special case for deserialization where we don't initialize fields
+      this.free = null;
     }
     else {
+      if (initObj.hasOwnProperty('free')) {
+        this.free = initObj.free
+      }
+      else {
+        this.free = false;
+      }
     }
   }
 
   static serialize(obj, buffer, bufferOffset) {
     // Serializes a message object of type Status
+    // Serialize message field [free]
+    bufferOffset = _serializer.bool(obj.free, buffer, bufferOffset);
     return bufferOffset;
   }
 
@@ -32,11 +41,13 @@ class Status {
     //deserializes a message object of type Status
     let len;
     let data = new Status(null);
+    // Deserialize message field [free]
+    data.free = _deserializer.bool(buffer, bufferOffset);
     return data;
   }
 
   static getMessageSize(object) {
-    return 0;
+    return 1;
   }
 
   static datatype() {
@@ -46,13 +57,13 @@ class Status {
 
   static md5sum() {
     //Returns md5sum for a message object
-    return 'd41d8cd98f00b204e9800998ecf8427e';
+    return '662d0577555df77dcaee5a646dd74f27';
   }
 
   static messageDefinition() {
     // Returns full string definition for message
     return `
-    
+    bool free 
     `;
   }
 
@@ -62,6 +73,13 @@ class Status {
       msg = {};
     }
     const resolved = new Status(null);
+    if (msg.free !== undefined) {
+      resolved.free = msg.free;
+    }
+    else {
+      resolved.free = false
+    }
+
     return resolved;
     }
 };

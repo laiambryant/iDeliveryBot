@@ -8,12 +8,12 @@ import struct
 
 
 class Status(genpy.Message):
-  _md5sum = "d41d8cd98f00b204e9800998ecf8427e"
+  _md5sum = "662d0577555df77dcaee5a646dd74f27"
   _type = "delivery/Status"
   _has_header = False  # flag to mark the presence of a Header object
-  _full_text = """"""
-  __slots__ = []
-  _slot_types = []
+  _full_text = """bool free """
+  __slots__ = ['free']
+  _slot_types = ['bool']
 
   def __init__(self, *args, **kwds):
     """
@@ -23,7 +23,7 @@ class Status(genpy.Message):
     changes.  You cannot mix in-order arguments and keyword arguments.
 
     The available fields are:
-       
+       free
 
     :param args: complete set of field values, in .msg order
     :param kwds: use keyword arguments corresponding to message field names
@@ -31,6 +31,11 @@ class Status(genpy.Message):
     """
     if args or kwds:
       super(Status, self).__init__(*args, **kwds)
+      # message fields cannot be None, assign default values for those that are
+      if self.free is None:
+        self.free = False
+    else:
+      self.free = False
 
   def _get_types(self):
     """
@@ -44,7 +49,8 @@ class Status(genpy.Message):
     :param buff: buffer, ``StringIO``
     """
     try:
-      pass
+      _x = self.free
+      buff.write(_get_struct_B().pack(_x))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -57,6 +63,10 @@ class Status(genpy.Message):
       codecs.lookup_error("rosmsg").msg_type = self._type
     try:
       end = 0
+      start = end
+      end += 1
+      (self.free,) = _get_struct_B().unpack(str[start:end])
+      self.free = bool(self.free)
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e)  # most likely buffer underfill
@@ -69,7 +79,8 @@ class Status(genpy.Message):
     :param numpy: numpy python module
     """
     try:
-      pass
+      _x = self.free
+      buff.write(_get_struct_B().pack(_x))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -83,6 +94,10 @@ class Status(genpy.Message):
       codecs.lookup_error("rosmsg").msg_type = self._type
     try:
       end = 0
+      start = end
+      end += 1
+      (self.free,) = _get_struct_B().unpack(str[start:end])
+      self.free = bool(self.free)
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e)  # most likely buffer underfill
@@ -91,3 +106,9 @@ _struct_I = genpy.struct_I
 def _get_struct_I():
     global _struct_I
     return _struct_I
+_struct_B = None
+def _get_struct_B():
+    global _struct_B
+    if _struct_B is None:
+        _struct_B = struct.Struct("<B")
+    return _struct_B

@@ -24,14 +24,17 @@ struct Status_
   typedef Status_<ContainerAllocator> Type;
 
   Status_()
-    {
+    : free(false)  {
     }
   Status_(const ContainerAllocator& _alloc)
-    {
+    : free(false)  {
   (void)_alloc;
     }
 
 
+
+   typedef uint8_t _free_type;
+  _free_type free;
 
 
 
@@ -56,6 +59,19 @@ std::ostream& operator<<(std::ostream& s, const ::delivery::Status_<ContainerAll
 {
 ros::message_operations::Printer< ::delivery::Status_<ContainerAllocator> >::stream(s, "", v);
 return s;
+}
+
+
+template<typename ContainerAllocator1, typename ContainerAllocator2>
+bool operator==(const ::delivery::Status_<ContainerAllocator1> & lhs, const ::delivery::Status_<ContainerAllocator2> & rhs)
+{
+  return lhs.free == rhs.free;
+}
+
+template<typename ContainerAllocator1, typename ContainerAllocator2>
+bool operator!=(const ::delivery::Status_<ContainerAllocator1> & lhs, const ::delivery::Status_<ContainerAllocator2> & rhs)
+{
+  return !(lhs == rhs);
 }
 
 
@@ -106,12 +122,12 @@ struct MD5Sum< ::delivery::Status_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "d41d8cd98f00b204e9800998ecf8427e";
+    return "662d0577555df77dcaee5a646dd74f27";
   }
 
   static const char* value(const ::delivery::Status_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0xd41d8cd98f00b204ULL;
-  static const uint64_t static_value2 = 0xe9800998ecf8427eULL;
+  static const uint64_t static_value1 = 0x662d0577555df77dULL;
+  static const uint64_t static_value2 = 0xcaee5a646dd74f27ULL;
 };
 
 template<class ContainerAllocator>
@@ -130,7 +146,7 @@ struct Definition< ::delivery::Status_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "\n"
+    return "bool free \n"
 ;
   }
 
@@ -147,8 +163,10 @@ namespace serialization
 
   template<class ContainerAllocator> struct Serializer< ::delivery::Status_<ContainerAllocator> >
   {
-    template<typename Stream, typename T> inline static void allInOne(Stream&, T)
-    {}
+    template<typename Stream, typename T> inline static void allInOne(Stream& stream, T m)
+    {
+      stream.next(m.free);
+    }
 
     ROS_DECLARE_ALLINONE_SERIALIZER
   }; // struct Status_
@@ -164,8 +182,11 @@ namespace message_operations
 template<class ContainerAllocator>
 struct Printer< ::delivery::Status_<ContainerAllocator> >
 {
-  template<typename Stream> static void stream(Stream&, const std::string&, const ::delivery::Status_<ContainerAllocator>&)
-  {}
+  template<typename Stream> static void stream(Stream& s, const std::string& indent, const ::delivery::Status_<ContainerAllocator>& v)
+  {
+    s << indent << "free: ";
+    Printer<uint8_t>::stream(s, indent + "  ", v.free);
+  }
 };
 
 } // namespace message_operations

@@ -20,6 +20,10 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "/home/liam/Desktop/iDeliveryBot_srv/iDelivery_bot_logic/devel/include"
   "/opt/ros/noetic/include"
   "/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp"
+  "/home/liam/Desktop/iDeliveryBot_srv/iDelivery_bot_logic/src/delivery/link_directories"
+  "/home/liam/Desktop/iDeliveryBot_srv/iDelivery_bot_logic/src/delivery/("
+  "/home/liam/Desktop/iDeliveryBot_srv/iDelivery_bot_logic/src/delivery/srv_monitor"
+  "/home/liam/Desktop/iDeliveryBot_srv/iDelivery_bot_logic/src/delivery/)"
   )
 
 # Targets to which this target links.
