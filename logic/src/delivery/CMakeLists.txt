@@ -107,7 +107,7 @@ generate_messages(
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES delivery
-CATKIN_DEPENDS roscpp rospy std_msgs message_runtime 
+CATKIN_DEPENDS roscpp rospy std_msgs message_runtime srv_monitor_lib
 #  DEPENDS system_lib
 )
 
@@ -121,5 +121,7 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
 )
 
+
 add_executable(delivery src/main.cpp)
 target_link_libraries(delivery ${catkin_LIBRARIES})
+

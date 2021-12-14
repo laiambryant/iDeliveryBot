@@ -1,4 +1,6 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
+make: *** No rule to make target 'all'.  Stop.
+ 
 # GNU Make 4.2.1
 # Built for x86_64-pc-linux-gnu
 # Copyright (C) 1988-2016 Free Software Foundation, Inc.
@@ -6,7 +8,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Tue Dec 14 08:34:53 2021
+# Make data base, printed on Tue Dec 14 12:28:45 2021
 
 # Variables
 
@@ -133,9 +135,10 @@ LS_COLORS =
 # environment
 ROS_DISTRO = noetic
 # environment
+ 
 SSH_AUTH_SOCK = /run/user/1000/keyring/ssh
 # environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 3266
+GIO_LAUNCHED_DESKTOP_FILE_PID = 29914
 # automatic
 %F = $(notdir $%)
 # environment
@@ -205,7 +208,7 @@ SHLVL = 0
 # environment
 GNOME_SHELL_SESSION_MODE = ubuntu
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-f3bab70c-3731-4345-acef-c4a85d92dc57.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-59e9f972-497e-4d65-b423-3fea61bc55fd.sock
 # default
 MAKE_VERSION := 4.2.1
 # environment
@@ -255,6 +258,7 @@ LC_PAPER = it_IT.UTF-8
 # environment
 LC_IDENTIFICATION = it_IT.UTF-8
 # environment
+ 
 QT_ACCESSIBILITY = 1
 # environment
 DEFAULTS_PATH = /usr/share/gconf/ubuntu.default.path
@@ -299,11 +303,8 @@ LC_ADDRESS = it_IT.UTF-8
 # environment
 LANG = C
 # environment
-VSCODE_PID = 3312
+VSCODE_PID = 29959
 # variable set hash-table stats:
- 
-make: *** No rule to make target 'all'.  Stop.
- 
 # Load=145/1024=14%, Rehash=0, Collisions=25/167=15%
 
 # Pattern-specific Variable Values
@@ -312,9 +313,9 @@ make: *** No rule to make target 'all'.  Stop.
 
 # Directories
 
-# . (device 2066, inode 12453300): 15 files, no impossibilities.
+# . (device 2066, inode 12453300): 13 files, no impossibilities.
 
-# 15 files, no impossibilities in 1 directories.
+# 13 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -364,12 +365,13 @@ GNUmakefile:
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 23 / storage = 244 B / avg = 10 B
-# current buf: size = 8162 B / used = 244 B / count = 23 / avg = 10 B
+# strcache buffers: 1 (0) / strings = 21 / storage = 223 B / avg = 10 B
+# current buf: size = 8162 B / used = 223 B / count = 21 / avg = 10 B
 
-# strcache performance: lookups = 26 / hit rate = 11%
+ 
+# strcache performance: lookups = 24 / hit rate = 12%
 # hash-table stats:
-# Load=23/8192=0%, Rehash=0, Collisions=1/26=4%
-# Finished Make data base on Tue Dec 14 08:34:53 2021
+# Load=21/8192=0%, Rehash=0, Collisions=1/24=4%
+# Finished Make data base on Tue Dec 14 12:28:45 2021
 
  
