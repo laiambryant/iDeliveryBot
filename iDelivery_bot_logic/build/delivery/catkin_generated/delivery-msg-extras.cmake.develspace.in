@@ -1,2 +1,0 @@
-set(delivery_MESSAGE_FILES "/home/liam/Desktop/iDeliveryBot_srv/iDelivery_bot_logic/src/delivery/msg/Cmd.msg;/home/liam/Desktop/iDeliveryBot_srv/iDelivery_bot_logic/src/delivery/msg/Pose.msg;/home/liam/Desktop/iDeliveryBot_srv/iDelivery_bot_logic/src/delivery/msg/Status.msg")
-set(delivery_SERVICE_FILES "/home/liam/Desktop/iDeliveryBot_srv/iDelivery_bot_logic/src/delivery/srv/Call.srv;/home/liam/Desktop/iDeliveryBot_srv/iDelivery_bot_logic/src/delivery/srv/Map.srv")
