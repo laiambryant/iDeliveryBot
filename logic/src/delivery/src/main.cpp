@@ -2,10 +2,14 @@
 #include "srv_monitor_lib/srv_monitor.h"
 
 #include <ros/ros.h>
+#include "callbacks.h"
 
 #include <unistd.h>
 
 using namespace ros;
+
+
+void currentOdomCallback();
 
 int main(int argc, char **argv){
     
@@ -21,8 +25,8 @@ int main(int argc, char **argv){
     pid_t monitor_pid = fork();
     if(monitor_pid<0){ perror("fork");exit(EXIT_FAILURE);}
 
-    //Monitor process
     if (monitor_pid > 0){
+    //Monitor process
         while(ros::ok()){
             login_str = monitor.get_msg();
             msg_type type = parser.get_msg_type(login_str);
@@ -34,12 +38,10 @@ int main(int argc, char **argv){
             login_request.print_metadata(cerr);
             login_request.act();
         }
-
     } else {
     //Ros process
         while(ros::ok()){
 
-            std::cerr << "Running for: "<< count <<std::endl;
             ros::spinOnce();
             loop_rate.sleep();
             count++;
