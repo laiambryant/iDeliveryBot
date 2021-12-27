@@ -1,4 +1,6 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
+make: *** No rule to make target 'all'.  Stop.
+ 
 # GNU Make 4.2.1
 # Built for x86_64-pc-linux-gnu
 # Copyright (C) 1988-2016 Free Software Foundation, Inc.
@@ -6,7 +8,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Wed Dec 15 15:00:54 2021
+# Make data base, printed on Mon Dec 27 11:37:29 2021
 
 # Variables
 
@@ -45,11 +47,11 @@ CURDIR := /home/liam/Desktop/iDeliveryBot_srv
 # makefile
 SHELL = /bin/sh
 # environment
-SNAP_DATA = /var/snap/code/84
+SNAP_DATA = /var/snap/code/85
 # environment
 VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
 # environment
-JOURNAL_STREAM = 8:58954
+JOURNAL_STREAM = 8:61655
 # environment
 XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/etc/xdg
 # environment
@@ -77,11 +79,11 @@ DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus
 # environment
 VSCODE_VERBOSE_LOGGING = true
 # environment
-_ = /snap/code/84/usr/share/code/code
+_ = /snap/code/85/usr/share/code/code
 # environment
 ROS_PACKAGE_PATH = /opt/ros/noetic/share
 # environment
-MANAGERPID = 1301
+MANAGERPID = 1281
 # environment
 ROS_PYTHON_VERSION = 3
 # environment
@@ -91,7 +93,7 @@ LC_NAME = it_IT.UTF-8
 # environment
 VSCODE_CWD = /home/liam
 # environment
-GSETTINGS_SCHEMA_DIR = /snap/code/84/usr/share/glib-2.0/schemas
+GSETTINGS_SCHEMA_DIR = /snap/code/85/usr/share/glib-2.0/schemas
 # default
 MAKE_HOST := x86_64-pc-linux-gnu
 # environment
@@ -107,11 +109,11 @@ XDG_RUNTIME_DIR = /run/user/1000
 # environment
 GDK_PIXBUF_MODULE_FILE = /home/liam/snap/code/common/.cache/gdk-pixbuf-loaders.cache
 # environment
-SNAP = /snap/code/84
+SNAP = /snap/code/85
 # environment
 ROS_ROOT = /opt/ros/noetic/share/ros
 # environment
-SNAP_VERSION = fe719cd3
+SNAP_VERSION = 899d46d8
 # environment
 XDG_MENU_PREFIX = gnome-
 # environment
@@ -121,9 +123,9 @@ DISABLE_WAYLAND = 1
 # environment
 VSCODE_CRASH_REPORTER_START_OPTIONS = {"companyName":"Microsoft","productName":"VSCode","submitURL":"appcenter://code?aid=fba07a4d-84bd-4fc8-a125-9640fc8ce171&uid=405981d7-7171-4b3d-8047-52faa804df52&iid=405981d7-7171-4b3d-8047-52faa804df52&sid=405981d7-7171-4b3d-8047-52faa804df52","uploadToServer":true}
 # environment
-INVOCATION_ID = fd6ffc9c6d95439595d1dde1818cd121
+INVOCATION_ID = d97ff3c8942840f9ac841ee8efba0542
 # environment
-GDK_PIXBUF_MODULEDIR = /snap/code/84/usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders
+GDK_PIXBUF_MODULEDIR = /snap/code/85/usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
 # environment
@@ -135,7 +137,7 @@ ROS_DISTRO = noetic
 # environment
 SSH_AUTH_SOCK = /run/user/1000/keyring/ssh
 # environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 546285
+GIO_LAUNCHED_DESKTOP_FILE_PID = 9959
 # automatic
 %F = $(notdir $%)
 # environment
@@ -149,7 +151,7 @@ PWD = /home/liam/Desktop/iDeliveryBot_srv
 # default
 .LOADED := 
 # environment
-SSH_AGENT_PID = 1540
+SSH_AGENT_PID = 1538
 # environment
 PKG_CONFIG_PATH = /opt/ros/noetic/lib/pkgconfig
 # environment
@@ -167,7 +169,7 @@ LESSCLOSE = /usr/bin/lesspipe %s %s
 # environment
 VSCODE_CLI = 1
 # environment
-VSCODE_CODE_CACHE_PATH = /home/liam/.config/Code/CachedData/fe719cd3e5825bf14e14182fddeb88ee8daf044f
+VSCODE_CODE_CACHE_PATH = /home/liam/.config/Code/CachedData/899d46d82c4c95423fb7e10e68eba52050e30ba3
 # environment
 LOGNAME = liam
 # environment
@@ -199,19 +201,19 @@ MAKECMDGOALS := all
 # environment
 QT_IM_MODULE = ibus
 # environment
-SNAP_USER_DATA = /home/liam/snap/code/84
+SNAP_USER_DATA = /home/liam/snap/code/85
 # environment
 SHLVL = 0
 # environment
 GNOME_SHELL_SESSION_MODE = ubuntu
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-76124ec1-2d2e-4df3-9d0b-add7eab5988a.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-7eb4b483-3833-48c2-9900-9651cad60dff.sock
 # default
 MAKE_VERSION := 4.2.1
 # environment
 USER = liam
 # environment
-SNAP_REVISION = 84
+SNAP_REVISION = 85
 # environment
 LC_MONETARY = it_IT.UTF-8
 # makefile
@@ -231,7 +233,7 @@ MAKE_COMMAND := make
 # automatic
 *F = $(notdir $*)
 # environment
-VSCODE_IPC_HOOK = /run/user/1000/vscode-c7e80fa5-1.63.1-main.sock
+VSCODE_IPC_HOOK = /run/user/1000/vscode-c7e80fa5-1.63.2-main.sock
 # environment
 BAMF_DESKTOP_FILE_HINT = /var/lib/snapd/desktop/applications/code_code.desktop
 # environment
@@ -277,6 +279,7 @@ SNAP_NAME = code
 # environment
 LC_ALL = C
 # environment
+ 
 GJS_DEBUG_TOPICS = JS ERROR;JS LOG
 # automatic
 ^F = $(notdir $^)
@@ -298,11 +301,8 @@ GJS_DEBUG_OUTPUT = stderr
 LC_ADDRESS = it_IT.UTF-8
 # environment
 LANG = C
- 
-make: *** No rule to make target 'all'.  Stop.
- 
 # environment
-VSCODE_PID = 546330
+VSCODE_PID = 10004
 # variable set hash-table stats:
 # Load=145/1024=14%, Rehash=0, Collisions=25/167=15%
 
@@ -312,9 +312,9 @@ VSCODE_PID = 546330
 
 # Directories
 
-# . (device 2066, inode 12453300): 15 files, no impossibilities.
+# . (device 2066, inode 12453300): 13 files, no impossibilities.
 
-# 15 files, no impossibilities in 1 directories.
+# 13 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -364,12 +364,12 @@ GNUmakefile:
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 23 / storage = 254 B / avg = 11 B
-# current buf: size = 8162 B / used = 254 B / count = 23 / avg = 11 B
+# strcache buffers: 1 (0) / strings = 21 / storage = 223 B / avg = 10 B
+# current buf: size = 8162 B / used = 223 B / count = 21 / avg = 10 B
 
-# strcache performance: lookups = 26 / hit rate = 11%
+# strcache performance: lookups = 24 / hit rate = 12%
 # hash-table stats:
-# Load=23/8192=0%, Rehash=0, Collisions=1/26=4%
-# Finished Make data base on Wed Dec 15 15:00:54 2021
+# Load=21/8192=0%, Rehash=0, Collisions=1/24=4%
+# Finished Make data base on Mon Dec 27 11:37:29 2021
 
  

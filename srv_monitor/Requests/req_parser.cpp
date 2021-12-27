@@ -3,8 +3,16 @@
 int req_parser::get_req_no(string req){
     int beginning = req.find_first_of('[')+1;
     int end = req.find_first_of(',');
+    int req_no = 0;
     const string no_str = req.substr(beginning, end-beginning);
-    int req_no = stoi(no_str);
+    try{
+        req_no = stoi(no_str);
+    }catch (const std::invalid_argument & e) {
+            std::cout << e.what() << "\n";
+    }
+    catch (const std::out_of_range & e) {
+            std::cout << e.what() << "\n";
+    }
     return req_no;
 }
 msg_type req_parser::get_msg_type(string req){

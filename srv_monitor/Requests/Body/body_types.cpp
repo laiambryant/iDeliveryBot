@@ -11,7 +11,16 @@ void login_body::parse(){
 void r_id_body::parse(){
     //[0,OBJ_SENT]:{robot_id:666}
     string r_id_field_str = "robot_id:";
-    _robot_id = stoi(_body_str.substr(_body_str.find(r_id_field_str)+r_id_field_str.length(),3));
+    try{
+        _robot_id = stoi(_body_str.substr(_body_str.find(r_id_field_str)+r_id_field_str.length(),3));
+    }
+    catch (const std::invalid_argument & e) {
+        std::cout << e.what() << "\n";
+    }
+    catch (const std::out_of_range & e) {
+        std::cout << e.what() << "\n";
+    }
+
 }
 
 void coord_body::parse(){
@@ -21,5 +30,12 @@ void coord_body::parse(){
     float y = stof(my_substr(_body_str, "y:", ",z"));
     float z = stof(my_substr(_body_str, "z:", "},"));
     _coordinates = {x,y,z};
-    _robot_id = stoi(_body_str.substr(_body_str.find(r_id_field_str)+r_id_field_str.length(),3));
-}
+    try{
+        _robot_id = stoi(_body_str.substr(_body_str.find(r_id_field_str)+r_id_field_str.length(),3));
+    }
+    catch (const std::invalid_argument & e) {
+        std::cout << e.what() << "\n";
+    }
+    catch (const std::out_of_range & e) {
+        std::cout << e.what() << "\n";
+    }}

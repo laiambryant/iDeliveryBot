@@ -8,7 +8,6 @@
 
 using namespace ros;
 
-
 void currentOdomCallback();
 
 int main(int argc, char **argv){

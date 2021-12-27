@@ -17,7 +17,7 @@ void Client::srv_sock_init(int port){
     _srv_sock_addr = sockaddr_in();
     _srv_sock_addr.sin_family = AF_INET;
     _srv_sock_addr.sin_port = htons(port);
-    _srv_sock_addr.sin_addr.s_addr = htonl(INADDR_ANY);
+    _srv_sock_addr.sin_addr.s_addr = inet_addr(LOCALHOST_IP_ADDR);
 }
 
 Client::Client(int port){
@@ -41,7 +41,7 @@ string Client::monitor_read(){
     #elif __APPLE__
     size_recv = recv(_cli_fd, &_in_string[total_size], BUF_SIZE, 0x10000);
     #endif
-    return _in_string;
+    return _in_string;    
 }
 
 int Client::monitor_write(string msg){
