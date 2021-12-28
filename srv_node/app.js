@@ -26,11 +26,15 @@ tcp_server.on("connection", (socket)=>{
 
 //HTTP SERVER
 app.use(express.static(__dirname)); 
+try{
+    http.listen(port, () => {
+        console.log('[Server]:listening on port ' + port); 
+    });
+}catch(error){
+    console.log("Could not Start server, restart server:")
+    console.log(error)
+}
+
 io.sockets.on("connection", (socket)=>{
     Connection_handler(socket, monitor_sock)
 })
-http.listen(port, () => {
-    console.log('[Server]:listening on port ' + port); 
-});
-
-
