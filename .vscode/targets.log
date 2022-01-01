@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Thu Dec 30 13:13:33 2021
+# Make data base, printed on Sat Jan  1 11:57:01 2022
 
 # Variables
 
@@ -49,7 +49,7 @@ SNAP_DATA = /var/snap/code/85
 # environment
 VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
 # environment
-JOURNAL_STREAM = 8:53777
+JOURNAL_STREAM = 8:58965
 # environment
 XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/etc/xdg
 # environment
@@ -81,7 +81,7 @@ _ = /snap/code/85/usr/share/code/code
 # environment
 ROS_PACKAGE_PATH = /opt/ros/noetic/share
 # environment
-MANAGERPID = 1318
+MANAGERPID = 1307
 # environment
 ROS_PYTHON_VERSION = 3
 # environment
@@ -95,13 +95,13 @@ GSETTINGS_SCHEMA_DIR = /snap/code/85/usr/share/glib-2.0/schemas
 # default
 MAKE_HOST := x86_64-pc-linux-gnu
 # environment
-PATH = /home/liam/.local/bin:/opt/ros/noetic/bin:/home/liam/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+PATH = /home/liam/.local/bin:~/Desktop/iDeliveryBot_srv/srrg2_webctl:/opt/ros/noetic/bin:/home/liam/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
 # environment
 XDG_SESSION_DESKTOP = ubuntu
 # environment
 GPG_AGENT_INFO = /run/user/1000/gnupg/S.gpg-agent:0:1
 # environment
-SESSION_MANAGER = local/liam-desktop:@/tmp/.ICE-unix/1599,unix/liam-desktop:/tmp/.ICE-unix/1599
+SESSION_MANAGER = local/liam-desktop:@/tmp/.ICE-unix/1607,unix/liam-desktop:/tmp/.ICE-unix/1607
 # environment
 XDG_RUNTIME_DIR = /run/user/1000
 # environment
@@ -121,7 +121,7 @@ DISABLE_WAYLAND = 1
 # environment
 VSCODE_CRASH_REPORTER_START_OPTIONS = {"companyName":"Microsoft","productName":"VSCode","submitURL":"appcenter://code?aid=fba07a4d-84bd-4fc8-a125-9640fc8ce171&uid=405981d7-7171-4b3d-8047-52faa804df52&iid=405981d7-7171-4b3d-8047-52faa804df52&sid=405981d7-7171-4b3d-8047-52faa804df52","uploadToServer":true}
 # environment
-INVOCATION_ID = 5f42ee85d79842fa95884555fc9eba9d
+INVOCATION_ID = 344932bdaef141969ea1a299a44f4b8b
 # environment
 GDK_PIXBUF_MODULEDIR = /snap/code/85/usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders
 # default
@@ -135,7 +135,7 @@ ROS_DISTRO = noetic
 # environment
 SSH_AUTH_SOCK = /run/user/1000/keyring/ssh
 # environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 44006
+GIO_LAUNCHED_DESKTOP_FILE_PID = 4196
 # automatic
 %F = $(notdir $%)
 # environment
@@ -149,7 +149,7 @@ PWD = /home/liam/Desktop/iDeliveryBot_srv
 # default
 .LOADED := 
 # environment
-SSH_AGENT_PID = 1556
+SSH_AGENT_PID = 1552
 # environment
 PKG_CONFIG_PATH = /opt/ros/noetic/lib/pkgconfig
 # environment
@@ -205,7 +205,7 @@ SHLVL = 0
 # environment
 GNOME_SHELL_SESSION_MODE = ubuntu
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-56e39848-b9f2-4665-8f5e-940b3a53f2eb.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-d219f1ff-dc78-4902-aef6-4626867fbe7d.sock
 # default
 MAKE_VERSION := 4.2.1
 # environment
@@ -277,9 +277,6 @@ SNAP_NAME = code
 # environment
 LC_ALL = C
 # environment
- 
-make: *** No rule to make target 'all'.  Stop.
- 
 GJS_DEBUG_TOPICS = JS ERROR;JS LOG
 # automatic
 ^F = $(notdir $^)
@@ -302,8 +299,11 @@ LC_ADDRESS = it_IT.UTF-8
 # environment
 LANG = C
 # environment
-VSCODE_PID = 44050
+VSCODE_PID = 4239
 # variable set hash-table stats:
+ 
+make: *** No rule to make target 'all'.  Stop.
+ 
 # Load=145/1024=14%, Rehash=0, Collisions=25/167=15%
 
 # Pattern-specific Variable Values
@@ -370,6 +370,6 @@ GNUmakefile:
 # strcache performance: lookups = 21 / hit rate = 14%
 # hash-table stats:
 # Load=18/8192=0%, Rehash=0, Collisions=1/21=5%
-# Finished Make data base on Thu Dec 30 13:13:33 2021
+# Finished Make data base on Sat Jan  1 11:57:01 2022
 
  
