@@ -66,7 +66,7 @@ def compile_webctl():
 def source_orazio():
     print(c.colors.MSG +"Adding to ros env..."+ c.colors.RESET)
     os.chdir("srrg2_labiagi/src/srrg2_navigation_2d/config/")
-    os.spawnvp(mode=os.P_WAIT, file="source", args=["source orazio","setup.bash"])
+    os.spawnvp(mode=os.P_WAIT, file="source", args=["setup.bash"])
     os.chdir("../../../../")
 
 def run_webctl():
