@@ -11,11 +11,14 @@ find_package(catkin REQUIRED COMPONENTS
   std_msgs
   message_generation
   agents_lib
+  tf2
+  tf2_ros
 )
 
 ## Generate messages in the 'msg' folder
 add_message_files(
   FILES
+  NewGoal.msg
 #   Message1.msg
 #   Message2.msg
 )
@@ -36,7 +39,7 @@ generate_messages(
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES delivery
-CATKIN_DEPENDS roscpp rospy std_msgs message_runtime agents_lib
+CATKIN_DEPENDS roscpp rospy std_msgs message_runtime agents_lib tf2 tf2_ros
 #  DEPENDS system_lib
 )
 

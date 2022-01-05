@@ -19,6 +19,7 @@ include_directories(
 add_library(${PROJECT_NAME}
   src/bot.cpp
   src/user.cpp
+  src/agent.cpp
   )
 
 target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES})

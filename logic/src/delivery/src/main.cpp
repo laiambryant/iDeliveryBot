@@ -1,5 +1,4 @@
 #include <ros/ros.h>
-#include <vector>
 #include <agents_lib/bot.h>
 #include <agents_lib/user.h>
 
@@ -27,11 +26,10 @@ int msgs_published = 0;
 //boolean to prevent publishing new goal more than once 
 bool isPub = false;
 
-std::vector<float> target_position(0,0);
-std::vector<float> cur_position(2,0);
-std::vector<float> old_position(2,0);
-std::vector<float> caller_position(3,0);
-std::vector<float> reciever_position(0,0);
+
+
+//bot
+bot robot_1 = bot(0.0, 0.0);
 
 void SetGoal_CallBack(const delivery::NewGoal& new_goal);
 void Position_CallBack(const tf2_msgs::TFMessage & tf);
@@ -90,13 +88,8 @@ void SetGoal_CallBack(const delivery::NewGoal& new_goal){
     new_goal_msg.pose.orientation.y = 0;
     new_goal_msg.pose.orientation.z = 0;
     new_goal_msg.pose.orientation.w = new_goal.theta;
-
-    status = COLLECTING;
     
     isPub = true;
-
-    target_position[0] = new_goal_msg.pose.position.x;
-    target_position[1] = new_goal_msg.pose.position.y;
 
 }
 void Position_CallBack(const tf2_msgs::TFMessage & tf){
