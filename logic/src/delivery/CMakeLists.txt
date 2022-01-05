@@ -10,13 +10,12 @@ find_package(catkin REQUIRED COMPONENTS
   rospy
   std_msgs
   message_generation
-  srv_monitor_lib
+  agents_lib
 )
 
 ## Generate messages in the 'msg' folder
 add_message_files(
   FILES
-  Status.msg
 #   Message1.msg
 #   Message2.msg
 )
@@ -37,7 +36,7 @@ generate_messages(
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES delivery
-CATKIN_DEPENDS roscpp rospy std_msgs message_runtime srv_monitor_lib
+CATKIN_DEPENDS roscpp rospy std_msgs message_runtime agents_lib
 #  DEPENDS system_lib
 )
 

@@ -1,6 +1,5 @@
-
 cmake_minimum_required(VERSION 3.0.2)
-project(srv_monitor_lib)
+project(agents_lib)
 
 find_package(catkin REQUIRED COMPONENTS
   roscpp
@@ -18,12 +17,8 @@ include_directories(
   )
 
 add_library(${PROJECT_NAME}
-  src/body_types.cpp
-  src/Client.cpp
-  src/message_creator.cpp
-  src/req_parser.cpp
-  src/req.cpp
-  src/srv_monitor.cpp
+  src/bot.cpp
+  src/user.cpp
   )
 
 target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES})

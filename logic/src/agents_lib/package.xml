@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <package format="2">
 
-  <name>srv_monitor_lib</name>
+  <name>agents_lib</name>
   <version>0.0.0</version>
-  <description>The srv_monitor_lib package</description>
+  <description>The agents_lib package</description>
   <maintainer email="liambryant@outlook.it">liam bryant</maintainer>
   <license>MIT</license>
 

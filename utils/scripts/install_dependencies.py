@@ -37,7 +37,6 @@ def clone_orazio():
         shutil.rmtree(path="labiagi_2020_21")
     if(os.path.exists("srrg2_labiagi")):
         print(c.colors.WARNING + "Didn't need to clone, dir already exists" + c.colors.RESET)
-   
 
 def compile_orazio():
     print(c.colors.MSG +"Compiling orazio..." + c.colors.RESET)
@@ -74,7 +73,6 @@ def run_webctl():
     os.chdir("srrg2_labiagi/src/srrg2_navigation_2d/config/")
     os.spawnvp(mode=os.P_WAIT, file="./../../../../srrg2_webctl/proc_webctl", args=["start webctl","run_navigation.webctl"])
     
-
 webctl_clone_thread = Thread.myThread(100, "clone_Webctl", 100, clone_webctl)
 orazio_clone_thread = Thread.myThread(200, "clone_orazio", 200, clone_orazio)
 webctl_compile_thread = Thread.myThread(300, "compile_webctl", 300,compile_webctl)
