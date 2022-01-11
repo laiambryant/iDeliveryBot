@@ -26,8 +26,6 @@ int msgs_published = 0;
 //boolean to prevent publishing new goal more than once 
 bool isPub = false;
 
-
-
 //bot
 bot robot_1 = bot(0.0, 0.0);
 

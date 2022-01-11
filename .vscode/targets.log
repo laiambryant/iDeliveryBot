@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Wed Jan  5 21:40:32 2022
+# Make data base, printed on Tue Jan 11 18:54:10 2022
 
 # Variables
 
@@ -51,7 +51,7 @@ SNAP_DATA = /var/snap/code/85
 # environment
 VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
 # environment
-JOURNAL_STREAM = 8:56316
+JOURNAL_STREAM = 8:60102
 # environment
 XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/etc/xdg
 # environment
@@ -83,7 +83,7 @@ _ = /snap/code/85/usr/share/code/code
 # environment
 ROS_PACKAGE_PATH = /opt/ros/noetic/share
 # environment
-MANAGERPID = 1300
+MANAGERPID = 1404
 # environment
 ROS_PYTHON_VERSION = 3
 # environment
@@ -103,7 +103,7 @@ XDG_SESSION_DESKTOP = ubuntu
 # environment
 GPG_AGENT_INFO = /run/user/1000/gnupg/S.gpg-agent:0:1
 # environment
-SESSION_MANAGER = local/liam-desktop:@/tmp/.ICE-unix/1571,unix/liam-desktop:/tmp/.ICE-unix/1571
+SESSION_MANAGER = local/liam-desktop:@/tmp/.ICE-unix/1700,unix/liam-desktop:/tmp/.ICE-unix/1700
 # environment
 XDG_RUNTIME_DIR = /run/user/1000
 # environment
@@ -123,7 +123,7 @@ DISABLE_WAYLAND = 1
 # environment
 VSCODE_CRASH_REPORTER_START_OPTIONS = {"companyName":"Microsoft","productName":"VSCode","submitURL":"appcenter://code?aid=fba07a4d-84bd-4fc8-a125-9640fc8ce171&uid=405981d7-7171-4b3d-8047-52faa804df52&iid=405981d7-7171-4b3d-8047-52faa804df52&sid=405981d7-7171-4b3d-8047-52faa804df52","uploadToServer":true}
 # environment
-INVOCATION_ID = ebbecbb87e4c4dabb20732976b5a6e5b
+INVOCATION_ID = f8edba27a03e4e74885496ebb9b84764
 # environment
 GDK_PIXBUF_MODULEDIR = /snap/code/85/usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders
 # default
@@ -137,7 +137,7 @@ ROS_DISTRO = noetic
 # environment
 SSH_AUTH_SOCK = /run/user/1000/keyring/ssh
 # environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 3091
+GIO_LAUNCHED_DESKTOP_FILE_PID = 118131
 # automatic
 %F = $(notdir $%)
 # environment
@@ -151,7 +151,7 @@ PWD = /home/liam/Desktop/iDeliveryBot_srv
 # default
 .LOADED := 
 # environment
-SSH_AGENT_PID = 1528
+SSH_AGENT_PID = 1635
 # environment
 PKG_CONFIG_PATH = /opt/ros/noetic/lib/pkgconfig
 # environment
@@ -207,7 +207,7 @@ SHLVL = 0
 # environment
 GNOME_SHELL_SESSION_MODE = ubuntu
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-3e197e01-7c2a-4f95-b793-6c20954a8ddc.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-c7b98143-94e7-46bb-a5a1-24d53dec6dfb.sock
 # default
 MAKE_VERSION := 4.2.1
 # environment
@@ -278,9 +278,9 @@ ROS_MASTER_URI = http://localhost:11311
 SNAP_NAME = code
 # environment
 LC_ALL = C
+ 
 # environment
 GJS_DEBUG_TOPICS = JS ERROR;JS LOG
- 
 # automatic
 ^F = $(notdir $^)
 # default
@@ -302,7 +302,7 @@ LC_ADDRESS = it_IT.UTF-8
 # environment
 LANG = C
 # environment
-VSCODE_PID = 3137
+VSCODE_PID = 118176
 # variable set hash-table stats:
 # Load=145/1024=14%, Rehash=0, Collisions=25/167=15%
 
@@ -370,6 +370,6 @@ GNUmakefile:
 # strcache performance: lookups = 22 / hit rate = 13%
 # hash-table stats:
 # Load=19/8192=0%, Rehash=0, Collisions=1/22=5%
-# Finished Make data base on Wed Jan  5 21:40:32 2022
+# Finished Make data base on Tue Jan 11 18:54:10 2022
 
  

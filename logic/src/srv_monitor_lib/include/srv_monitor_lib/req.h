@@ -2,7 +2,7 @@
 #include <fstream>
 #include <memory>
 #include <vector>
-#include <string>
+#include <string> 
 
 #include "req_parser.h"
 #include "body_types.h"
@@ -49,5 +49,6 @@ public:
     void act();
     void print_metadata(ostream &stream);
     generic_body* get_body(){return _req_body_ptr;}
+    msg_type get_type(){return _req_type;}
 };
 

@@ -12,15 +12,15 @@ using coords = vector<float> ;
 
 class bot : public agent{
 private:
-    bot_status status;
-    float x_pos;
-    float y_pos;
-    vector<coords> coords_list;
+    bot_status _status;
+    vector<coords> _coords_list;
+    int _coord_list_size = 0;
 
 public:
-    bot(): status(IDLE), agent(0.0,0.0){};
-    bot(float x, float y): status(IDLE), agent(x,y){};
+    bot(): _status(IDLE), agent(0.0,0.0){};
+    bot(float x, float y): _status(IDLE), agent(x,y){};
     void add_objective(float x, float y);
-    bot_status get_status();
+    bot_status get_status(){return _status;};
     ~bot(){};
 };
+

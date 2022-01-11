@@ -12,12 +12,11 @@ typedef enum user_status{
 
 class user:public agent{
 private:
-    float x_pos;
-    float y_pos;
-
+    user_status _status;
 public:
-    user():agent(0.0,0.0){};
-    user(float x, float y):agent(x,y){};
+    user():agent(0.0,0.0), _status(USER_IDLE){};
+    user(float x, float y):agent(x,y), _status(USER_IDLE){};
+    user_status get_status(){return _status;};
     ~user();
 };
 
