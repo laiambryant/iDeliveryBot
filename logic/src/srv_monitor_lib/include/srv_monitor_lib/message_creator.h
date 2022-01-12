@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <ros/ros.h>
 
 #include "req_parser.h"
 #include "req.h"

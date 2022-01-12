@@ -3,6 +3,7 @@
 #include <vector>
 #include <fstream>
 #include <sstream>
+#include <ros/ros.h>
 
 #include "body_types.h"
 

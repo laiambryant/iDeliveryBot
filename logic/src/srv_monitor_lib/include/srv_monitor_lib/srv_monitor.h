@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <fstream>
+#include <ros/ros.h>
 
 #include "Client.h"
 #include "message_creator.h"

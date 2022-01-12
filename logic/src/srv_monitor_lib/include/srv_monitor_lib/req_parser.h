@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <map>
+#include <ros/ros.h>
 
 #ifndef LOG_PATH
 #define LOG_PATH "products/log_req.txt"
@@ -13,6 +14,7 @@ enum msg_type{
     obj_rcvd, cancel, timeout, invalid
 };
 #endif
+
 
 using namespace std;
 

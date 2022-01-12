@@ -8,11 +8,11 @@
 #include "monitor/req.h"
 #include "std_msgs/String.h"
 
-
 using namespace ros;
 
 void currentOdomCallback();
 void act(req request_);
+req getReq(req_parser &parser, srv_monitor &monitor);
 
 int main(int argc, char **argv){
     
@@ -25,20 +25,12 @@ int main(int argc, char **argv){
     //Create monitor and parser
     req_parser parser;
     srv_monitor monitor = srv_monitor();
-    string login_str;
 
     ros::Publisher requests_pub = n.advertise <std_msgs::String>("req", 1000);
 
     while(ros::ok()){
 
-        login_str = monitor.get_msg();
-        msg_type type = parser.get_msg_type(login_str);
-        string body = parser.get_msg_body(login_str);
-        int req_no = parser.get_req_no(login_str);
-
-        //late binding for body
-        req request = req(req_no, body, type, parser.cvt_msg_type_toString(type));
-        act(request);
+        act(getReq(parser, monitor));
 
         ros::spinOnce();
         loop_rate.sleep();
@@ -50,38 +42,58 @@ int main(int argc, char **argv){
 
 }
 
+req getReq(req_parser &parser, srv_monitor &monitor){
+
+        string login_str = monitor.get_msg();
+        msg_type type = parser.get_msg_type(login_str);
+        string body = parser.get_msg_body(login_str);
+        int req_no = parser.get_req_no(login_str);
+
+        //late binding for body
+        return req(req_no, body, type, parser.cvt_msg_type_toString(type));
+        
+}
+
 void act(req request_){
 
-    monitor::req req_msg;
     std::stringstream ss;
 
     switch (request_.get_type()){
         case login:
             ROS_INFO("Login handler");
+            request_.print_metadata(std::cerr);
             break;
         case call:
             ROS_INFO("Call handler");
+            request_.print_metadata(std::cerr);
             break;            
         case priority_call:
             ROS_INFO("P_Call handler");
+            request_.print_metadata(std::cerr);
             break;
         case arrived:
             ROS_INFO("Arrived handler");
+            request_.print_metadata(std::cerr);
             break;
         case obj_sent:
             ROS_INFO("Obj_sent handler");
+            request_.print_metadata(std::cerr);
             break;
         case obj_rcvd:
             ROS_INFO("Obj_rcvd handler");
+            request_.print_metadata(std::cerr);
             break;
         case cancel:
             ROS_INFO("Cancel handler");
+            request_.print_metadata(std::cerr);
             break;
         case timeout:
             ROS_INFO("Timeout handler");
+            request_.print_metadata(std::cerr);
             break;
         default:
-            ROS_INFO("Default handler");
+            ROS_INFO("Default handler ");
+            request_.print_metadata(std::cerr);
             break;
     }
 }

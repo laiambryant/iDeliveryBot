@@ -5,6 +5,8 @@
 #include <iostream>
 #include <stdio.h>
 #include <strings.h>
+#include <ros/ros.h>
+
 
 #define DEFAULT_PORT 5000
 #define BUF_SIZE 450

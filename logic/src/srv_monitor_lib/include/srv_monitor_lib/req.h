@@ -3,6 +3,7 @@
 #include <memory>
 #include <vector>
 #include <string> 
+#include <ros/ros.h>
 
 #include "req_parser.h"
 #include "body_types.h"
@@ -15,18 +16,9 @@ private:
     generic_body  *_req_body_ptr; //pointer for late binding
     msg_type _req_type;
     string _req_type_str;
-    void login_handler();
-    void obj_sent_handler();
-    void obj_rcv_handler();
-    void cancel_handler();
-    void timeout_handler();
-    void call_handler();
-    void p_call_handler();
-    void arrived_handler();
-    void default_handler();
 
 public:
-    req(int req_no_, string req_body_, msg_type req_type_, string req_type_str_):_req_no(req_no_),_req_type_str(req_type_str_) {       
+    req(int req_no_, string req_body_, msg_type req_type_, string req_type_str_):_req_type(req_type_),_req_no(req_no_),_req_type_str(req_type_str_) {       
         if (req_type_ == obj_sent           || 
             req_type_ ==obj_rcvd            || 
             req_type_ ==cancel              || 
