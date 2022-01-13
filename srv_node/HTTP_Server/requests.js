@@ -18,21 +18,31 @@ function Request(socket, type, data, monitor_socket){
             m_send_msg(data, type, monitor_socket)
             break;
         case "CALL":
+            console.log("Call Request incoming:")
+            m_send_msg(data, type, monitor_socket)
             break;
         case "PRIORITY_CALL":
             break;
         case "ARRIVED":
+            console.log("Arrived Request incoming:")
+            m_send_msg(data, type, monitor_socket)
             break;
         case "OBJ_SENT":
             break;
         case "OBJ_RCV":
+            console.log("Arrived Request incoming:")
+            m_send_msg(data, type, monitor_socket)
             break;
         case "CANCEL":
+            console.log("Cancel Request incoming:")
+            m_send_msg(data, type, monitor_socket)
             break;
         case "TIMEOUT":
+            console.log("Cancel Request incoming:")
+            m_send_msg(data, type, monitor_socket)
             break;
         default:
-            console.log("Invalid Request");
+            console.log("Invalid Request ", type);
             socket.emit("ERROR", "ERRSTRING: There was an error")
             break;
     }
