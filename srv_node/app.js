@@ -1,20 +1,33 @@
+// The almighty express
 const express = require('express');
+
+//Mongodb
+const mongoose = require("mongoose")
+
+// My Modules
 const Connection_handler = require("./HTTP_Server/requests");
 const comm_handler = require("./Monitor/comm_handler")
 
-//TCP SERVER COMMUNICATING WITH MONITOR
+
+// TCP SERVER COMMUNICATING WITH MONITOR
 const net = require("net");
 const tcp_port = 5000 
 
-//HTTP SERVER COMMUNICATING WITH APP
+// HTTP SERVER COMMUNICATING WITH APP
 const app = express(); 
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const port = process.env.PORT || 5050;
-
 var monitor_sock;
 
-//TCP SERVER
+// MongoDB Connection
+mongoose.connect("mongodb://localhost:27017/users").then(()=>{
+    console.log("Connected to MongoDB...")
+}).catch((err)=>{
+    console.log(err)
+})
+
+// TCP SERVER
 tcp_server = net.createServer();
 tcp_server.listen(tcp_port, "127.0.0.1" ,()=>{
     console.log("[Monitor]:Monitor_communication initialized on port: " + tcp_port +"\n")
@@ -24,7 +37,7 @@ tcp_server.on("connection", (socket)=>{
     comm_handler(socket)
 })
 
-//HTTP SERVER
+// HTTP SERVER
 app.use(express.static(__dirname)); 
 try{
     http.listen(port, () => {
