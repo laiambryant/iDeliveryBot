@@ -1,5 +1,10 @@
-const m_rcv_msg = require("../Monitor/m_rcv_msg");
-const m_send_msg = require("../Monitor/m_send_msg");
+const login_handler = require("../HTTP_Handlers/login_handler")
+const arrived_handler = require("../HTTP_Handlers/arrived_handler")
+const call_handler = require("../HTTP_Handlers/call_handler")
+const cancel_handler  = require("../HTTP_Handlers/cancel_handler")
+const obj_rcv_handler  = require("../HTTP_Handlers/obj_rcv_handler")
+const obj_sent_handler  = require("../HTTP_Handlers/obj_sent_handler")
+const timeout_handler  = require("../HTTP_Handlers/timeout_handler")
 
 function Connection_handler(socket, monitor_socket){
     console.log('[Server]:a user connected');
@@ -14,32 +19,28 @@ function Request(socket, type, data, monitor_socket){
     console.log("[Server]:")
     switch (type) {
         case "LOGIN":
-            console.log("Login Request incoming")
-            m_send_msg(data, type, monitor_socket)
+            login_handler(socket, type, data, monitor_socket)
             break;
         case "CALL":
-            console.log("Call Request incoming:")
-            m_send_msg(data, type, monitor_socket)
+            call_handler(socket, type, data, monitor_socket)
             break;
         case "PRIORITY_CALL":
+            call_handler(socket, type, data, monitor_socket)
             break;
         case "ARRIVED":
-            console.log("Arrived Request incoming:")
-            m_send_msg(data, type, monitor_socket)
+            arrived_handler(socket, type, data, monitor_socket)
             break;
         case "OBJ_SENT":
+            obj_sent_handler(socket, type, data, monitor_socket)
             break;
         case "OBJ_RCV":
-            console.log("Arrived Request incoming:")
-            m_send_msg(data, type, monitor_socket)
+            obj_rcv_handler(socket, type, data, monitor_socket)
             break;
         case "CANCEL":
-            console.log("Cancel Request incoming:")
-            m_send_msg(data, type, monitor_socket)
+            cancel_handler(socket, type, data, monitor_socket)
             break;
         case "TIMEOUT":
-            console.log("Cancel Request incoming:")
-            m_send_msg(data, type, monitor_socket)
+            timeout_handler(socket, type, data, monitor_socket)
             break;
         default:
             console.log("Invalid Request ", type);
