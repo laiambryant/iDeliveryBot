@@ -6,7 +6,8 @@ const userSchema = new schema({
     username:String,
     password:String,
     x_pos:Number,
-    y_pos:Number
+    y_pos:Number,
+    logged_in:Boolean
 })
 
 const User = mongoose.model("user", userSchema)
