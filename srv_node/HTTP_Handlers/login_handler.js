@@ -3,7 +3,7 @@ const user = require("../schemas/user")
 const assert = require("assert")
 
 module.exports = function login_handler(socket, type, data, monitor_socket){
-    console.log("Login Request incoming")
+    console.log('\x1b[36m%s\x1b[0m',"Login Request incoming")
     var json_data = JSON.parse(data)
     var monitor_data = data.replaceAll("\"", "")
     
@@ -13,8 +13,12 @@ module.exports = function login_handler(socket, type, data, monitor_socket){
             if(json_data.password == res.password){
                 user.updateOne({username:json_data.username}, {logged_in:true})
                 socket.emit("LOGIN_SUCCESS", res.username, res.x_pos, res.y_pos)
+                user.find({}).then(function(res){
+                    socket.emit("USERS", res)
+                })
+
             } else {
-                console.log("Incorrect Pw")
+                console.log('\x1b[31m%s\x1b[0m',"Incorrect Pw")
                 socket.emit("LOGIN_FAILURE", "Incorrect Password")
             }
         }catch(err){
@@ -25,9 +29,7 @@ module.exports = function login_handler(socket, type, data, monitor_socket){
 }
 
 /* 
- user.find({}).then(function(res){
-                for (let i = 0; i < res.length; i++) {
-                    res[i].username
-                }
-            })
+                socket.emit("USERS", )
+
+
 */
