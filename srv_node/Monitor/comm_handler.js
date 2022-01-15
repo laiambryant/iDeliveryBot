@@ -6,7 +6,7 @@ module.exports = function comm_handler(socket){
         
     })
     socket.on("error",(error)=>{
-        console.log(error)
+        console.log('\x1b[31m%s\x1b[0m',error)
     })
 }
 

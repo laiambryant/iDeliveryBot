@@ -5,7 +5,7 @@ module.exports = function m_send_msg(msg, type, socket, callback){
     try {      
         socket.write(ret)
     } catch (error) {
-        console.log(error)
+        console.log('\x1b[31m%s\x1b[0m',error)
     }
     msg_counter+=1
 }

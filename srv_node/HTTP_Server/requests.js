@@ -7,16 +7,16 @@ const obj_sent_handler  = require("../HTTP_Handlers/obj_sent_handler")
 const timeout_handler  = require("../HTTP_Handlers/timeout_handler")
 
 function Connection_handler(socket, monitor_socket){
-    console.log('[Server]:a user connected');
+    console.log('\x1b[36m%s\x1b[0m','[Server]:a user connected');
     socket.on('disconnect', onDisconnection);
     socket.onAny((type, data)=>{
         Request(socket, type, data, monitor_socket)  
-        console.log("[Server]:"+ data)  
+        console.log('\x1b[36m%s\x1b[0m',"[Server]:"+ data)  
     })
 }
 
 function Request(socket, type, data, monitor_socket){
-    console.log("[Server]:")
+    console.log('\x1b[36m%s\x1b[0m',"[Server]:")
     switch (type) {
         case "LOGIN":
             login_handler(socket, type, data, monitor_socket)
@@ -43,14 +43,14 @@ function Request(socket, type, data, monitor_socket){
             timeout_handler(socket, type, data, monitor_socket)
             break;
         default:
-            console.log("Invalid Request ", type);
+            console.log('\x1b[31m%s\x1b[0m',"Invalid Request ", type);
             socket.emit("ERROR", "ERRSTRING: There was an error")
             break;
     }
 }
 
 function onDisconnection(){
-    console.log('a user disconnected');
+    console.log('\x1b[36m%s\x1b[0m','a user disconnected');
 }
 
 module.exports = Connection_handler
