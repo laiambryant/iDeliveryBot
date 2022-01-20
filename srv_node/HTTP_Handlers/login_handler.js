@@ -27,9 +27,3 @@ module.exports = function login_handler(socket, type, data, monitor_socket){
     })
     m_send_msg(monitor_data, type, monitor_socket)
 }
-
-/* 
-                socket.emit("USERS", )
-
-
-*/

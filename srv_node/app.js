@@ -7,6 +7,7 @@ const mongoose = require("mongoose")
 // My Modules
 const Connection_handler = require("./HTTP_Server/requests");
 const comm_handler = require("./Monitor/comm_handler")
+const robo_pos_periodic_update = require("./HTTP_Handlers/robo_pos_periodic_update")
 
 // TCP SERVER COMMUNICATING WITH MONITOR
 const net = require("net");
@@ -18,6 +19,9 @@ const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const port = process.env.PORT || 5050;
 var monitor_sock;
+
+//T to fetch position of bot
+const T = 6000 //ms
 
 // MongoDB Connection
 mongoose.connect("mongodb://localhost:27017/users").then(()=>{
@@ -48,24 +52,6 @@ try{
 
 io.sockets.on("connection", (socket)=>{
     Connection_handler(socket, monitor_sock)
+    robo_pos_periodic_update(io,T)
 })
 
-/*
-// red
-console.log('\x1b[31m%s\x1b[0m', 'I am red')
-
-// green
-console.log('\x1b[32m%s\x1b[0m', 'I am green')
-
-// yellow
-console.log('\x1b[33m%s\x1b[0m', 'I am yellow')
-
-// blue
-console.log('\x1b[34m%s\x1b[0m', 'I am blue')
-
-// magenta
-console.log('\x1b[35m%s\x1b[0m', 'I am magenta')
-
-// cyan
-console.log('\x1b[36m%s\x1b[0m', 'I am cyan')
-*/

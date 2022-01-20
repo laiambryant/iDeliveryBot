@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "test": "nodemon app.js",
-    "mocha_test": "mocha"
+    "create_users": "mocha test/create_users.js",
+    "create_bots": "mocha test/create_bots.js"
   },
   "repository": {
     "type": "git",

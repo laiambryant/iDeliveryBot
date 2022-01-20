@@ -5,6 +5,7 @@ module.exports = function comm_handler(socket){
         console.log("[Monitor]:%s", data)
         
     })
+    
     socket.on("error",(error)=>{
         console.log('\x1b[31m%s\x1b[0m',error)
     })

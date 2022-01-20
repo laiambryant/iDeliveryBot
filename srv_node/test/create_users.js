@@ -1,6 +1,7 @@
 var user = require("../schemas/user")
 const mocha = require("mocha")
 const mongoose = require("mongoose")
+
 describe("User creation",function(){
     it("Creates three users in mongoDB",function(done){
         mongoose.connect("mongodb://localhost:27017/users").then(function(){
