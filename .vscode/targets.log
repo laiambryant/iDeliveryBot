@@ -1,6 +1,4 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
-make: *** No rule to make target 'all'.  Stop.
- 
 # GNU Make 4.2.1
 # Built for x86_64-pc-linux-gnu
 # Copyright (C) 1988-2016 Free Software Foundation, Inc.
@@ -8,7 +6,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Thu Jan 13 13:05:47 2022
+# Make data base, printed on Fri Jan 21 13:45:01 2022
 
 # Variables
 
@@ -51,7 +49,7 @@ SNAP_DATA = /var/snap/code/85
 # environment
 VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
 # environment
-JOURNAL_STREAM = 8:56082
+JOURNAL_STREAM = 8:58955
 # environment
 XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/etc/xdg
 # environment
@@ -83,7 +81,7 @@ _ = /snap/code/85/usr/share/code/code
 # environment
 ROS_PACKAGE_PATH = /opt/ros/noetic/share
 # environment
-MANAGERPID = 1277
+MANAGERPID = 1354
 # environment
 ROS_PYTHON_VERSION = 3
 # environment
@@ -103,7 +101,7 @@ XDG_SESSION_DESKTOP = ubuntu
 # environment
 GPG_AGENT_INFO = /run/user/1000/gnupg/S.gpg-agent:0:1
 # environment
-SESSION_MANAGER = local/liam-desktop:@/tmp/.ICE-unix/1554,unix/liam-desktop:/tmp/.ICE-unix/1554
+SESSION_MANAGER = local/liam-desktop:@/tmp/.ICE-unix/1628,unix/liam-desktop:/tmp/.ICE-unix/1628
 # environment
 XDG_RUNTIME_DIR = /run/user/1000
 # environment
@@ -123,7 +121,7 @@ DISABLE_WAYLAND = 1
 # environment
 VSCODE_CRASH_REPORTER_START_OPTIONS = {"companyName":"Microsoft","productName":"VSCode","submitURL":"appcenter://code?aid=fba07a4d-84bd-4fc8-a125-9640fc8ce171&uid=405981d7-7171-4b3d-8047-52faa804df52&iid=405981d7-7171-4b3d-8047-52faa804df52&sid=405981d7-7171-4b3d-8047-52faa804df52","uploadToServer":true}
 # environment
-INVOCATION_ID = 2bcc6344508c4a8586bc02a1027c023c
+INVOCATION_ID = 2039794a967e4ea48db20bf030685471
 # environment
 GDK_PIXBUF_MODULEDIR = /snap/code/85/usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders
 # default
@@ -137,7 +135,7 @@ ROS_DISTRO = noetic
 # environment
 SSH_AUTH_SOCK = /run/user/1000/keyring/ssh
 # environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 3734
+GIO_LAUNCHED_DESKTOP_FILE_PID = 75076
 # automatic
 %F = $(notdir $%)
 # environment
@@ -151,7 +149,7 @@ PWD = /home/liam/Desktop/iDeliveryBot_srv
 # default
 .LOADED := 
 # environment
-SSH_AGENT_PID = 1505
+SSH_AGENT_PID = 1580
 # environment
 PKG_CONFIG_PATH = /opt/ros/noetic/lib/pkgconfig
 # environment
@@ -207,7 +205,7 @@ SHLVL = 0
 # environment
 GNOME_SHELL_SESSION_MODE = ubuntu
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-20ea5428-6d61-4d27-a621-610034091cd5.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-88a61fa4-dfea-4047-983c-f4c198f6dbba.sock
 # default
 MAKE_VERSION := 4.2.1
 # environment
@@ -278,7 +276,6 @@ ROS_MASTER_URI = http://localhost:11311
 SNAP_NAME = code
 # environment
 LC_ALL = C
- 
 # environment
 GJS_DEBUG_TOPICS = JS ERROR;JS LOG
 # automatic
@@ -294,6 +291,9 @@ WINDOWPATH = 2
 # default
 .INCLUDE_DIRS = /usr/include /usr/local/include /usr/include
 # environment
+ 
+make: *** No rule to make target 'all'.  Stop.
+ 
 GJS_DEBUG_OUTPUT = stderr
 # default
 .RECIPEPREFIX := 
@@ -302,7 +302,7 @@ LC_ADDRESS = it_IT.UTF-8
 # environment
 LANG = C
 # environment
-VSCODE_PID = 3781
+VSCODE_PID = 75120
 # variable set hash-table stats:
 # Load=145/1024=14%, Rehash=0, Collisions=25/167=15%
 
@@ -312,9 +312,9 @@ VSCODE_PID = 3781
 
 # Directories
 
-# . (device 2066, inode 12453300): 9 files, no impossibilities.
+# . (device 2066, inode 12453300): 11 files, no impossibilities.
 
-# 9 files, no impossibilities in 1 directories.
+# 11 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -364,12 +364,12 @@ GNUmakefile:
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 17 / storage = 142 B / avg = 8 B
-# current buf: size = 8162 B / used = 142 B / count = 17 / avg = 8 B
+# strcache buffers: 1 (0) / strings = 19 / storage = 169 B / avg = 8 B
+# current buf: size = 8162 B / used = 169 B / count = 19 / avg = 8 B
 
-# strcache performance: lookups = 20 / hit rate = 15%
+# strcache performance: lookups = 22 / hit rate = 13%
 # hash-table stats:
-# Load=17/8192=0%, Rehash=0, Collisions=1/20=5%
-# Finished Make data base on Thu Jan 13 13:05:47 2022
+# Load=19/8192=0%, Rehash=0, Collisions=1/22=5%
+# Finished Make data base on Fri Jan 21 13:45:01 2022
 
  

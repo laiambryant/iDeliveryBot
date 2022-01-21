@@ -7,3 +7,4 @@ void bot::add_objective(float x, float y){
     _coords_list[_coord_list_size] = tmp;
     _coord_list_size++;
 }
+

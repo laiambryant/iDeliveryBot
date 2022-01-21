@@ -33,13 +33,14 @@ add_service_files(
 ## Generate added messages and services with any dependencies listed here
 generate_messages(
   DEPENDENCIES
+  geometry_msgs
   std_msgs
 )
 
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES delivery
-CATKIN_DEPENDS roscpp rospy std_msgs message_runtime agents_lib tf2 tf2_ros
+CATKIN_DEPENDS roscpp rospy  geometry_msgs std_msgs message_runtime agents_lib tf2 tf2_ros
 #  DEPENDS system_lib
 )
 

@@ -10,7 +10,8 @@
                 "/usr/include/**",
                 "${workspaceFolder}/logic/src/srv_monitor_lib/include"
             ],
-            "name": "ROS"
+            "name": "ROS",
+            "configurationProvider": "ms-vscode.makefile-tools"
         }
     ],
     "version": 4

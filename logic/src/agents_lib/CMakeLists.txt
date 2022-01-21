@@ -20,6 +20,7 @@ add_library(${PROJECT_NAME}
   src/bot.cpp
   src/user.cpp
   src/agent.cpp
+  src/utils.cpp
   )
 
 target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES})
