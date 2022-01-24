@@ -22,46 +22,50 @@
 using namespace ros;
 using coords = vector<float>;
 
-//Global vars
+//Global vars------------------------------------------------------------------------------------------------
+
 geometry_msgs::PoseStamped new_goal_msg;
 tf2_ros::Buffer tf_buffer;
 int msgs_published = 0;
-
-//boolean to prevent publishing new goal more than once 
-bool isPub = false;
-
-//bot
+bool isPub = false; //boolean to prevent publishing new goal more than once 
 bot robot_1 = bot();
+
+//Subscriber Callbacks---------------------------------------------------------------------------------------
 
 void SetGoal_CallBack(const delivery::NewGoal& new_goal);
 void Position_CallBack(const tf2_msgs::TFMessage & tf);
+
+//Timer Callbacks--------------------------------------------------------------------------------------------
+
 void isMoving_CallBack(const ros::TimerEvent& e);
 void timeOut_CallBack(const ros::TimerEvent& e);
 
 int main(int argc, char **argv){
     
     ros::init(argc,argv,"delivery");
-
-    ROS_INFO("Delivery node starting...");
-
     ros::NodeHandle n; 
+    ROS_INFO("Delivery node starting...");
+    tf2_ros::TransformListener tfListener(tf_buffer);
+    ros::Rate loop_rate(T);
+    int count = 0;
+
+//Publishers-------------------------------------------------------------------------------------------------
+
     ros::Publisher pub = n.advertise<geometry_msgs::PoseStamped>("/move_base_simple/goal", 1000);
 
-    tf2_ros::TransformListener tfListener(tf_buffer);
+//Subscribers------------------------------------------------------------------------------------------------
 
     ros::Subscriber sub_ng = n.subscribe("New_Goal", 1000, SetGoal_CallBack);
     ros::Subscriber sub_tf = n.subscribe("tf", 1000, Position_CallBack);
 
-    ros::Timer t2 = n.createTimer(ros::Duration(50), timeOut_CallBack);
-    ros::Timer t1 = n.createTimer(ros::Duration(50), isMoving_CallBack);
+//Timers-----------------------------------------------------------------------------------------------------
 
-    ros::Rate loop_rate(T);
-    int count = 0;
+    ros::Timer t2 = n.createTimer(ros::Duration(1), timeOut_CallBack);
+    ros::Timer t1 = n.createTimer(ros::Duration(100), isMoving_CallBack);
 
     while(ros::ok()){
 
-        //Add a list containing logged in users, when the first user logs in
-        //go from status.IDLE to status.waiting
+        //Add a list containing logged in users, when the first user logs in go from status.IDLE to status.waiting
 
         if(isPub){
             ROS_INFO("Publishing new Goal");
@@ -85,9 +89,9 @@ void SetGoal_CallBack(const delivery::NewGoal& new_goal){
     new_goal_msg.header.seq = msgs_published;
     msgs_published++;
 
-    ROS_INFO_STREAM("Recieved new goal:{x:" 
-        << new_goal_msg.pose.position.x << ", y:"
-        << new_goal_msg.pose.position.y << std::endl);
+    ROS_INFO_STREAM("Recieved new goal:{x: " 
+        << new_goal.x << ", y: "
+        << new_goal.y << std::endl);
 
     new_goal_msg.header.stamp = ros::Time::now();
     new_goal_msg.header.frame_id = "map";
@@ -99,11 +103,11 @@ void SetGoal_CallBack(const delivery::NewGoal& new_goal){
     new_goal_msg.pose.orientation.y = 0;
     new_goal_msg.pose.orientation.z = 0;
     new_goal_msg.pose.orientation.w = new_goal.theta;
-    
+
     isPub = true;
     robot_1.set_status(COLLECTING);
     robot_1.add_objective(new_goal_msg.pose.position.x, new_goal_msg.pose.position.y);
-
+    robot_1.set_curr_obj(new_goal.x, new_goal.y);
 
 }
 void Position_CallBack(const tf2_msgs::TFMessage & tf){
@@ -111,6 +115,11 @@ void Position_CallBack(const tf2_msgs::TFMessage & tf){
    if(can_transf){
        geometry_msgs::TransformStamped tr_stamped;
        tr_stamped = tf_buffer.lookupTransform("map", "base_link", ros::Time(0));
+
+        //ROS_INFO_STREAM("Position x:" << tr_stamped.transform.translation.x);
+        //ROS_INFO_STREAM("Position y:" << tr_stamped.transform.translation.y);
+        //ROS_INFO_STREAM("Orientation w:" << tr_stamped.transform.rotation.w);
+
        robot_1.set_old_pos(robot_1.get_pos());
        robot_1.update_pos(tr_stamped.transform.translation.x, tr_stamped.transform.translation.y);
    }
@@ -128,7 +137,7 @@ void isMoving_CallBack(const ros::TimerEvent& e){
             ROS_INFO_STREAM("Robot is stuck at x:" << curr_pos[0] << " , y:" << curr_pos[1]);
         }
         float inv_dst_from_goal = Id_SW_SqrtLinear((pow(curr_pos[0]-target_pos[0],2)+pow(curr_pos[1]-target_pos[1],2)));
-        if(inv_dst_from_goal > 0.666){
+        if(inv_dst_from_goal < 0.666){
             ROS_INFO_STREAM("Robot arrived at x:" << curr_pos[0] << " , y:" << curr_pos[1]);
             if(s==COLLECTING){
                 robot_1.set_status(WAITING);

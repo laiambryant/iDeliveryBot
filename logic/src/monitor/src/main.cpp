@@ -26,6 +26,8 @@ int main(int argc, char **argv){
     req_parser parser;
     srv_monitor monitor = srv_monitor();
 
+    //publish on newgoal topic
+
     ros::Publisher requests_pub = n.advertise <std_msgs::String>("req", 1000);
 
     while(ros::ok()){

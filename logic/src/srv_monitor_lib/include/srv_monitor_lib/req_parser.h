@@ -26,6 +26,9 @@ private:
         "LOGIN","CALL","PRIORITY_CALL","ARRIVED",
         "OBJ_SENT","OBJ_RCV","CANCEL","TIMEOUT", "INVALID"
     };
+    
+    //FUNCS--------------------------------------------------------------------------------------------------
+
     void _msg_map_init(){   
         s_mapMsgType["LOGIN"] = login;
         s_mapMsgType["CALL"] = call;
@@ -40,11 +43,19 @@ private:
 
     
 public:
+//CTORS--------------------------------------------------------------------------------------------------
+
     req_parser(){_msg_map_init();}
     ~req_parser(){}
+
+//GETTERS------------------------------------------------------------------------------------------------
+
     int get_req_no(string req);
     msg_type get_msg_type(string req);
     string get_msg_body(string req);
+
+//FUNCS--------------------------------------------------------------------------------------------------
+
     string cvt_msg_type_toString(msg_type type);
     msg_type cvt_string_toMsgType(string type_string);
 };

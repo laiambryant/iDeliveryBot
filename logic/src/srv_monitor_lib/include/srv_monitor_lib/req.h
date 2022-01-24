@@ -18,6 +18,8 @@ private:
     string _req_type_str;
 
 public:
+//CTORS--------------------------------------------------------------------------------------------------
+
     req(int req_no_, string req_body_, msg_type req_type_, string req_type_str_):_req_type(req_type_),_req_no(req_no_),_req_type_str(req_type_str_) {       
         if (req_type_ == obj_sent           || 
             req_type_ ==obj_rcvd            || 
@@ -38,9 +40,17 @@ public:
     ~req(){
         free(_req_body_ptr);
     }
+
+//FUNCS--------------------------------------------------------------------------------------------------
+
     void act();
+    //Prints metadata on stream
     void print_metadata(ostream &stream);
+    
+//GETTERS------------------------------------------------------------------------------------------------
+
     generic_body* get_body(){return _req_body_ptr;}
     msg_type get_type(){return _req_type;}
+
 };
 

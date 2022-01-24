@@ -23,13 +23,26 @@ private:
     Client _srv_comm;
     string msg_buf_;
     message_creator msg_factory;
+
+//FUNCS--------------------------------------------------------------------------------------------------
+
     void clear_msg_buff();
      
 public:
+//CTORS--------------------------------------------------------------------------------------------------
+
+    //Default ctor
     srv_monitor();
+    //Copy ctor
     srv_monitor(const srv_monitor &other);
-    void send_msg(string msg, msg_type type); //bool write_to_sock(char* msg); 
+
     string get_msg();  //gets last msg from input_stream
+
+//FUNCS--------------------------------------------------------------------------------------------------
+
+    //Sends message on socket
+    void send_msg(string msg, msg_type type); 
+    //Prints metadata on stream
     void monitor_metadata(ostream &stream);
 
 };

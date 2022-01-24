@@ -19,13 +19,27 @@ class Client{
 private:
     int _cli_fd;
     sockaddr_in _srv_sock_addr;
+
+//FUNCS--------------------------------------------------------------------------------------------------
+
+    //Initializes serversocket
     void srv_sock_init(int port);
 
 public:
+//CTORS--------------------------------------------------------------------------------------------------
+
+    //Default ctor
     Client();
+    //Ctor to bind client to specific port
     Client(int port);
     ~Client();
+
+//FUNCS--------------------------------------------------------------------------------------------------
+
+    //Reads from monitor
     string monitor_read();
+
+    //Writes message on monitor
     int monitor_write(string msg);
 
 };

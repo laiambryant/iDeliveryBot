@@ -15,6 +15,8 @@ static string my_substr(string original, string start, string end){
     return original.substr(start_idx, end_idx-start_idx);
 }
 
+//Not used-----------------------------------------------------------------------------------
+
 //Checks if user data is correct, returns "desk" position <x:float, y:float, z:float>
 static array<float,3> csv_login(string username, string password){
     ifstream pw_csv; pw_csv.open("users.csv", ios::in);
