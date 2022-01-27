@@ -23,6 +23,7 @@ private:
     Client _srv_comm;
     string msg_buf_;
     message_creator msg_factory;
+    bool _r_OR_w; //bool to check if someone is reading on or writing from monitor
 
 //FUNCS--------------------------------------------------------------------------------------------------
 
@@ -37,6 +38,7 @@ public:
     srv_monitor(const srv_monitor &other);
 
     string get_msg();  //gets last msg from input_stream
+    bool is_r_OR_w(){return _r_OR_w;};
 
 //FUNCS--------------------------------------------------------------------------------------------------
 

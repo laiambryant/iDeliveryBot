@@ -10,6 +10,8 @@ Client::Client(){
     if(connect(_cli_fd, (const struct sockaddr*)&_srv_sock_addr, (sizeof(_srv_sock_addr)))<0){
         perror("Connect");
         exit(-1);
+    } else {
+        cerr << "Connected to server" << endl;
     }
 }
 
@@ -23,7 +25,7 @@ void Client::srv_sock_init(int port){
 Client::Client(int port){
     _cli_fd = socket(AF_INET, SOCK_STREAM, 0);
     srv_sock_init(port);
-    connect(_cli_fd, (const struct sockaddr*)&_srv_sock_addr, (sizeof(_srv_sock_addr)));
+    int res = connect(_cli_fd, (const struct sockaddr*)&_srv_sock_addr, (sizeof(_srv_sock_addr)));
 }
 
 Client::~Client(){

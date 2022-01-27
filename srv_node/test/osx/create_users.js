@@ -1,4 +1,4 @@
-var user = require("../schemas/user")
+var user = require("../../schemas/user")
 const mocha = require("mocha")
 const mongoose = require("mongoose")
 

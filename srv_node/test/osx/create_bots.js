@@ -1,4 +1,4 @@
-var Bot = require("../schemas/bot")
+var Bot = require("../../schemas/bot")
 const mocha = require("mocha")
 const mongoose = require("mongoose")
 

@@ -60,7 +60,7 @@ int main(int argc, char **argv){
 
 //Timers-----------------------------------------------------------------------------------------------------
 
-    ros::Timer t2 = n.createTimer(ros::Duration(1), timeOut_CallBack);
+    ros::Timer t2 = n.createTimer(ros::Duration(100), timeOut_CallBack);
     ros::Timer t1 = n.createTimer(ros::Duration(100), isMoving_CallBack);
 
     while(ros::ok()){

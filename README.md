@@ -34,3 +34,4 @@ This script will run npm install to install dependencies and then run the node j
 | srrg2_orazio | gitlab |  https://gitlab.com/srrg-software/srrg2_orazio 
 | srrg2_webctl | gitlab |  https://gitlab.com/srrg-software/srrg2_webctl  |
 srrg2_webctl (ubuntu 20.04) | gitlab | https://gitlab.com/srrg-software/srrg2_webctl --branch=test_20.04 
+|js func| thewebdev.info | https://thewebdev.info/2021/08/13/how-to-fix-the-javascript-replaceall-is-not-a-function-error/

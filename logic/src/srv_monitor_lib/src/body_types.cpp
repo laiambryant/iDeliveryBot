@@ -2,10 +2,14 @@
 void generic_body::parse(){}
 
 void login_body::parse(){
-    //[0,LOGIN]:User:{username:aUsername,password:aPassword}
+    //[0,LOGIN]:User:{username:aUsername,password:aPassword, x_pos:0.0, y_pos:2.3}
     string u_field_str = "username:"; string p_field_str = "password:";
+    string x_pos_str = "x_pos:"; string y_pos_str = "y_pos:";
     _username = my_substr(_body_str , u_field_str, ",");
-    _password = my_substr(_body_str, p_field_str, "}");
+    _password = my_substr(_body_str, p_field_str, ",x");
+    float _x = stof(my_substr(_body_str, x_pos_str, ",y"));
+    float _y = stof(my_substr(_body_str, y_pos_str, "}"));
+    this->set_coords(_x, _y, 0.0);
 }
 
 void r_id_body::parse(){

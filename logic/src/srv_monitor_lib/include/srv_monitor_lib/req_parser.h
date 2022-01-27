@@ -11,7 +11,7 @@
 #define MSG_TYPE
 enum msg_type{
     login, call, priority_call, arrived, obj_sent,
-    obj_rcvd, cancel, timeout, invalid
+    obj_rcvd, cancel, timeout, invalid, robo_pos
 };
 #endif
 
@@ -22,9 +22,9 @@ class req_parser{
 
 private:
     map<string, msg_type> s_mapMsgType;
-    string _msg_type_string[9] = {
+    string _msg_type_string[10] = {
         "LOGIN","CALL","PRIORITY_CALL","ARRIVED",
-        "OBJ_SENT","OBJ_RCV","CANCEL","TIMEOUT", "INVALID"
+        "OBJ_SENT","OBJ_RCV","CANCEL","TIMEOUT", "INVALID", "ROBO_POS"
     };
     
     //FUNCS--------------------------------------------------------------------------------------------------
@@ -39,6 +39,7 @@ private:
         s_mapMsgType["CANCEL"] = cancel;
         s_mapMsgType["TIMEOUT"] = timeout;
         s_mapMsgType["INVALID"] = invalid;
+        s_mapMsgType["ROBO_POS"] = robo_pos;
     }
 
     

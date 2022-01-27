@@ -39,6 +39,8 @@ msg_type req_parser::cvt_string_toMsgType(const string type_string){
             return cancel;
         case timeout:
             return timeout;
+        case robo_pos:
+            return robo_pos;
         default:
             return invalid;
     }

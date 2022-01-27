@@ -86,17 +86,25 @@ public:
 //GETTERS------------------------------------------------------------------------------------------------
 
     coordinates_3D get_coords() override {return _coordinates;}
+
+//SETTERS------------------------------------------------------------------------------------------------
+
+    void set_coords(float x, float y, float z){
+        _coordinates[0]=x;_coordinates[1]=y;_coordinates[2]=z; 
+    }
+
 };
 
 class login_body:public generic_body{
 private:
     string _username;
     string _password;
+    coordinates_3D _coordinates; // [x, y, z]
 
 public:
 //CTORS--------------------------------------------------------------------------------------------------
 
-    login_body(string body_str_):generic_body(body_str_), _username(""), _password(""){parse();};
+    login_body(string body_str_):generic_body(body_str_), _username(""), _password(""),_coordinates({0.0,0.0,0.0}){parse();}
     
 //FUNCS--------------------------------------------------------------------------------------------------
     
@@ -108,12 +116,20 @@ public:
         stream << _body_str << endl;
         stream << "Username:\t" << _username << endl;
         stream << "Password:\t" << _password << endl;
+        stream << "X:\t\t" << _coordinates[0]<<endl;
+        stream << "Y:\t\t" << _coordinates[1] <<endl;
+        stream << "Z:\t\t" << _coordinates[2] <<endl;
     }
     
 //GETTERS------------------------------------------------------------------------------------------------
 
     string get_username() override {return _username;}
     string get_password() override {return _password;}
+    coordinates_3D get_coords() override {return _coordinates;}
+    
+//SETTERS------------------------------------------------------------------------------------------------
+
+    void set_coords(float x, float y, float z){_coordinates[0]=x;_coordinates[1]=y;_coordinates[2]=z; }
 };
 
 
