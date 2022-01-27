@@ -6,9 +6,9 @@ module.exports = function robo_pos_periodic_update(io, T_period){
         //fetch position from DB (That will rcv updates from monitor)
         bot.find({}).then(function(res){
             //send position to all clients connected to socket
+            console.log(res)
             io.emit("ROBO_POS", res)
         });
         
     }, T_period)   
 }
-
