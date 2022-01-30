@@ -1,9 +1,10 @@
+var robo_pos_handler = require("./robo_pos_handler")
+
 module.exports = function comm_handler(socket){
     socket.setEncoding("utf-8")
     console.log("[Node]Connected to monitor")
-    socket.on("data", (data)=>{
-        console.log("[Monitor]:%s", data)
-        
+    socket.on("data", (data)=>{        
+        robo_pos_handler(data)
     })
     
     socket.on("error",(error)=>{
@@ -11,3 +12,4 @@ module.exports = function comm_handler(socket){
     })
 }
 
+//[5,ROBO_POS]:[0]:{x_pos:49.442328,y_pos:11.765573}
