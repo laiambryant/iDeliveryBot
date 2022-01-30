@@ -1,3 +1,7 @@
+/*
+    Logs in at least one user. Once one user is logged in, the call function
+*/
+
 #include "srv_monitor_lib/srv_monitor.h"
 #include "srv_monitor_lib/message_creator.h"
 
@@ -61,9 +65,12 @@ int main(int argc, char **argv){
     while(ros::ok()){  
     
         ROS_INFO("Fetching request...");
-    
-        act(getReq(parser,mtr));    
-    
+
+
+        if(logged_in_users < 2){
+            act(getReq(parser,mtr));    
+        }
+        
         ROS_INFO("Recieved msg from clients...");
 
         ros::spinOnce();
@@ -97,9 +104,7 @@ void act(req request_){
         case login:
             ROS_INFO("Login handler");
             request_.print_metadata(std::cerr);
-            if(logged_in_users>0){
-                
-            }
+            logged_in_users++;
             break;
         case call:
             ROS_INFO("Call handler");
@@ -151,7 +156,7 @@ void send_robot_pos_callback(const tf2_msgs::TFMessage &tf){
         double y_pos = tr_stamped.transform.translation.y;
         double orientation = tr_stamped.transform.rotation.w;
 
-        string msg; msg += "["; msg += std::to_string(pos_msgs); msg += "]:{x_pos:"; msg += std::to_string(x_pos); msg += ",y_pos:"; msg += std::to_string(y_pos); msg += "}";
+        string msg; msg += "{\"x_pos\":\""; msg += std::to_string(x_pos); msg += "\",\"y_pos\":\""; msg += std::to_string(y_pos); msg += "\"}";
 
         mtr.send_msg(msg, robo_pos);
 
