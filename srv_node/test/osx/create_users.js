@@ -9,27 +9,27 @@ describe("User creation",function(){
                 id:0,
                 username:"adamkadmon",
                 password:"illuminati_666",
-                x_pos:400,
-                y_pos:100,
+                x_pos:12,
+                y_pos:-13,
                 logged_in:false
             });     user1.save();
             var user2 = new user({
                 id:1,
                 username:"FrancescoTotti",
                 password:"forzamagica_Werpupone",
-                x_pos:1600,
-                y_pos:100,
+                x_pos:27,
+                y_pos:16,
                 logged_in:false
             });      user2.save()
-
+        
             var user3 = new user({
                 id:2,
                 username:"dr_lecter",
                 password:"willgraham123",
-                x_pos:1200,
-                y_pos:700,
+                x_pos:-30,
+                y_pos:12,
                 logged_in:false
-            });     user3.save()   
+            });     user3.save()     
         });     done()
     })
 })
