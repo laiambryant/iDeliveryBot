@@ -6,7 +6,7 @@ mongoose.connect("mongodb://localhost:27017/users").then(function(){
         id:0,
         username:"adamkadmon",
         password:"illuminati_666",
-        x_pos:40,
+        x_pos:38,
         y_pos:-14,
         logged_in:false
     });     user1.save();
@@ -14,8 +14,8 @@ mongoose.connect("mongodb://localhost:27017/users").then(function(){
         id:1,
         username:"FrancescoTotti",
         password:"forzamagica_Werpupone",
-        x_pos:30,
-        y_pos:18,
+        x_pos:-30,
+        y_pos:16,
         logged_in:false
     });      user2.save()
 
@@ -23,8 +23,8 @@ mongoose.connect("mongodb://localhost:27017/users").then(function(){
         id:2,
         username:"dr_lecter",
         password:"willgraham123",
-        x_pos:-28,
+        x_pos:28,
         y_pos:13,
         logged_in:false
-    });     user3.save()   
+    });     user3.save()     
 });   
