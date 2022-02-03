@@ -1,17 +1,14 @@
-/*
-    Logs in at least one user. Once one user is logged in, the call function
-*/
-
 #include "srv_monitor_lib/srv_monitor.h"
 #include "srv_monitor_lib/message_creator.h"
 
 #include <ros/ros.h>
 #include <unistd.h>
 #include <sstream>
+#include <array>
 
 #include <tf2_ros/transform_listener.h>
 #include <tf2_msgs/TFMessage.h>
-#include "monitor/req.h"
+#include "delivery/NewGoal.h"
 #include "std_msgs/String.h"
 #include "tf/tf.h"
 #include "tf2_msgs/TFMessage.h"
@@ -22,14 +19,15 @@ using namespace ros;
 
 //Global vars------------------------------------------------------------------------------------------------
 tf2_ros::Buffer tf_buffer;
+
 int loops_counter = 0;
 int logged_in_users = 0;
 int pos_msgs = 0;
+ros::Publisher pub_NGoal;
 
 //Create monitor and parser
 req_parser parser;
-srv_monitor mtr = srv_monitor();
-
+srv_monitor mtr = srv_monitor(5000);
 
 //Subscriber Callbacks---------------------------------------------------------------------------------------
 
@@ -40,37 +38,34 @@ void send_robot_pos_callback(const tf2_msgs::TFMessage &tf);
 
 
 //Other Funcs------------------------------------------------------------------------------------------------
+void c_handler(float x_, float y_, float w_);
+void canc_handler();
+void recv_handler();
 
 req getReq(req_parser &parser, srv_monitor &monitor);
 void act(req request_);
 
 int main(int argc, char **argv){
-    
+
     ros::init(argc,argv,"monitor");
     ROS_INFO("Starting monitor...");
+    
     ros::NodeHandle n; 
     ros::Rate loop_rate(T);
     tf2_ros::TransformListener tfListener(tf_buffer);
 
 //Publishers-------------------------------------------------------------------------------------------------
 
-    ros::Publisher requests_pub = n.advertise <std_msgs::String>("req", 1000);
-
-//Subscribers------------------------------------------------------------------------------------------------
-
-    ros::Subscriber sub_tf = n.subscribe("tf", 1, send_robot_pos_callback);
-
+    pub_NGoal = n.advertise<delivery::NewGoal>("/NewGoal", 1000);
+ 
 //Timers-----------------------------------------------------------------------------------------------------
 
     while(ros::ok()){  
-    
+
         ROS_INFO("Fetching request...");
-
-
-        if(logged_in_users < 2){
-            act(getReq(parser,mtr));    
-        }
         
+        act(getReq(parser,mtr));    
+
         ROS_INFO("Recieved msg from clients...");
 
         ros::spinOnce();
@@ -78,7 +73,7 @@ int main(int argc, char **argv){
         loops_counter++;
     
     }   
-
+    
     return EXIT_SUCCESS;
 
 }
@@ -99,16 +94,18 @@ req getReq(req_parser &parser, srv_monitor &monitor){
 void act(req request_){
 
     std::stringstream ss;
+    coordinates_3D location;
 
     switch (request_.get_type()){
         case login:
             ROS_INFO("Login handler");
             request_.print_metadata(std::cerr);
-            logged_in_users++;
             break;
         case call:
             ROS_INFO("Call handler");
             request_.print_metadata(std::cerr);
+            location = request_.get_body()->get_coords();
+            c_handler(location[0], location[1], 0.0);
             break;            
         case priority_call:
             ROS_INFO("P_Call handler");
@@ -125,10 +122,12 @@ void act(req request_){
         case obj_rcvd:
             ROS_INFO("Obj_rcvd handler");
             request_.print_metadata(std::cerr);
+            recv_handler();
             break;
         case cancel:
             ROS_INFO("Cancel handler");
             request_.print_metadata(std::cerr);
+            canc_handler();
             break;
         case timeout:
             ROS_INFO("Timeout handler");
@@ -142,25 +141,15 @@ void act(req request_){
 
 }
 
-void send_robot_pos_callback(const tf2_msgs::TFMessage &tf){
-    bool can_transf = tf_buffer.canTransform("map", "base_link", ros::Time(0));
-    if(can_transf){
-        geometry_msgs::TransformStamped tr_stamped;
-        tr_stamped = tf_buffer.lookupTransform("map", "base_link", ros::Time(0));
 
-        //ROS_INFO_STREAM("Position x:" << tr_stamped.transform.translation.x);
-        //ROS_INFO_STREAM("Position y:" << tr_stamped.transform.translation.y);
-        //ROS_INFO_STREAM("Orientation w:" << tr_stamped.transform.rotation.w);
+void c_handler(float x_, float y_, float w_){
+    delivery::NewGoal m;
+    m.x = x_; m.y = y_; m.theta = w_;
+    pub_NGoal.publish(m);
+}
+void canc_handler(){
 
-        double x_pos = tr_stamped.transform.translation.x;
-        double y_pos = tr_stamped.transform.translation.y;
-        double orientation = tr_stamped.transform.rotation.w;
+}
+void recv_handler(){
 
-        string msg; msg += "{\"x_pos\":\""; msg += std::to_string(x_pos); msg += "\",\"y_pos\":\""; msg += std::to_string(y_pos); msg += "\"}";
-
-        mtr.send_msg(msg, robo_pos);
-
-        ROS_INFO_STREAM(msg);
-
-   }
 }

@@ -23,7 +23,7 @@ void Client::srv_sock_init(int port){
 }
 
 Client::Client(int port){
-    _cli_fd = socket(AF_INET, SOCK_STREAM, SOCK_NONBLOCK);
+    _cli_fd = socket(AF_INET, SOCK_STREAM, 0);
     srv_sock_init(port);
     int res = connect(_cli_fd, (const struct sockaddr*)&_srv_sock_addr, (sizeof(_srv_sock_addr)));
 }

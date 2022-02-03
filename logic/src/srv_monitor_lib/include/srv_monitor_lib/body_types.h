@@ -89,9 +89,7 @@ public:
 
 //SETTERS------------------------------------------------------------------------------------------------
 
-    void set_coords(float x, float y, float z){
-        _coordinates[0]=x;_coordinates[1]=y;_coordinates[2]=z; 
-    }
+    void set_coords(float x, float y, float z){ _coordinates[0]=x;_coordinates[1]=y;_coordinates[2]=z; }
 
 };
 

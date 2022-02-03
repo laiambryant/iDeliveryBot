@@ -1,5 +1,4 @@
 int32   type
-        # 0->Login
         # 1->Call
         # 2->Priority_Call
         # 3->Arrived
@@ -7,8 +6,6 @@ int32   type
         # 5->Obj_rcvd
         # 6->Cancel
         # 7->Timeout
-string username 
-string password
 int32 r_id
 float32 x
 float32 y

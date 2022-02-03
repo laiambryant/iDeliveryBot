@@ -24,6 +24,6 @@ void coord_body::parse(){
     float x = stof(my_substr(_body_str, "x:", ",y"));
     float y = stof(my_substr(_body_str, "y:", ",z"));
     float z = stof(my_substr(_body_str, "z:", "},"));
-    _coordinates = {x,y,z};
+    this->set_coords(x,y,z);
     _robot_id = stoi(_body_str.substr(_body_str.find(r_id_field_str)+r_id_field_str.length(),3));
 }

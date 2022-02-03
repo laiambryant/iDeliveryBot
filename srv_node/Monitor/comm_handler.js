@@ -2,8 +2,9 @@ var robo_pos_handler = require("./robo_pos_handler")
 
 module.exports = function comm_handler(socket){
     socket.setEncoding("utf-8")
-    console.log("[Node]Connected to monitor")
-    socket.on("data", (data)=>{        
+
+    socket.on("data", (data)=>{ 
+        //Need to write new handler for robo pos updates       
         robo_pos_handler(data)
     })
     

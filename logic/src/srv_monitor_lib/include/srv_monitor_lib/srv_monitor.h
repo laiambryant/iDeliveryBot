@@ -34,6 +34,7 @@ public:
 
     //Default ctor
     srv_monitor();
+    srv_monitor(int port);
     //Copy ctor
     srv_monitor(const srv_monitor &other);
 

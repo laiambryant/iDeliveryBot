@@ -55,7 +55,7 @@ int main(int argc, char **argv){
 
 //Subscribers------------------------------------------------------------------------------------------------
 
-    ros::Subscriber sub_ng = n.subscribe("New_Goal", 1000, SetGoal_CallBack);
+    ros::Subscriber sub_ng = n.subscribe("NewGoal", 1000, SetGoal_CallBack);
     ros::Subscriber sub_tf = n.subscribe("tf", 1000, Position_CallBack);
 
 //Timers-----------------------------------------------------------------------------------------------------

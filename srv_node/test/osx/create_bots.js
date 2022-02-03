@@ -7,8 +7,8 @@ describe("Bot creation",function(){
         mongoose.connect("mongodb://localhost:27017/users").then(function(){
             var bot = new Bot({
                 id:1,
-                x_pos:-4,
-                y_pos:-13
+                x_pos:49,
+                y_pos:11
             });     bot.save();
         });     done()
     })
