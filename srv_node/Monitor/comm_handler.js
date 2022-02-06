@@ -4,7 +4,6 @@ module.exports = function comm_handler(socket){
     socket.setEncoding("utf-8")
 
     socket.on("data", (data)=>{ 
-        //Need to write new handler for robo pos updates       
         robo_pos_handler(data)
     })
     
@@ -13,4 +12,4 @@ module.exports = function comm_handler(socket){
     })
 }
 
-//[5,ROBO_POS]:[0]:{x_pos:49.442328,y_pos:11.765573}
+//[5,ROBO_POS]:{x_pos:49.442328,y_pos:11.765573}

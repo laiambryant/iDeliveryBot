@@ -1,34 +1,12 @@
 # iDeliveryBot
 
-This application uses ROS, C++, and Node.js to implement a pick and delivery service. This README will explain in detail how the various parts of the software were implemented and it will be structured in the following way:
+This application uses ROS, C++, and Node.js to implement a pick and delivery service.
 
-1. Introduction to the software
-2. Design Choices
-3. Architecture
-4. State and Transitions diagrams
-5. Activity Diagrams
-6. Preliminary actions
-7. Running the project
-8. Other
-9. Further Expansions
-10. Links
-
-# 1) Introduction to the software 
-This software handles pick and delivery logic for a robot running ROS. It is divided in 3 main blocks, clients, the server and the ros nodes. This specific Readme will only address the server and the ros nodes, to see what design choices were made in designing the client you shoud read the wiki for the client app, also available on my github at the following link: https://github.com/laiambryant/iDelivery_bot_client
-
-# 2) Design Choices
-
-# 3) Architecture
-
-# 4) State and Transitions diagrams
-
-# 5) Activity Diagrams
-
-# 6) Preliminary actions
+## Preliminary actions
 
 To run the code some preliminary setup steps must be taken. To run this software you will need to have installed git (<https://git-scm.com/>), node.js(<https://nodejs.org/en/>) and ROS(<http://wiki.ros.org/>) on your device. First of all you must clone and compile the srrg2_orazio and srrg2_webctl (master branch if on ubuntu <= 18.04, test_20.04 if on ubuntu 20.04) repositories. <br>
 
-### srrg2_orazio
+### <b>srrg2_orazio</b>
 
 <code>\$ git clone <https://gitlab.com/srrg-software/srrg2_orazio> </code>
 
@@ -40,27 +18,41 @@ To run the code some preliminary setup steps must be taken. To run this software
 
 <code>\$ git clone <https://gitlab.com/srrg-software/srrg2_webctl> --branch=test_20.04</code> <br>
 
-Compile the content of the two repositories (srrg2_orazio with <code>catkin build</code>, webctl with <code>make all</code>) and then, while in the srrg2_orazio/devel folder, run the following command:
-<br> <code>\$ source setup.bash </code> <br>
+Compile the content of the two repositories (srrg2_orazio with <code>catkin build</code>, webctl with <code>make all</code>) and then run the following command:
+<br> <code>\$ source srrg2_labaigi/devel/setup.bash </code> <br>
 
-Should you not want to run all these setup steps you can run the install_dependencies.py script using the following command:<br>
-<code>\$ python utils/scripts/install_dependencies.py <br><br> </code>
+Now compile the code from this repository navigating into the /logic folder and running <code>catkin build</code> followed by <code>\$ source devel/setup.bash </code>
 
 ## Running
 
 Then, while in the root directory, run the following command to run the server: <br>
 <code>\$ python utils/scripts/srv_setup.py <br><br> </code>
-This script will run npm install to install dependencies and then run the node js server. After running the server, always in the root directory, run the other script in another terminal using the following command: <br>
-<code>\$ python .py <br><br> </code>
+This script will run npm install to install dependencies and then run the node js server. <br>
+Now you have to launch the webctl to launch the srrg2_labaigi nodes. Run the following command to check if dependency conditions are all met and to run webctl:<br>
+<code>\$ python utils/scripts/install_dependencies.py <br><br> </code>
+
+Open your browser and go to the following address: http://localhost:9001. You wil then be able to launch the nodes that are necessary. Run the following nodes:<br>
+1. roscore
+2. stage
+3. mapserver
+4. rviz
+5. localize
+6. planner
+7. follower
+
+You now have to launch my nodes in any order using the following commands:<br>
 
 
-# 7) Running the project
+<code>\$ rosrun monitor monitor <br> </code>
+<code>\$ rosrun delivery delivery <br> </code>
+<code>\$ rosrun pos_update pos_update <br> </code>
+<br>
 
-# 8) Other
+The app now is working. You can connect now with the clients app you can find at the following address: https://github.com/laiambryant/iDelivery_bot_client
 
-# 9) Further Expansions
+Alternatively you can 
 
-# 10) Links
+## Links
 
 | Name | Site | Link |
 |------|------|------|
