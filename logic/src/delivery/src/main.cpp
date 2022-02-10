@@ -7,6 +7,7 @@
 #include "geometry_msgs/PoseStamped.h"
 #include "tf/tf.h"
 #include "tf2_msgs/TFMessage.h"
+#include "delivery/Req.h"
 
 #include <tf2_ros/transform_listener.h>
 #include <tf2_msgs/TFMessage.h>
@@ -34,6 +35,7 @@ bot robot_1 = bot();
 
 void SetGoal_CallBack(const delivery::NewGoal& new_goal);
 void Position_CallBack(const tf2_msgs::TFMessage & tf);
+void Request_CallBack(const delivery::Req & Req);
 
 //Timer Callbacks--------------------------------------------------------------------------------------------
 
@@ -57,6 +59,7 @@ int main(int argc, char **argv){
 
     ros::Subscriber sub_ng = n.subscribe("NewGoal", 1000, SetGoal_CallBack);
     ros::Subscriber sub_tf = n.subscribe("tf", 1000, Position_CallBack);
+    ros::Subscriber sub_req = n.subscribe("Req", 100, Request_CallBack);
 
 //Timers-----------------------------------------------------------------------------------------------------
 
@@ -125,7 +128,6 @@ void Position_CallBack(const tf2_msgs::TFMessage & tf){
    }
 
 }
-
 void isMoving_CallBack(const ros::TimerEvent& e){
     bot_status s = robot_1.get_status();
     coords old_pos, curr_pos, target_pos; 
@@ -148,7 +150,6 @@ void isMoving_CallBack(const ros::TimerEvent& e){
         }
     }
 }
-
 void timeOut_CallBack(const ros::TimerEvent& e){
     bot_status s = robot_1.get_status();
     coords curr_pos = robot_1.get_pos(); coords target_pos = robot_1.get_curr_obj();
@@ -157,5 +158,32 @@ void timeOut_CallBack(const ros::TimerEvent& e){
         if(inv_dst_from_goal < 2){
             ROS_INFO("Timeout: Goal point could not be reached on time");
         }
+    }
+}
+void Request_CallBack(const delivery::Req & Req){
+/*  1->Call
+    2->Send
+    3->Obj_rcvd
+    4->Cancel
+    5->Timeout          */
+    switch (Req.type){
+        case 1: //Call
+            
+            break;
+        case 2: //Send
+        
+            break;
+        case 3: //Object Recieved
+        
+            break;
+        case 4: //Cancel
+        
+            break;
+        case 5: //Timeout
+        
+            break;
+        default:
+            ROS_INFO_STREAM("ERROR: Invalid type_no");
+            break;
     }
 }

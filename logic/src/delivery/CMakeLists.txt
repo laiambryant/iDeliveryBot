@@ -19,6 +19,7 @@ find_package(catkin REQUIRED COMPONENTS
 add_message_files(
   FILES
   NewGoal.msg
+  Req.msg
 #   Message1.msg
 #   Message2.msg
 )

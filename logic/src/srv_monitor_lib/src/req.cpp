@@ -16,14 +16,8 @@ void req::act(){
         case call:
             cerr << "Call handler" <<endl;
             break;            
-        case priority_call:
-            cerr << "P_Call handler" <<endl;
-            break;
-        case arrived:
-            cerr << "Arrived handler" <<endl;
-            break;
-        case obj_sent:
-            cerr << "Obj_sent handler" <<endl;
+        case obj_send:
+            cerr << "Obj_send handler" <<endl;
             break;
         case obj_rcvd:
             cerr << "Obj_rcvd handler" <<endl;

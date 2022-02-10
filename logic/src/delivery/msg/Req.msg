@@ -1,0 +1,10 @@
+int32   type
+        # 1->Call
+        # 2->Send
+        # 3->Obj_rcvd
+        # 4->Cancel
+        # 5->Timeout
+int32 r_id
+float32 x
+float32 y
+float32 z

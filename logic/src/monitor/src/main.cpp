@@ -12,6 +12,7 @@
 #include "std_msgs/String.h"
 #include "tf/tf.h"
 #include "tf2_msgs/TFMessage.h"
+#include "delivery/Req.h"
 
 #define T 50
 
@@ -23,7 +24,10 @@ tf2_ros::Buffer tf_buffer;
 int loops_counter = 0;
 int logged_in_users = 0;
 int pos_msgs = 0;
+coordinates_3D curr_bot_pos;
+
 ros::Publisher pub_NGoal;
+ros::Publisher pub_NMsg;
 
 //Create monitor and parser
 req_parser parser;
@@ -31,16 +35,12 @@ srv_monitor mtr = srv_monitor(5000);
 
 //Subscriber Callbacks---------------------------------------------------------------------------------------
 
-void send_robot_pos_callback(const tf2_msgs::TFMessage &tf);
-
 //Timer Callbacks--------------------------------------------------------------------------------------------
 
 
-
 //Other Funcs------------------------------------------------------------------------------------------------
+
 void c_handler(float x_, float y_, float w_);
-void canc_handler();
-void recv_handler();
 
 req getReq(req_parser &parser, srv_monitor &monitor);
 void act(req request_);
@@ -52,11 +52,14 @@ int main(int argc, char **argv){
     
     ros::NodeHandle n; 
     ros::Rate loop_rate(T);
-    tf2_ros::TransformListener tfListener(tf_buffer);
+
+//Subscribers------------------------------------------------------------------------------------------------
+
 
 //Publishers-------------------------------------------------------------------------------------------------
 
     pub_NGoal = n.advertise<delivery::NewGoal>("/NewGoal", 1000);
+    pub_NMsg = n.advertise<delivery::Req>("/Req", 1000);
  
 //Timers-----------------------------------------------------------------------------------------------------
 
@@ -107,27 +110,17 @@ void act(req request_){
             location = request_.get_body()->get_coords();
             c_handler(location[0], location[1], 0.0);
             break;            
-        case priority_call:
-            ROS_INFO("P_Call handler");
-            request_.print_metadata(std::cerr);
-            break;
-        case arrived:
-            ROS_INFO("Arrived handler");
-            request_.print_metadata(std::cerr);
-            break;
-        case obj_sent:
+        case obj_send:
             ROS_INFO("Obj_sent handler");
             request_.print_metadata(std::cerr);
             break;
         case obj_rcvd:
             ROS_INFO("Obj_rcvd handler");
             request_.print_metadata(std::cerr);
-            recv_handler();
             break;
         case cancel:
             ROS_INFO("Cancel handler");
             request_.print_metadata(std::cerr);
-            canc_handler();
             break;
         case timeout:
             ROS_INFO("Timeout handler");
@@ -141,15 +134,8 @@ void act(req request_){
 
 }
 
-
 void c_handler(float x_, float y_, float w_){
     delivery::NewGoal m;
     m.x = x_; m.y = y_; m.theta = w_;
     pub_NGoal.publish(m);
-}
-void canc_handler(){
-
-}
-void recv_handler(){
-
 }

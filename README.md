@@ -1,7 +1,5 @@
 # iDeliveryBot
 
-
-
 ## Preliminary actions
 
 To run the code some preliminary setup steps must be taken. To run this software you will need to have installed git (https://git-scm.com/), node.js(https://nodejs.org/en/) and ROS(http://wiki.ros.org/) on your device. First of all you must clone and compile the srrg2_orazio and srrg2_webctl (master branch if on ubuntu <= 18.04, test_20.04 if on ubuntu 20.04) repositories. <br>

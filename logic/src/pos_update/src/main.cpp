@@ -23,12 +23,11 @@ int pos_msgs = 0;
 
 //Create monitor and parser
 req_parser parser;
-srv_monitor mtr = srv_monitor(5001);
+srv_monitor mtr = srv_monitor(5050);
 
 //Subscriber Callbacks---------------------------------------------------------------------------------------
 
 void send_robot_pos_callback(const tf2_msgs::TFMessage &tf);
-
 
 int main(int argc, char **argv){
 
@@ -46,7 +45,6 @@ int main(int argc, char **argv){
 
     ros::Subscriber sub_tf = n.subscribe("tf", 1, send_robot_pos_callback);
  
-
 //Timers-----------------------------------------------------------------------------------------------------
 
     while(ros::ok()){  
@@ -56,7 +54,6 @@ int main(int argc, char **argv){
         loops_counter++;
     
     }   
-
     
     return EXIT_SUCCESS;
 

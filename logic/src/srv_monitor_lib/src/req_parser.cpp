@@ -27,12 +27,8 @@ msg_type req_parser::cvt_string_toMsgType(const string type_string){
             return login;
         case call:
             return call; 
-        case priority_call:
-            return priority_call;
-        case arrived:
-            return arrived;
-        case obj_sent:
-            return obj_sent;
+        case obj_send:
+            return obj_send;
         case obj_rcvd:
             return obj_rcvd;
         case cancel:
