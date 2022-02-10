@@ -35,20 +35,22 @@ tcp_server = net.createServer();
 tcp_server.listen(tcp_port, "127.0.0.1" ,()=>{
     console.log('\x1b[33m%s\x1b[0m', "[Monitor]:Monitor_communication initialized on port: " + tcp_port)
 })
-tcp_server.on("connection", (socket)=>{
+tcp_server.on("connection", (s)=>{
     console.log("Monitor connected")
-    monitor_sock = socket
+    monitor_sock = s
 })
 
 //Server for pos updates
 tcp_pos_server = net.createServer();
 tcp_pos_server.listen(tcp_port+50, "127.0.0.1", ()=>{
-    console.log('\x1b[33m%s\x1b[0m', "[POS_UPDATE]:Waiting for bot position updates on port: " + tcp_port + 1)
+    console.log('\x1b[33m%s\x1b[0m', "[POS_UPDATE]:Waiting for bot position updates on port: " + (tcp_port + 1))
 })
-tcp_pos_server.on("connection", (socket)=>{
-    comm_handler(socket)
+tcp_pos_server.on("connection", (pos_socket)=>{
+    comm_handler(pos_socket)
 })
-
+tcp_pos_server.on("close", (pos_socket)=>{
+    console.log('\x1b[33m%s\x1b[0m', "[POS_UPDATE]: Pos updater disconnected")
+})
 
 // HTTP SERVER
 app.use(express.static(__dirname)); 
@@ -60,7 +62,7 @@ try{
     console.log('\x1b[31m%s\x1b[0m',error)
 }
 
-io.sockets.on("connection", (socket)=>{
-    Connection_handler(socket, monitor_sock)
+io.sockets.on("connection", (generic_sock)=>{
+    Connection_handler(generic_sock, monitor_sock)
     robo_pos_periodic_update(io,T)
 })

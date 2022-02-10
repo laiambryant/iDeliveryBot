@@ -10,19 +10,20 @@ module.exports = function login_handler(socket, type, data, monitor_socket){
     if (typeof String.prototype.replaceAll == "undefined") {  
         String.prototype.replaceAll = function(match, replace) {  
           return this.replace(new RegExp(match, 'g'), () => replace);  
-        }  
-    }
+        } 
+    } 
     var monitor_data = data.replaceAll("\"", "")
     user.findOne({username:json_data.username}).then(function(res){
         try{
             assert(res.username===json_data.username)
             if(json_data.password == res.password){
-                user.updateOne({username:json_data.username}, {logged_in:true})
+                user.updateOne({logged_in:true}).then(function(){
                 socket.emit("LOGIN_SUCCESS", res.username, res.x_pos, res.y_pos)
-                user.find({}).then(function(res){
-                    socket.emit("USERS", res)
+                    user.find({}).then(function(res){
+                        socket.emit("USERS", res)
+                    })
+                    monitor_data = monitor_data.replace("}",",x_pos:"+res.x_pos+",y_pos:" +res.y_pos +"}")
                 })
-                monitor_data = monitor_data.replace("}",",x_pos:"+res.x_pos+",y_pos:" +res.y_pos +"}")
             } else {
                 console.log('\x1b[31m%s\x1b[0m',"Incorrect Pw")
                 socket.emit("LOGIN_FAILURE", "Incorrect Password")
