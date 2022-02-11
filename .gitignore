@@ -1447,3 +1447,4 @@ srv_node/node_modules/ws/lib/websocket.js
 .vscode/settings.json
 .vscode/targets.log
 logic/.catkin_tools/profiles/default/devel_collisions.txt
+.DS_Store
