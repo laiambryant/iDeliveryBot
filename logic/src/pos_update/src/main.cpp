@@ -11,7 +11,7 @@
 #include "tf/tf.h"
 #include "tf2_msgs/TFMessage.h"
 
-#define T 1000
+#define T 100
 
 using namespace ros;
 
@@ -23,7 +23,7 @@ int pos_msgs = 0;
 
 //Create monitor and parser
 req_parser parser;
-srv_monitor mtr = srv_monitor(5050);
+srv_monitor mtr = srv_monitor(5100);
 
 //Subscriber Callbacks---------------------------------------------------------------------------------------
 

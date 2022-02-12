@@ -7,4 +7,4 @@ int32   type
 int32 r_id
 float32 x
 float32 y
-float32 z
+float32 w

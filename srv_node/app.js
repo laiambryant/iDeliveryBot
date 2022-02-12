@@ -42,8 +42,8 @@ tcp_server.on("connection", (s)=>{
 
 //Server for pos updates
 tcp_pos_server = net.createServer();
-tcp_pos_server.listen(tcp_port+50, "127.0.0.1", ()=>{
-    console.log('\x1b[33m%s\x1b[0m', "[POS_UPDATE]:Waiting for bot position updates on port: " + (tcp_port + 1))
+tcp_pos_server.listen(tcp_port+100, "127.0.0.1", ()=>{
+    console.log('\x1b[33m%s\x1b[0m', "[POS_UPDATE]:Waiting for bot position updates on port: " + (tcp_port + 100))
 })
 tcp_pos_server.on("connection", (pos_socket)=>{
     comm_handler(pos_socket)

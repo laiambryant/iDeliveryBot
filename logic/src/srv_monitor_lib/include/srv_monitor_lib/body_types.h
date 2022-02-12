@@ -53,6 +53,7 @@ public:
     //Prints metadata on stream 
     void print(ostream &stream) override {
         stream << _body_str << endl;
+        stream << "Body type:\trobot_id_body" << endl;
         stream << "Robot_id:\t" << _robot_id << endl;
     }
 
@@ -77,6 +78,7 @@ public:
     //Prints metadata on stream 
     void print(ostream &stream) override {
         stream << _body_str << endl;
+        stream << "Body type:\tcoord_body" << endl;
         stream << "Robot_id:\t" << _robot_id << endl;
         stream << "X:\t\t" << _coordinates[0]<<endl;
         stream << "Y:\t\t" << _coordinates[1] <<endl;
@@ -130,7 +132,6 @@ public:
     void set_coords(float x, float y, float z){_coordinates[0]=x;_coordinates[1]=y;_coordinates[2]=z; }
 };
 
-
 class call_body:public coord_body{
 public:
 //CTORS--------------------------------------------------------------------------------------------------
@@ -138,25 +139,11 @@ public:
     call_body(string body_str_):coord_body(body_str_){}; 
 };
 
-class priority_call_body:public coord_body{
+class obj_send_body:public coord_body{
 public:
 //CTORS--------------------------------------------------------------------------------------------------
 
-    priority_call_body(string body_str_):coord_body(body_str_){};
-};
-
-class arrived_body:public coord_body{
-public:
-//CTORS--------------------------------------------------------------------------------------------------
-
-    arrived_body(string body_str_):coord_body(body_str_){};
-};
-
-class obj_sent_body:public r_id_body{
-public:
-//CTORS--------------------------------------------------------------------------------------------------
-
-    obj_sent_body(string body_str_):r_id_body(body_str_){};
+    obj_send_body(string body_str_):coord_body(body_str_){};
 };
 
 class obj_rcvd_body:public r_id_body{

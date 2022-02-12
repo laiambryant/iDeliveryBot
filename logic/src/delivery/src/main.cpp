@@ -42,6 +42,10 @@ void Request_CallBack(const delivery::Req & Req);
 void isMoving_CallBack(const ros::TimerEvent& e);
 void timeOut_CallBack(const ros::TimerEvent& e);
 
+//Other------------------------------------------------------------------------------------------------------
+
+void pursue_goal(float x, float y, float w);
+
 int main(int argc, char **argv){
     
     ros::init(argc,argv,"delivery");
@@ -64,7 +68,7 @@ int main(int argc, char **argv){
 //Timers-----------------------------------------------------------------------------------------------------
 
     ros::Timer t2 = n.createTimer(ros::Duration(100), timeOut_CallBack);
-    ros::Timer t1 = n.createTimer(ros::Duration(100), isMoving_CallBack);
+    ros::Timer t1 = n.createTimer(ros::Duration(0.5), isMoving_CallBack);
 
     while(ros::ok()){
 
@@ -89,28 +93,11 @@ int main(int argc, char **argv){
 
 void SetGoal_CallBack(const delivery::NewGoal& new_goal){
 
-    new_goal_msg.header.seq = msgs_published;
-    msgs_published++;
-
     ROS_INFO_STREAM("Recieved new goal:{x: " 
         << new_goal.x << ", y: "
         << new_goal.y << std::endl);
 
-    new_goal_msg.header.stamp = ros::Time::now();
-    new_goal_msg.header.frame_id = "map";
-    new_goal_msg.pose.position.x = new_goal.x;
-    new_goal_msg.pose.position.y = new_goal.y;
-    new_goal_msg.pose.position.z = 0;
-
-    new_goal_msg.pose.orientation.x = 0;
-    new_goal_msg.pose.orientation.y = 0;
-    new_goal_msg.pose.orientation.z = 0;
-    new_goal_msg.pose.orientation.w = new_goal.theta;
-
-    isPub = true;
-    robot_1.set_status(COLLECTING);
-    robot_1.add_objective(new_goal_msg.pose.position.x, new_goal_msg.pose.position.y);
-    robot_1.set_curr_obj(new_goal.x, new_goal.y);
+    pursue_goal(new_goal.x, new_goal.y, new_goal.theta);
 
 }
 void Position_CallBack(const tf2_msgs::TFMessage & tf){
@@ -132,6 +119,10 @@ void isMoving_CallBack(const ros::TimerEvent& e){
     bot_status s = robot_1.get_status();
     coords old_pos, curr_pos, target_pos; 
     old_pos = robot_1.get_old_pos(); curr_pos = robot_1.get_pos(); target_pos = robot_1.get_curr_obj();
+
+    //ROS_INFO_STREAM("Current pos:\t"<< curr_pos[0]<<"," << curr_pos[1]<<std::endl);
+    //ROS_INFO_STREAM("Old pos:\t"<< old_pos[0]<<"," << old_pos[1]<<std::endl);
+
     if(s==COLLECTING||s==RETURNING||s==DELIVERING){
         ROS_INFO("Checking if robot is moving");
         float inv_dst = Id_SW_SqrtLinear((pow(curr_pos[0]-old_pos[0],2)+pow(curr_pos[1]-old_pos[1],2))); 
@@ -157,33 +148,62 @@ void timeOut_CallBack(const ros::TimerEvent& e){
         float inv_dst_from_goal = Id_SW_SqrtLinear((pow(curr_pos[0]-target_pos[0],2)+pow(curr_pos[1]-target_pos[1],2)));
         if(inv_dst_from_goal < 2){
             ROS_INFO("Timeout: Goal point could not be reached on time");
+            robot_1.set_status(IDLE);
         }
     }
 }
 void Request_CallBack(const delivery::Req & Req){
-/*  1->Call
-    2->Send
-    3->Obj_rcvd
-    4->Cancel
-    5->Timeout          */
+    coords stop_pos = robot_1.get_pos();
     switch (Req.type){
         case 1: //Call
-            
+            ROS_INFO("Call Request incoming");
+            pursue_goal(Req.x, Req.y, Req.w);
             break;
         case 2: //Send
-        
+            ROS_INFO("Send Request incoming");
+            pursue_goal(Req.x, Req.y, Req.w);
             break;
         case 3: //Object Recieved
-        
+            ROS_INFO("Object Recieved Request incoming");
             break;
         case 4: //Cancel
-        
+            ROS_INFO("Cancel Request incoming");
+            ROS_INFO("Stopping bot @:%f,%f", stop_pos[0], stop_pos[1]);
+            pursue_goal(stop_pos[0],stop_pos[1], 0.0);
             break;
         case 5: //Timeout
-        
+            ROS_INFO("Timeout Request incoming");
+            ROS_INFO("Stopping bot @:%f,%f", stop_pos[0], stop_pos[1]);
+            pursue_goal(stop_pos[0],stop_pos[1], 0.0);
             break;
         default:
             ROS_INFO_STREAM("ERROR: Invalid type_no");
             break;
     }
+}
+
+void pursue_goal(float x, float y, float w){
+    new_goal_msg.header.seq = msgs_published;
+    msgs_published++;
+
+    new_goal_msg.header.stamp = ros::Time::now();
+    new_goal_msg.header.frame_id = "map";
+    new_goal_msg.pose.position.x = x;
+    new_goal_msg.pose.position.y = y;
+    new_goal_msg.pose.position.z = 0;
+
+    new_goal_msg.pose.orientation.x = 0;
+    new_goal_msg.pose.orientation.y = 0;
+    new_goal_msg.pose.orientation.z = 0;
+    new_goal_msg.pose.orientation.w = w;
+
+    if(robot_1.get_status() == COLLECTING){
+        robot_1.set_status(IDLE);
+    } else {
+        isPub = true;
+        robot_1.set_status(COLLECTING);
+    }
+    robot_1.add_objective(new_goal_msg.pose.position.x, new_goal_msg.pose.position.y);
+    robot_1.set_curr_obj(x, y);
+
 }

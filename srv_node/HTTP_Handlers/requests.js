@@ -2,9 +2,8 @@ const login_handler = require("./login_handler")
 const call_handler = require("./call_handler")
 const cancel_handler  = require("./cancel_handler")
 const obj_rcv_handler  = require("./obj_rcv_handler")
-const obj_send_handler  = require("./obj_send_handler")
+const send_handler  = require("./send_handler")
 const timeout_handler  = require("./timeout_handler")
-const send_handler = require("./send_handler")
 
 function Connection_handler(socket, monitor_socket){
     console.log('\x1b[36m%s\x1b[0m','[Server]:a user connected');
@@ -25,7 +24,7 @@ function Request(socket, type, data, monitor_socket){
             call_handler(socket, type, data, monitor_socket)
             break;
         case "SEND":
-            obj_sent_handler(socket, type, data, monitor_socket)
+            send_handler(socket, type, data, monitor_socket)
             break;
         case "OBJ_RCV":
             obj_rcv_handler(socket, type, data, monitor_socket)

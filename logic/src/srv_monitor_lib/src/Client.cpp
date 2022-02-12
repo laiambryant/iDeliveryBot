@@ -37,7 +37,7 @@ string Client::monitor_read(){
     bzero(_in_string, BUF_SIZE);
     int recieved, total_size = 0;
     int size_recv; bzero(_in_string , BUF_SIZE);
-    //NOTE: recv function on OSX does not support flag MSG_WAITFORONE. Only works on linux > 2.6.3
+    //NOTE: recv function on OSX does implement the flag MSG_WAITFORONE. Only works on linux > 2.6.3
     #ifdef __linux__
     size_recv = recv(_cli_fd, &_in_string[total_size], BUF_SIZE, MSG_WAITFORONE);
     #elif __APPLE__

@@ -15,6 +15,13 @@
 #include "delivery/Req.h"
 
 #define T 50
+#ifndef REQ_NUMS
+    #define CALL_REQ 1
+    #define SEND_REQ 2
+    #define RCVD_REQ 3
+    #define CANCEL_REQ 4
+    #define TIMEOUT_REQ 5
+#endif
 
 using namespace ros;
 
@@ -41,9 +48,10 @@ srv_monitor mtr = srv_monitor(5000);
 //Other Funcs------------------------------------------------------------------------------------------------
 
 void c_handler(float x_, float y_, float w_);
-
 req getReq(req_parser &parser, srv_monitor &monitor);
 void act(req request_);
+void publish_request(int type, int r_id, float x, float y, float w);
+
 
 int main(int argc, char **argv){
 
@@ -94,37 +102,42 @@ req getReq(req_parser &parser, srv_monitor &monitor){
         
 }
 
+
+
 void act(req request_){
 
     std::stringstream ss;
     coordinates_3D location;
 
     switch (request_.get_type()){
-        case login:
-            ROS_INFO("Login handler");
-            request_.print_metadata(std::cerr);
-            break;
-        case call:
+        case call: //1
             ROS_INFO("Call handler");
             request_.print_metadata(std::cerr);
             location = request_.get_body()->get_coords();
             c_handler(location[0], location[1], 0.0);
+            publish_request(CALL_REQ, 1, location[0], location[1], 0.0);
             break;            
-        case obj_send:
+        case obj_send: //2
             ROS_INFO("Obj_sent handler");
             request_.print_metadata(std::cerr);
+            location = request_.get_body()->get_coords();
+            publish_request(SEND_REQ, 1, location[0], location[1], 0.0);
             break;
-        case obj_rcvd:
+        case obj_rcvd: //3
             ROS_INFO("Obj_rcvd handler");
             request_.print_metadata(std::cerr);
+            location = request_.get_body()->get_coords();
+            publish_request(RCVD_REQ, 1, location[0], location[1], 0.0);
             break;
-        case cancel:
+        case cancel: //4
             ROS_INFO("Cancel handler");
             request_.print_metadata(std::cerr);
+            publish_request(CANCEL_REQ, 1, 0.0, 0.0, 0.0);
             break;
-        case timeout:
+        case timeout: //5
             ROS_INFO("Timeout handler");
             request_.print_metadata(std::cerr);
+            publish_request(CANCEL_REQ, 1, 0.0, 0.0, 0.0);
             break;
         default:
             ROS_INFO("Default handler ");
@@ -138,4 +151,10 @@ void c_handler(float x_, float y_, float w_){
     delivery::NewGoal m;
     m.x = x_; m.y = y_; m.theta = w_;
     pub_NGoal.publish(m);
+}
+
+void publish_request(int type, int r_id, float x, float y, float w){
+    delivery::Req m;
+    m.type = type; m.r_id = r_id; m.x = x; m.y = y; m.w = w;
+    pub_NMsg.publish(m);
 }
