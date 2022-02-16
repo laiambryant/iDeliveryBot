@@ -27,7 +27,7 @@ public:
 
 //SETTERS------------------------------------------------------------------------------------------------
 
-    void set_status(user_status status_){_status=status_;}
+    void set_status(user_status status_){this->_status=status_;}
     
 //FUNCS--------------------------------------------------------------------------------------------------
 

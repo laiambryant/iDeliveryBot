@@ -32,14 +32,14 @@ public:
     
 //GETTERS------------------------------------------------------------------------------------------------
     
-    bot_status get_status(){return _status;}
-    coords get_curr_obj(){return _curr_obj;}
-    coords get_old_pos(){return _old_pos;}
+    bot_status get_status(){return this->_status;}
+    coords get_curr_obj(){return this->_curr_obj;}
+    coords get_old_pos(){return this->_old_pos;}
     
 //SETTERS------------------------------------------------------------------------------------------------
     
-    void set_old_pos(coords old){_old_pos = old;}
-    void set_curr_obj(float x, float y){_curr_obj[0]=x;_curr_obj[1]=y;}
+    void set_old_pos(coords old){this->_old_pos = old;}
+    void set_curr_obj(float x, float y){this->_curr_obj[0]=x;this->_curr_obj[1]=y;}
     void set_status(bot_status status){this->_status = status;};
     
 //FUNCS--------------------------------------------------------------------------------------------------

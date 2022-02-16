@@ -2,4 +2,5 @@
 
 void agent::update_pos(float x, float y){
     this->pos_x = x; this->pos_y = y;
+    //std::cerr <<"x: " <<x << "y: "<< y << std::endl;
 }

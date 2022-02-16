@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+//#include <iostream>
 
 using std::vector;
 using coords = vector<float>;
@@ -19,7 +20,9 @@ public:
 
 //GETTERS------------------------------------------------------------------------------------------------
 
-    coords get_pos(){return coords(pos_x,pos_y);}
+    coords get_pos(){
+        return {this->pos_x, this->pos_y};
+    }
     
 //SETTERS------------------------------------------------------------------------------------------------
 

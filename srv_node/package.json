@@ -5,11 +5,10 @@
   "main": "app.js",
   "scripts": {
     "test": "nodemon app.js",
-    "create_bots":"node test/linux/create_bots.js",
-    "create_users":"node test/linux/create_users.js",
+    "create_bots": "node test/linux/create_bots.js",
+    "create_users": "node test/linux/create_users.js",
     "create_users_osx": "mocha test/osx/create_users.js",
     "create_bots_osx": "mocha test/osx/create_bots.js"
-
   },
   "repository": {
     "type": "git",
@@ -32,6 +31,7 @@
   "homepage": "https://github.com/laiambryant/iDeliveryBot_srv",
   "dependencies": {
     "express": "4.17.1",
+    "jshint": "^2.13.4",
     "mongoose": "^6.1.6",
     "net": "1.0.2",
     "socket.io": "4.4.0"
