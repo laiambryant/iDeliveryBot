@@ -55,7 +55,7 @@ tcp_pos_server.listen(pos_update_port, "127.0.0.1", function(){
 });
 tcp_pos_server.on("connection", function(pos_socket){
     pos_update_sock = pos_socket;
-    pos_monitor_handler(pos_update_sock);
+    pos_monitor_handler(pos_update_sock, io.sockets);
 });
 tcp_pos_server.on("close", function(){
     console.log("\x1b[33m", "[POS_UPDATE]: Pos updater disconnected");

@@ -12,6 +12,7 @@ module.exports = function login_handler(socket, type, data, monitor_socket){
           return this.replace(new RegExp(match, 'g'), () => replace);  
         } ;
     } 
+    
     var monitor_data = data.replaceAll("\"", "");
     user.findOne({username:json_data.username}).then(function(res){
         try{

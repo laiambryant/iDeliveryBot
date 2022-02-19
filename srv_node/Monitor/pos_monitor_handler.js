@@ -1,15 +1,13 @@
-var robo_pos_handler = require("./robo_pos_handler");
+var monitor_event_handler = require("./monitor_event_handler");
 
-module.exports = function comm_handler(socket){
+module.exports = function comm_handler(socket, other_users){
     socket.setEncoding("utf-8");
 
     socket.on("data", function(data){ 
-        robo_pos_handler(data);
+        monitor_event_handler(data, other_users);
     });
     
     socket.on("error",function(error){
         console.log('\x1b[31m%s\x1b[0m',error);
     });
 };
-
-//[5,ROBO_POS]:{x_pos:49.442328,y_pos:11.765573}
