@@ -1,4 +1,3 @@
-const { stringify } = require("mocha/lib/utils");
 const bot = require("../schemas/bot");
 
 module.exports = function monitor_event_handler(data, other_users){
@@ -6,8 +5,8 @@ module.exports = function monitor_event_handler(data, other_users){
     //[5,ROBO_POS]:{x_pos:49.442328,y_pos:11.765573}
     //[6,TIMEOUT]:{} da inviare a tutti
     //[7,DELIVERED]:{from:adamkadmon, to:francescototti} da inviare a tutti
-
-    var spl = data.split("]:");
+    
+    var spl = data.toString().split("]:");
     var json = JSON.parse(spl[1]);
     var header = spl[0];
     var type = "";
@@ -17,7 +16,6 @@ module.exports = function monitor_event_handler(data, other_users){
         type = "ROBO_POS";
     if(header.indexOf("DELIVERED")!=-1)
         type = "DELIVERED";
-
     switch (type) {
         case "ROBO_POS":
             x = parseInt(json.x_pos);

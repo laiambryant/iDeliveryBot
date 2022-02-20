@@ -10,6 +10,7 @@
 #include "std_msgs/String.h"
 #include "tf/tf.h"
 #include "tf2_msgs/TFMessage.h"
+#include "delivery/Res.h"
 
 #define T 100
 
@@ -28,6 +29,7 @@ srv_monitor mtr = srv_monitor(5100);
 //Subscriber Callbacks---------------------------------------------------------------------------------------
 
 void send_robot_pos_callback(const tf2_msgs::TFMessage &tf);
+void res_callback(const delivery::Res &res);
 
 int main(int argc, char **argv){
 
@@ -44,6 +46,7 @@ int main(int argc, char **argv){
 //Subscribers------------------------------------------------------------------------------------------------
 
     ros::Subscriber sub_tf = n.subscribe("tf", 1, send_robot_pos_callback);
+    ros::Subscriber sub_res = n.subscribe("/Res", 1, res_callback);
  
 //Timers-----------------------------------------------------------------------------------------------------
 
@@ -65,11 +68,11 @@ void send_robot_pos_callback(const tf2_msgs::TFMessage &tf){
     if(can_transf){
         geometry_msgs::TransformStamped tr_stamped;
         tr_stamped = tf_buffer.lookupTransform("map", "base_footprint", ros::Time(0));
-
-        //ROS_INFO_STREAM("Position x:" << tr_stamped.transform.translation.x);
-        //ROS_INFO_STREAM("Position y:" << tr_stamped.transform.translation.y);
-        //ROS_INFO_STREAM("Orientation w:" << tr_stamped.transform.rotation.w);
-
+/*
+        ROS_INFO_STREAM("Position x:" << tr_stamped.transform.translation.x);
+        ROS_INFO_STREAM("Position y:" << tr_stamped.transform.translation.y);
+        ROS_INFO_STREAM("Orientation w:" << tr_stamped.transform.rotation.w);
+*/
         double x_pos = tr_stamped.transform.translation.x;
         double y_pos = tr_stamped.transform.translation.y;
         double orientation = tr_stamped.transform.rotation.w;
@@ -81,4 +84,8 @@ void send_robot_pos_callback(const tf2_msgs::TFMessage &tf){
         ROS_INFO_STREAM(msg);
 
    }
+}
+
+void res_callback(const delivery::Res &res){
+    ROS_INFO_STREAM(res);
 }

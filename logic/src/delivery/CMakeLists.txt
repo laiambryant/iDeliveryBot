@@ -20,6 +20,7 @@ add_message_files(
   FILES
   NewGoal.msg
   Req.msg
+  Res.msg
 #   Message1.msg
 #   Message2.msg
 )

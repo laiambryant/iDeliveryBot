@@ -52,7 +52,6 @@ req getReq(req_parser &parser, srv_monitor &monitor);
 void act(req request_);
 void publish_request(int type, int r_id, float x, float y, float w);
 
-
 int main(int argc, char **argv){
 
     ros::init(argc,argv,"monitor");
@@ -101,8 +100,6 @@ req getReq(req_parser &parser, srv_monitor &monitor){
         return req(req_no, body, type, parser.cvt_msg_type_toString(type));
         
 }
-
-
 
 void act(req request_){
 

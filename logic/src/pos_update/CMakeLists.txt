@@ -13,7 +13,8 @@ find_package(catkin REQUIRED COMPONENTS
   srv_monitor_lib  
   tf2
   tf2_ros
-)
+  delivery
+  )
 
 ## Generate messages in the 'msg' folder
 #add_message_files(
@@ -39,7 +40,7 @@ generate_messages(
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES delivery
-CATKIN_DEPENDS roscpp rospy std_msgs message_runtime srv_monitor_lib tf2 tf2_ros
+CATKIN_DEPENDS roscpp rospy std_msgs message_runtime srv_monitor_lib tf2 tf2_ros delivery
 #  DEPENDS system_lib
 )
 

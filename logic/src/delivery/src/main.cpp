@@ -8,6 +8,7 @@
 #include "tf/tf.h"
 #include "tf2_msgs/TFMessage.h"
 #include "delivery/Req.h"
+#include "delivery/Res.h"
 
 #include <tf2_ros/transform_listener.h>
 #include <tf2_msgs/TFMessage.h>
@@ -19,16 +20,33 @@
 #include <vector>
 
 #define T 1
+#ifndef REQ_NUMS
+    #define CALL_REQ 1
+    #define SEND_REQ 2
+    #define RCVD_REQ 3
+    #define CANCEL_REQ 4
+    #define TIMEOUT_REQ 5
+#endif
 
 using namespace ros;
 using coords = std::vector<float>;
 
 //Global vars------------------------------------------------------------------------------------------------
 
-geometry_msgs::PoseStamped new_goal_msg;
-tf2_ros::Buffer tf_buffer;
 int msgs_published = 0;
 bool isPub = false; //boolean to prevent publishing new goal more than once 
+tf2_ros::Buffer tf_buffer;
+
+//Messages---------------------------------------------------------------------------------------------------
+geometry_msgs::PoseStamped new_goal_msg;
+delivery::Res res_msg;
+
+//Publishers-------------------------------------------------------------------------------------------------
+ros::Publisher pub_res;
+ros::Publisher pub_goal;
+
+//Agents-----------------------------------------------------------------------------------------------------
+
 bot robot_1 = bot(); bot* robot1_ptr = &robot_1;
 
 //Subscriber Callbacks---------------------------------------------------------------------------------------
@@ -45,6 +63,11 @@ void timeOut_CallBack(const ros::TimerEvent& e);
 //Other------------------------------------------------------------------------------------------------------
 
 void pursue_goal(float x, float y, float w);
+void call_handler(float x, float y, float w);
+void send_handler(float x, float y, float w);
+void timeout_handler();
+void cancel_handler();
+void delivered_res_pub();
 
 int main(int argc, char **argv){
     
@@ -57,7 +80,8 @@ int main(int argc, char **argv){
 
 //Publishers-------------------------------------------------------------------------------------------------
 
-    ros::Publisher pub = n.advertise<geometry_msgs::PoseStamped>("/move_base_simple/goal", 1000);
+    pub_goal = n.advertise<geometry_msgs::PoseStamped>("/move_base_simple/goal", 1000);
+    pub_res = n.advertise<delivery::Res>("/Res", 1000);
 
 //Subscribers------------------------------------------------------------------------------------------------
 
@@ -72,11 +96,9 @@ int main(int argc, char **argv){
 
     while(ros::ok()){
 
-        //Add a list containing logged in users, when the first user logs in go from status.IDLE to status.waiting
-
         if(isPub){
             ROS_INFO("Publishing new Goal");
-            pub.publish(new_goal_msg);
+            pub_goal.publish(new_goal_msg);
             isPub = false;
         }
 
@@ -89,7 +111,6 @@ int main(int argc, char **argv){
     return EXIT_SUCCESS;
 
 }
-
 
 void SetGoal_CallBack(const delivery::NewGoal& new_goal){
 
@@ -145,46 +166,39 @@ void isMoving_CallBack(const ros::TimerEvent& e){
 }
 void timeOut_CallBack(const ros::TimerEvent& e){
     bot_status s = robot1_ptr->get_status();
-    coords curr_pos = robot1_ptr->get_pos(); coords target_pos = robot1_ptr->get_curr_obj();
-    if(s==COLLECTING||s==RETURNING||s==DELIVERING){
-        float inv_dst_from_goal = Id_SW_SqrtLinear((pow(curr_pos[0]-target_pos[0],2)+pow(curr_pos[1]-target_pos[1],2)));
-        if(inv_dst_from_goal > 2){
-            ROS_INFO("Timeout: Goal point could not be reached on time");
-            robot1_ptr->set_status(IDLE);
-        }
+    if(s==COLLECTING||s==RETURNING||s==DELIVERING||s==WAITING){
+        timeout_handler();
     }
 }
 void Request_CallBack(const delivery::Req & Req){
-    coords stop_pos = robot1_ptr->get_pos();
     switch (Req.type){
-        case 1: //Call
+        case CALL_REQ: 
             ROS_INFO("Call Request incoming");
-            pursue_goal(Req.x, Req.y, Req.w);
+            call_handler(Req.x, Req.y, Req.w);
             break;
-        case 2: //Send
+        case SEND_REQ:
             ROS_INFO("Send Request incoming");
-            pursue_goal(Req.x, Req.y, Req.w);
+            send_handler(Req.x, Req.y, Req.w);
             break;
-        case 3: //Object Recieved
+        case RCVD_REQ: 
             ROS_INFO("Object Recieved Request incoming");
+            delivered_res_pub();
             break;
-        case 4: //Cancel
+        case CANCEL_REQ: 
             ROS_INFO("Cancel Request incoming");
-            ROS_INFO("Stopping bot @:%f,%f", stop_pos[0], stop_pos[1]);
-            pursue_goal(stop_pos[0]-0.5,stop_pos[1]-0.5, 0.0);
+            cancel_handler();
             break;
-        case 5: //Timeout
+        case TIMEOUT_REQ:
             ROS_INFO("Timeout Request incoming");
-            ROS_INFO("Stopping bot @:%f,%f", stop_pos[0], stop_pos[1]);
-            pursue_goal(stop_pos[0]-0.5,stop_pos[1]-0.5, 0.0);
+            timeout_handler();
             break;
         default:
             ROS_INFO_STREAM("ERROR: Invalid type_no");
             break;
     }
 }
-
 void pursue_goal(float x, float y, float w){
+
     new_goal_msg.header.seq = msgs_published;
     msgs_published++;
 
@@ -198,9 +212,86 @@ void pursue_goal(float x, float y, float w){
     new_goal_msg.pose.orientation.y = 0;
     new_goal_msg.pose.orientation.z = 0;
     new_goal_msg.pose.orientation.w = w;
-    isPub = true;
-
-    robot1_ptr->set_status(COLLECTING);
+    
+    coords old_objective = robot1_ptr->get_curr_obj();
+    robot1_ptr->set_old_obj(old_objective[0], old_objective[1]);
     robot1_ptr->set_curr_obj(x, y);
 
+    isPub = true;
+
+}
+void call_handler(float x, float y, float w){
+    bot_status s = robot1_ptr->get_status();
+    if(s==COLLECTING||s==DELIVERING){
+        ROS_INFO("Cannot pursue goal, Robot is buisy");
+    } else {
+        robot1_ptr->set_status(COLLECTING);
+        pursue_goal(x,y,w);
+    }
+}
+void send_handler(float x, float y, float w){
+    bot_status s = robot1_ptr->get_status();
+    if(s==COLLECTING||s==DELIVERING){
+        ROS_INFO("Cannot pursue goal, Robot is buisy");
+    } else {
+    robot1_ptr->set_status(DELIVERING);
+    pursue_goal(x,y,w);
+    }
+}
+void timeout_handler(){
+    bot_status s = robot1_ptr->get_status();
+    coords curr_pos = robot1_ptr->get_pos(); coords target_pos = robot1_ptr->get_curr_obj();
+    if(s==COLLECTING||s==RETURNING||s==DELIVERING||s==WAITING){
+        float inv_dst_from_goal = Id_SW_SqrtLinear((pow(curr_pos[0]-target_pos[0],2)+pow(curr_pos[1]-target_pos[1],2)));
+        if(inv_dst_from_goal > 2){
+            ROS_INFO("Timeout: Goal point could not be reached on time");
+            if(s==COLLECTING){
+                //If robot is collecting item or waiting for item to be accepted by reciever and there is a timeout 
+                coords stop_pos = robot1_ptr->get_pos();
+                pursue_goal(stop_pos[0]-0.5, stop_pos[1]-0.5, 0.0);
+                robot1_ptr->set_status(IDLE);
+            }else if(s==DELIVERING||s==RETURNING||s==WAITING){
+                //If robot is delivering, waiting or if request has been cancelled while delivering robot returns to user's position
+                coords old_obj = robot1_ptr->get_old_obj();
+                pursue_goal(old_obj[0], old_obj[1], 0.0);
+                robot1_ptr->set_status(RETURNING);
+            }
+        }
+    }
+}
+void cancel_handler(){
+    bot_status s = robot1_ptr->get_status();
+    ROS_INFO("Cancel: sender cancelled delivery");
+        if(s==COLLECTING){
+            //If robot is collecting item or waiting for item to be accepted by reciever and there is a timeout 
+            robot1_ptr->set_status(CANCELLING);
+            coords stop_pos = robot1_ptr->get_pos();
+            pursue_goal(stop_pos[0], stop_pos[1], 0.0);
+            robot1_ptr->set_status(IDLE);
+        }else if(s==DELIVERING||s==RETURNING||s==WAITING){
+            //If robot is delivering or request has been cancelled while delivering robot returns to user's position
+            robot1_ptr->set_status(CANCELLING);
+            coords old_obj = robot1_ptr->get_old_obj();
+            pursue_goal(old_obj[0], old_obj[1], 0.0);
+            robot1_ptr->set_status(RETURNING);
+        }
+}
+
+void timeOut_res_pub(){
+   res_msg.type = 1;
+   res_msg.x_sender=0.0;
+   res_msg.y_sender=0.0;
+   res_msg.x_reciever=0.0;
+   res_msg.x_reciever=0.0;
+   pub_res.publish(res_msg);
+}
+void delivered_res_pub(){ 
+    coords sender_coords = robot1_ptr->get_old_obj();
+    coords reciever_coords = robot1_ptr->get_curr_obj();
+    res_msg.type = 2;
+    res_msg.x_sender=sender_coords[0];
+    res_msg.y_sender=sender_coords[1];
+    res_msg.x_reciever=reciever_coords[0];
+    res_msg.x_reciever=reciever_coords[1];
+    pub_res.publish(res_msg);
 }

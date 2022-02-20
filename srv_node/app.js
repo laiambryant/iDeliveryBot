@@ -6,7 +6,7 @@ const mongoose = require("mongoose");
 
 // My Modules
 const Connection_handler = require("./HTTP_Handlers/requests");
-const pos_monitor_handler = require("./Monitor/pos_monitor_handler");
+const monitor_event_handler = require("./Monitor/monitor_event_handler");
 const robo_pos_periodic_update = require("./HTTP_Handlers/robo_pos_periodic_update");
 
 // TCP SERVER COMMUNICATING WITH MONITOR
@@ -16,6 +16,7 @@ var monitor_sock;
 
 //TCP SERVER POS_UPDATE
 const pos_update_net = require("net");
+const pos_monitor_handler = require('./Monitor/pos_monitor_handler');
 const pos_update_port = 5100;
 var pos_update_sock;
 
@@ -66,7 +67,6 @@ app.use(express.static(__dirname));
 try{
     http.listen(port, function(){
         console.log('\x1b[36m%s\x1b[0m', '\n[SERVER]:listening on port ' + port); 
-        
     });
 }catch(error){
     console.log('\x1b[31m%s\x1b[0m',error);
