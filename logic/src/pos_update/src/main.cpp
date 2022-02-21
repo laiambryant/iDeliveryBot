@@ -14,6 +14,15 @@
 
 #define T 100
 
+#ifndef RES_NUMS
+    #define CALL_RES 1
+    #define SEND_RES 2
+    #define RCVD_RES 3
+    #define CANCEL_RES 4
+    #define TIMEOUT_RES 5
+    #define ARRIVED_RES 6
+#endif
+
 using namespace ros;
 
 //Global vars------------------------------------------------------------------------------------------------
@@ -66,6 +75,7 @@ void send_robot_pos_callback(const tf2_msgs::TFMessage &tf){
     sleep(2);
     bool can_transf = tf_buffer.canTransform("map", "base_footprint", ros::Time(0));
     if(can_transf){
+
         geometry_msgs::TransformStamped tr_stamped;
         tr_stamped = tf_buffer.lookupTransform("map", "base_footprint", ros::Time(0));
 /*
@@ -87,5 +97,48 @@ void send_robot_pos_callback(const tf2_msgs::TFMessage &tf){
 }
 
 void res_callback(const delivery::Res &res){
-    ROS_INFO_STREAM(res);
+    string msg;
+    switch (res.type){
+    case CALL_RES:
+        msg += "{\"x_sender\":\""; msg += std::to_string(res.x_sender); msg += "\",\"y_sender\":\""; 
+        msg += std::to_string(res.y_sender); msg += "\",\"x_reciever\":\""; msg += std::to_string(res.x_reciever); 
+        msg += "\",\"y_reciever\":\""; msg += std::to_string(res.y_reciever); msg += "\"}";
+        ROS_INFO_STREAM(msg);
+        mtr.send_msg(msg, call);
+        break;
+    case SEND_RES: 
+        msg += "{\"x_sender\":\""; msg += std::to_string(res.x_sender); msg += "\",\"y_sender\":\""; 
+        msg += std::to_string(res.y_sender); msg += "\",\"x_reciever\":\""; msg += std::to_string(res.x_reciever); 
+        msg += "\",\"y_reciever\":\""; msg += std::to_string(res.y_reciever); msg += "\"}";
+        ROS_INFO_STREAM(msg);
+        mtr.send_msg(msg, obj_send);
+        break;
+    case RCVD_RES: 
+        msg += "{\"x_sender\":\""; msg += std::to_string(res.x_sender); msg += "\",\"y_sender\":\""; 
+        msg += std::to_string(res.y_sender); msg += "\",\"x_reciever\":\""; msg += std::to_string(res.x_reciever); 
+        msg += "\",\"y_reciever\":\""; msg += std::to_string(res.y_reciever); msg += "\"}";
+        ROS_INFO_STREAM(msg);
+        mtr.send_msg(msg, obj_rcvd);
+        break;
+    case CANCEL_RES: 
+        msg += "{}";
+        ROS_INFO_STREAM(msg);
+        mtr.send_msg(msg, cancel);
+        break;
+    case TIMEOUT_RES:
+        msg += "{}";
+        ROS_INFO_STREAM(msg);
+        mtr.send_msg(msg, timeout);
+        break;
+    case ARRIVED_RES:
+        msg += "{\"x_sender\":\""; msg += std::to_string(res.x_sender); msg += "\",\"y_sender\":\""; 
+        msg += std::to_string(res.y_sender); msg += "\",\"x_reciever\":\""; msg += std::to_string(res.x_reciever); 
+        msg += "\",\"y_reciever\":\""; msg += std::to_string(res.y_reciever); msg += "\"}";
+        ROS_INFO_STREAM(msg);
+        mtr.send_msg(msg, arrived);
+        break;
+    default:
+        ROS_INFO_STREAM("INVALID_RES_TYPE" << res);
+        break;
+    }
 }

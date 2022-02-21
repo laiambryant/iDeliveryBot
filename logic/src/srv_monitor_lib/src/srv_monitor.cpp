@@ -16,7 +16,7 @@ void srv_monitor::send_msg(string msg, msg_type type){
     while(this->_r_OR_w==true){;}
 
     this->_r_OR_w = true;
-    _srv_comm.monitor_write( msg_factory.create(msg, type));
+    _srv_comm.monitor_write(msg_factory.create(msg, type));
     this->_r_OR_w = false;
 
 }
