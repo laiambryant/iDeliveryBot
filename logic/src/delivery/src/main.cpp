@@ -109,7 +109,7 @@ int main(int argc, char **argv){
 
 //Timers-----------------------------------------------------------------------------------------------------
 
-    ros::Timer t2 = n.createTimer(ros::Duration(100), timeOut_CallBack);
+    ros::Timer t2 = n.createTimer(ros::Duration(1000), timeOut_CallBack);
     ros::Timer t1 = n.createTimer(ros::Duration(0.5), isMoving_CallBack);
 
     while(ros::ok()){
@@ -134,7 +134,7 @@ void SetGoal_CallBack(const delivery::NewGoal& new_goal){
 
     ROS_INFO_STREAM("Recieved new goal:{x: " 
         << new_goal.x << ", y: "
-        << new_goal.y << std::endl);
+        << new_goal.y << "}");
 
     pursue_goal(new_goal.x, new_goal.y, new_goal.theta);
 
@@ -160,7 +160,7 @@ void isMoving_CallBack(const ros::TimerEvent& e){
     old_pos = robot1_ptr->get_old_pos(); curr_pos = robot1_ptr->get_pos(); target_pos = robot1_ptr->get_curr_obj();
 
     if(s==COLLECTING||s==RETURNING||s==DELIVERING){
-        ROS_INFO("Checking if robot is moving");
+        //ROS_INFO("Checking if robot is moving");
         float inv_dst = Id_SW_SqrtLinear((pow(curr_pos[0]-old_pos[0],2)+pow(curr_pos[1]-old_pos[1],2))); 
         if(inv_dst < 1.25) {
             ROS_INFO_STREAM("Robot is stuck at x:" << curr_pos[0] << " , y:" << curr_pos[1]);
@@ -172,7 +172,7 @@ void isMoving_CallBack(const ros::TimerEvent& e){
                 robot1_ptr->set_status(WAITING);
             }
             if(s==RETURNING || s == DELIVERING){
-                robot1_ptr->set_status(IDLE);
+                robot1_ptr->set_status(DELIVERED);
             }
             arrived_res_pub();
         }
@@ -215,8 +215,8 @@ void Request_CallBack(const delivery::Req & Req){
 void pursue_goal(float x, float y, float w){
 
     new_goal_msg.header.seq = msgs_published;
-    msgs_published++;
-
+    msgs_published++; 
+    
     new_goal_msg.header.stamp = ros::Time::now();
     new_goal_msg.header.frame_id = "map";
     new_goal_msg.pose.position.x = x;
@@ -238,22 +238,25 @@ void pursue_goal(float x, float y, float w){
 
 void call_handler(float x, float y, float w){
     bot_status s = robot1_ptr->get_status();
-    if(s==COLLECTING||s==DELIVERING){
+    if(s==COLLECTING||s==DELIVERING||s==RETURNING||s==WAITING){
         ROS_INFO("Cannot pursue goal, Robot is buisy");
     } else {
         robot1_ptr->set_status(COLLECTING);
+        robot1_ptr->set_sender(x,y);
         pursue_goal(x,y,w);
         call_res_pub(x,y,w);
     }
 }
 void send_handler(float x, float y, float w){
     bot_status s = robot1_ptr->get_status();
-    if(s==COLLECTING||s==DELIVERING){
-        ROS_INFO("Cannot pursue goal, Robot is buisy");
+    if(s==WAITING){
+        robot1_ptr->set_status(DELIVERING);
+        robot1_ptr->set_reciever(x,y);
+        pursue_goal(x,y,w);
+        send_res_pub(x,y,w);
     } else {
-    robot1_ptr->set_status(DELIVERING);
-    pursue_goal(x,y,w);
-    send_res_pub(x,y,w);
+        if(s==COLLECTING||s==DELIVERING) ROS_INFO("Cannot pursue goal, Robot is buisy"); 
+        if(s==IDLE||RETURNING||WAITING||CANCELLING||DELIVERED) ROS_INFO("Cannot use send function if robot is not at your position");
     }
 }
 void timeout_handler(){
@@ -292,7 +295,7 @@ void cancel_handler(){
         }else if(s==DELIVERING||s==RETURNING||s==WAITING){
             //If robot is delivering or request has been cancelled while delivering robot returns to user's position
             robot1_ptr->set_status(CANCELLING);
-            coords old_obj = robot1_ptr->get_old_obj();
+            coords old_obj = robot1_ptr->get_sender();
             pursue_goal(old_obj[0], old_obj[1], 0.0);
             cancel_res_pub();
             robot1_ptr->set_status(RETURNING);
@@ -310,7 +313,7 @@ void call_res_pub(float x, float y, float w){
 }
 void send_res_pub(float x, float y, float w){
     ROS_INFO("Sending SEND res");
-    coords sender_coords = robot1_ptr->get_old_obj();
+    coords sender_coords = robot1_ptr->get_sender();
     res_msg.type = SEND_RES;
     res_msg.x_sender=sender_coords[0];
     res_msg.y_sender=sender_coords[1];
@@ -319,15 +322,19 @@ void send_res_pub(float x, float y, float w){
     pub_res.publish(res_msg);
 }
 void delivered_res_pub(){ 
-    ROS_INFO("Sending DELIVERED res");
-    coords sender_coords = robot1_ptr->get_old_obj();
-    coords reciever_coords = robot1_ptr->get_curr_obj();
-    res_msg.type = RCVD_RES;
-    res_msg.x_sender=sender_coords[0];
-    res_msg.y_sender=sender_coords[1];
-    res_msg.x_reciever=reciever_coords[0];
-    res_msg.x_reciever=reciever_coords[1];
-    pub_res.publish(res_msg);
+    if(robot1_ptr->get_status()==DELIVERED){
+        ROS_INFO("Sending DELIVERED res");
+        coords sender_coords = robot1_ptr->get_sender();
+        coords reciever_coords = robot1_ptr->get_reciever();
+        res_msg.type = RCVD_RES;
+        res_msg.x_sender=sender_coords[0];
+        res_msg.y_sender=sender_coords[1];
+        res_msg.x_reciever=reciever_coords[0];
+        res_msg.x_reciever=reciever_coords[1];
+        pub_res.publish(res_msg);
+    } else {
+        ROS_INFO("Robot is not at location yet");
+    }
 }
 void cancel_res_pub(){
     ROS_INFO("Sending CANCEL res");
@@ -349,12 +356,12 @@ void timeOut_res_pub(){
 }
 void arrived_res_pub(){
     ROS_INFO("Sending ARRIVED res");
-    coords sender_coords = robot1_ptr->get_old_obj();
-    coords reciever_coords = robot1_ptr->get_curr_obj();
+    coords sender_coords = robot1_ptr->get_sender();
+    coords reciever_coords = robot1_ptr->get_reciever();
     res_msg.type = ARRIVED_RES;
     res_msg.x_sender=sender_coords[0];
     res_msg.y_sender=sender_coords[1];
     res_msg.x_reciever=reciever_coords[0];
-    res_msg.x_reciever=reciever_coords[1];
+    res_msg.y_reciever=reciever_coords[1];
     pub_res.publish(res_msg);
 }
