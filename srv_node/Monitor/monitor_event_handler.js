@@ -3,14 +3,6 @@ var prev_pos = [0,0];
 
 module.exports = function monitor_event_handler(data, other_users){
 
-    //[5,ROBO_POS]:{x_pos:49.442328,y_pos:11.765573}
-    //[49,SEND]:{"x_sender":"92.000000","y_sender":"10.000000","x_reciever":"38.000000","y_reciever":"0.000000"}
-    //[45,ARRIVED]:{"x_sender":"92.000000","y_sender":"10.000000","x_reciever":"10.000000","y_reciever":"0.000000"}
-    //[7,DELIVERED]:{from:adamkadmon, to:francescototti} da inviare a tutti
-    //[43,OBJ_RCV]:{"x_sender":"92.000000","y_sender":"10.000000","x_reciever":"10.000000","y_reciever":"0.000000"}
-    //[24,CANCEL]:{}
-    //[20,TIMEOUT]
-
     var spl = data.toString().split("]:");
     var json = JSON.parse(spl[1]);
     var header = spl[0];
@@ -32,6 +24,7 @@ module.exports = function monitor_event_handler(data, other_users){
         type = "ROBO_POS";
     if(header.indexOf("ARRIVED")!=-1)
         type = "ARRIVED_RES";
+        
     switch (type) {
         case "ROBO_POS":
             x = parseInt(json.x_pos);
