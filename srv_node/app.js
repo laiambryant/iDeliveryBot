@@ -6,7 +6,6 @@ const mongoose = require("mongoose");
 
 // My Modules
 const Connection_handler = require("./HTTP_Handlers/requests");
-const monitor_event_handler = require("./Monitor/monitor_event_handler");
 const robo_pos_periodic_update = require("./HTTP_Handlers/robo_pos_periodic_update");
 
 // TCP SERVER COMMUNICATING WITH MONITOR
@@ -37,12 +36,14 @@ mongoose.connect("mongodb://localhost:27017/users").then(function(){
 });
 
 // TCP SERVER
-tcp_server = monitor_net.createServer();
-tcp_server.listen(monitor_port, "127.0.0.1" ,function(){
+tcp_server = monitor_net.createServer(function(){
     console.log('\x1b[33m%s\x1b[0m', "[MONITOR]:Monitor_communication initialized on port: " + monitor_port);
-});
+}).listen(monitor_port, "127.0.0.1");
+tcè
+
 tcp_server.on("connection", function(socket){
     console.log('\x1b[33m%s\x1b[0m',"Monitor connected");
+    //console.log(socket);
     monitor_sock = socket;
 });
 tcp_server.on("close", function(){
@@ -50,10 +51,10 @@ tcp_server.on("close", function(){
 });
 
 //Server for pos updates
-tcp_pos_server = pos_update_net.createServer(); 
-tcp_pos_server.listen(pos_update_port, "127.0.0.1", function(){
+tcp_pos_server = pos_update_net.createServer(function(){
     console.log('\x1b[34m%s\x1b[0m', "[POS_UPDATE]:Waiting for bot position updates on port: " + (pos_update_port));
-});
+}).listen(pos_update_port, "127.0.0.1"); 
+
 tcp_pos_server.on("connection", function(pos_socket){
     pos_update_sock = pos_socket;
     pos_monitor_handler(pos_update_sock, io.sockets);
