@@ -11,30 +11,27 @@ module.exports = function monitor_event_handler(data, other_users){
     //[24,CANCEL]:{}
     //[20,TIMEOUT]
 
-
     var spl = data.toString().split("]:");
     var json = JSON.parse(spl[1]);
     var header = spl[0];
     var type = "";
 
-
-
     if(header.indexOf("CALL")!=-1)
-        type = "CALL";
+        type = "CALL_RES";
     if(header.indexOf("SEND")!=-1)
-        type = "SEND";
+        type = "SEND_RES";
     if(header.indexOf("DELIVERED")!=-1)
-        type = "DELIVERED";
+        type = "DELIVERED_RES";
     if(header.indexOf("OBJ_RCV")!=-1)
-        type = "OBJ_RCV";
+        type = "OBJ_RCV_RES";
     if(header.indexOf("CANCEL")!=-1)
-        type = "CANCEL";
+        type = "CANCEL_RES";
     if(header.indexOf("TIMEOUT")!=-1)
-        type = "TIMEOUT";
-    if(header.indexOf("ROBO_POS")!=-1)
+        type = "TIMEOUT_RES";
+    if(header.indexOf("ROBO")!=-1)
         type = "ROBO_POS";
     if(header.indexOf("ARRIVED")!=-1)
-        type = "ARRIVED";
+        type = "ARRIVED_RES";
     switch (type) {
         case "ROBO_POS":
             x = parseInt(json.x_pos);
@@ -47,29 +44,37 @@ module.exports = function monitor_event_handler(data, other_users){
                 }
             });
             break;
-        case "CALL":
+        case "CALL_RES":
             other_users.emit("CALL_RES", json);
+            console.log("Sending <", type, "> response");
             break;
-        case "SEND":
+        case "SEND_RES":
             other_users.emit("SEND_RES", json);
+            console.log("Sending <", type, "> response");
             break;
-        case "DELIVERED":
+        case "DELIVERED_RES":
             other_users.emit("DELIVERED_RES", json);
+            console.log("Sending <", type, "> response");
             break;
-        case "OBJ_RCV":
+        case "OBJ_RCV_RES":
             other_users.emit("OBJ_RCV_RES", json);
+            console.log("Sending <", type, "> response");
             break;
-        case "CANCEL":
+        case "CANCEL_RES":
             other_users.emit("CANCEL_RES", json);
+            console.log("Sending <", type, "> response");
             break;
-        case "TIMEOUT":
+        case "TIMEOUT_RES":
             other_users.emit("TIMEOUT_RES", json);
+            console.log("Sending <", type, "> response");
             break;  
-        case "ARRIVED":
+        case "ARRIVED_RES":
             other_users.emit("ARRIVED_RES", json);
+            console.log("Sending <", type, "> response");
             break;           
         default:
             console.log("Invalid Header", header);
+            console.log("Sending <", type, "> response");
             break;
     }
 

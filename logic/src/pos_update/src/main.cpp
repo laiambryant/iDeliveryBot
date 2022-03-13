@@ -78,11 +78,6 @@ void send_robot_pos_callback(const tf2_msgs::TFMessage &tf){
 
         geometry_msgs::TransformStamped tr_stamped;
         tr_stamped = tf_buffer.lookupTransform("map", "base_footprint", ros::Time(0));
-/*
-        ROS_INFO_STREAM("Position x:" << tr_stamped.transform.translation.x);
-        ROS_INFO_STREAM("Position y:" << tr_stamped.transform.translation.y);
-        ROS_INFO_STREAM("Orientation w:" << tr_stamped.transform.rotation.w);
-*/
         double x_pos = tr_stamped.transform.translation.x;
         double y_pos = tr_stamped.transform.translation.y;
         double orientation = tr_stamped.transform.rotation.w;
